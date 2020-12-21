@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h3>home</h3>
+    <h3>home</h3>
+    <p>test</p>
 </body>
 </html>
