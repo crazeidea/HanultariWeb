@@ -7,7 +7,5 @@
 <title>Insert title here</title>
 </head>
 <body>
-    <h3>home</h3>
-    <a class="btn-f" href="https://www.naver.com">btn_test</a>
 </body>
 </html>
