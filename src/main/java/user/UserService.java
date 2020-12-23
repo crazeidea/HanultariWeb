@@ -1,8 +1,6 @@
-package com.hanultari.service;
+package user;
 
 import java.util.HashMap;
-
-import com.hanultari.dto.UserDTO;
 
 public interface UserService {
 	//CRUD: Create, Read, Update, Delete

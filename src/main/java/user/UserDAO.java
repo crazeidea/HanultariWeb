@@ -1,13 +1,11 @@
-package com.hanultari.service;
+package user;
 
 import java.util.HashMap;
 
 import org.springframework.stereotype.Repository;
 
-import com.hanultari.dto.UserDTO;
-
 @Repository
-public class UserServiceImpl implements UserService{
+public class UserDAO implements UserService{
 
 	@Override
 	public int user_join(UserDTO dto) {

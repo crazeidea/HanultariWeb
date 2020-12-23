@@ -1,4 +1,4 @@
-package com.hanultari.dto;
+package user;
 
 public class UserDTO {
 	private String name, id, pw, addr, tel, email, gender, birth, post;

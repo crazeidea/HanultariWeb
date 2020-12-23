@@ -181,7 +181,6 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-<<<<<<< HEAD
 		
 		<!-- Tiles -->
 		<dependency>
@@ -197,9 +196,6 @@
 			<version>3.5.4</version>
 		</dependency>
 		
-=======
-	
->>>>>>> e1a5b3587b3f8121ad9ec0ed6a363648f0422887
 		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>
