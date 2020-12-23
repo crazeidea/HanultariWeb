@@ -14,7 +14,7 @@ public class WebController {
 	private static final Logger logger = LoggerFactory.getLogger(WebController.class);
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(HttpSession session) {
+	public String home(HttpSession session)  {
 		return "home";
 	}
 }
