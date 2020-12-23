@@ -13,8 +13,16 @@ public class WebController {
 
 	private static final Logger logger = LoggerFactory.getLogger(WebController.class);
 	
+	//메인화면 호출
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(HttpSession session)  {
 		return "home";
 	}
+	
+	//로그인화면 호출
+	@RequestMapping("/login")
+	public String login() {
+		return "user/login";
+	}
+	
 }

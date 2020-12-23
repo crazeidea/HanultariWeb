@@ -7,10 +7,8 @@ body{
 	font-family: 'Noto Sans KR', snas-serif;
 }
 
-a{
-	text-decoration: none;
-}
-
+a{text-decoration: none;}
+ul{list-style: none; margin: 0px; padding: 0px;}
 a.btn-f{
 	background-color: #5B86E5; color: #fff;
 	font-family: Noto Sans;
