@@ -13,23 +13,14 @@
 		<put-attribute name="content" value="/WEB-INF/views/member/login.jsp"/>
 	</definition>
 	
-<<<<<<< HEAD
 		<definition name="*/*" extends="layout">
 		<put-attribute name="content" value='/WEB-INF/views/{1}/{2}.jsp'/>
 	</definition>
 
-=======
-	<definition name="*/*" extends="layout">
-		<put-attribute name="content" value='/WEB-INF/views/{1}/{2}.jsp'/>
-	</definition>
->>>>>>> 007f9f6d0a306b40f1dbeaa0b6701228611f51c1
 	
 	<definition name="*" extends="layout">
 		<put-attribute name="content" value='/WEB-INF/views/{1}.jsp'/>
 	</definition>
-<<<<<<< HEAD
-=======
 	
->>>>>>> 007f9f6d0a306b40f1dbeaa0b6701228611f51c1
 </tiles-definitions>
        

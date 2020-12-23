@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import command.CommonCommand;
+import parking.LatlngVO;
 import parking.ParkingServiceImpl;
 import parking.ParkingVO;
 
@@ -27,7 +28,7 @@ public class AndroidController {
 	@RequestMapping("/getMarkerData")
 	public String listnearby(HttpServletRequest req, Model model) {
 		
-		List<ParkingVO> list = service.getMarkerInfo();
+		List<LatlngVO> list = service.getMarkerInfo();
 		model.addAttribute("list", list);
 		System.out.println("getMarkerData()");
 		return "Android/getMarkerData";

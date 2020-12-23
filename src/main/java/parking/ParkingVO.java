@@ -3,9 +3,10 @@ package parking;
 public class ParkingVO {
 
 	private String id, name, addr, prev_addr, manager, contact, start_time, end_time, img_path, layout;
-	private float lat, lon;
+	private float lat, lng;
 	private int parked, total, fare, added_fare, duration, duration_interval;
 	private boolean oper_mon, oper_tue, oper_wed, oper_thu, oper_fri, oper_sat, oper_sun, indoor, smallcar, woman, disabled, paid, payment_cash, payment_card, payment_machine;
+	
 	public boolean isPayment_cash() {
 		return payment_cash;
 	}
@@ -131,12 +132,12 @@ public class ParkingVO {
 		this.lat = lat;
 	}
 
-	public float getLon() {
-		return lon;
+	public float getLng() {
+		return lng;
 	}
 
-	public void setLon(float lon) {
-		this.lon = lon;
+	public void setLng(float lon) {
+		this.lng = lng;
 	}
 
 	public int getParked() {

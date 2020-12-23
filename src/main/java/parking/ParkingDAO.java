@@ -21,7 +21,7 @@ public class ParkingDAO implements ParkingService {
 	@Autowired private SqlSession sql;
 	
 	@Override
-	public List<ParkingVO> getMarkerInfo() {
+	public List<LatlngVO> getMarkerInfo() {
 		return sql.selectList("parking.mapper.marker");
 	}
 
