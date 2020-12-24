@@ -50,4 +50,6 @@ public class WebController {
 		return "member/sign_up";
 	}
 	
+	
+	
 }
