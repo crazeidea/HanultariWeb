@@ -6,4 +6,8 @@
 	SELECT * FROM LATLNG
 </select>
 
+<select id="singleparking" resultType="parking.ParkingVO">
+	SELECT * FROM PARKING WHERE ID = #{id}
+</select>
+
 </mapper>
