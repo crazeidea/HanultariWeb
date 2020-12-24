@@ -95,7 +95,6 @@ document.addEventListener("DOMContentLoaded", function () {
       if (closed == 0) {
       $("#nav").animate({left : '-400px'}, 300, 'linear')
       $("#search").animate({left : '10px'}, 300, 'linear')
-      
       closed = 1;
     } else {
         $("#nav").animate({left : '0'}, 300, 'linear')

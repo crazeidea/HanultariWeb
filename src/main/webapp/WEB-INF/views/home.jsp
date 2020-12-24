@@ -4,7 +4,9 @@
     <div id="logo"></div>
     <div id="login"></div>
     <div id="content"></div>
-    <div id="closeNav" onclick="closeNav()"></div>
+    <div id="closeNav">
+    	<i class="fas fa-chevron-left"></i>
+    </div>
 </div>
 
 <div id="search">
