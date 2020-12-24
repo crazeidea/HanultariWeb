@@ -2,8 +2,11 @@ package notice;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import command.PageDTO;
 
+@Component
 public class NoticePage extends PageDTO{
 	private List<NoticeDTO> list;
 
