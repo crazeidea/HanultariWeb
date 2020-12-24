@@ -1,122 +1,196 @@
 @charset "UTF-8";
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap");
 
-body{
-	margin: 0;
-	padding: 0;
-	text-align: center;
-	font-family: 'Noto Sans KR', snas-serif;
+:root {
+	--primary-color : #5B86E5;
+	--secondary-color : #36D1DC;
+	--black : #2B2B2B;
+	--red : #FF463C;
+	--text-white : #F4F4F4;
 }
 
-a{text-decoration: none;}
-ul{list-style: none; margin: 0px; padding: 0px;}
-
-a.btn_f{
-	background-color: #5B86E5; color: #fff;
-	font-family: Noto Sans;
-	font-style: normal;
-	font-weight: 600;
-	font-size: 20px;
-	line-height: 28px;
-	box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.16), 0px 2px 4px rgba(0, 0, 0, 0.12), 0px 1px 8px rgba(0, 0, 0, 0.1);
-	border-radius: 8px;
-	padding: 10px 30px;
+* {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  font-family: "Noto Sans KR", snas-serif;
 }
 
-.content{
-	display: table;
-	width: 100%;
-	height: 100%;
-	min-width: 320px;
+.clearfix:before,
+.clearfix:after {
+  content: ".";
+  display: block;
+  height: 0;
+  overflow: hidden;
+}
+.clearfix:after {
+  clear: both;
 }
 
-.logo{
-position: absolute;
-top: 20px;
-left: 20px;
-font-size: 2em;
-font-weight: bold;
-text-align: center;
+a {
+  text-decoration: none;
+}
+ul {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
 }
 
-.form{
-position: relative;
-max-width: 580px;
-min-height: 592px;
-margin: 40px auto;
-padding: 58px 69px 139px;
-border-radius: 2px;
-box-sizing: border-box;
+a.btn_f {
+  background-color:var(--primary-color);
+  color: #fff;
+  font-family: Noto Sans;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 28px;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.16), 0px 2px 4px rgba(0, 0, 0, 0.12),
+    0px 1px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 10px 30px;
 }
 
-.title_intro{width: 100%; text-align: left;}
-.title_text_before, .title_text_after{font-size: 36px;}
-.title_text_after{font-weight: bold;}
+.content {
+  display: table;
+  width: 100%;
+  height: 100%;
+  min-width: 320px;
+}
+
+.logo {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 2em;
+  font-weight: bold;
+  text-align: center;
+}
+
+.form {
+  position: relative;
+  max-width: 580px;
+  min-height: 592px;
+  margin: 40px auto;
+  padding: 58px 69px 139px;
+  border-radius: 2px;
+  box-sizing: border-box;
+}
+
+.title_intro {
+  width: 100%;
+  text-align: left;
+}
+.title_text_before,
+.title_text_after {
+  font-size: 36px;
+}
+.title_text_after {
+  font-weight: bold;
+}
 .input_box {
-	width: 100%; 
-	height: 47px; 
-	line-height: 47px; 
-	background: none;
-	border: none; 
-	border-bottom: 2px solid white; 
-	box-sizing: border-box;
+  width: 100%;
+  height: 47px;
+  line-height: 47px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid white;
+  box-sizing: border-box;
 }
 
-input::placeholder{color: white; font-size: 15px; font-weight: bold;}
-
-.btn_login{
-background-color: #fee500; 
-color: #191919; 
-text-align: center;
-width: 100%; 
-border-radius: 4px; 
-box-sizing: border-box; 
-height: 50px;
+input::placeholder {
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
 }
 
-.btn_e{
-	float: right;
-	height: 42px;
-	line-height: 42px;
-	padding: 0 31px;
-	color: #252525;
-	border: 1px solid #dbdbdb;
-	border-radius: 30px;
-    box-sizing: border-box;
-    margin: 10px;
-    font-size: 12px;
-    cursor: pointer;
-    background: none;
-}
-.error_info{
-	width: 60px;
-	color: #e65f3e;
-	margin-top: 10px;
-	font-size: 13px;
+.btn_login {
+  background-color: #fee500;
+  color: #191919;
+  text-align: center;
+  width: 100%;
+  border-radius: 4px;
+  box-sizing: border-box;
+  height: 50px;
 }
 
-.line{
-    display: inline-block;
-    width: 100%;
-    height: 1px;
-    margin: 8px 0;
-    background-color: #fff;
-    vertical-align: top;
-    content: '';
+.btn_e {
+  float: right;
+  height: 42px;
+  line-height: 42px;
+  padding: 0 31px;
+  color: #252525;
+  border: 1px solid #dbdbdb;
+  border-radius: 30px;
+  box-sizing: border-box;
+  margin: 10px;
+  font-size: 12px;
+  cursor: pointer;
+  background: none;
+}
+.error_info {
+  width: 60px;
+  color: #e65f3e;
+  margin-top: 10px;
+  font-size: 13px;
 }
 
-.sign_up{
-position: absolute;
-bottom: 0px;
-left: 0px;
-transform: translate(69px, -49px);
-color: white;
-font-size: 12px;
+.line {
+  display: inline-block;
+  width: 100%;
+  height: 1px;
+  margin: 8px 0;
+  background-color: #fff;
+  vertical-align: top;
+  content: "";
 }
 
-.footer{
-position: absolute;
-bottom: 0px;
-width: 100%;
+.sign_up {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  transform: translate(69px, -49px);
+  color: white;
+  font-size: 12px;
 }
 
+.footer {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+}
+
+/* 메인 화면 */
+
+#nav {
+	display:grid;
+	grid-template-rows: 1fr 1fr 6fr;
+	background-color :white;
+	position: absolute;
+	top: 0;
+	left: 0;
+	min-width:400px;
+	height: 100%;
+	box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+#closeNav {
+	position:absolute;
+	width: 40px;
+	height: 40px;
+	top: calc(50% - 20px);
+	left: calc(400px - 20px);
+	background: yellow;
+	cursor: pointer;
+}
+
+#search {
+	display:grid;
+	grid-template-columns: 4fr 1fr;
+	background-color :white;
+	position: absolute;
+	top: 0;
+	left: 410px;
+	min-width:300px;
+	height: 50px;
+	box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);	
+}

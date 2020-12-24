@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   /* 마커 데이터 수신 및 처리 */
-
+ 
   $.ajax({
     type: "GET",
     url: "/app/getMarkerData",
@@ -19,8 +19,23 @@ document.addEventListener("DOMContentLoaded", function () {
       for (var i = 0; i < Object.keys(response).length; i++) {
         var object = response[i];
         var marker = new naver.maps.Marker({
-        position: new naver.maps.LatLng(object.lat, object.lng), 
-        map : map
+            position : new naver.maps.LatLng(object.lat, object.lng),
+            clickable : true,
+            title : object.name,
+            map : map
+        });
+        console.log("Marker Created / Count : " + Object.keys(response).length);
+
+        var infowindow = new naver.maps.InfoWindow({
+            content: '<div><p>Test infowindow</p></div>'
+        });
+        
+        naver.maps.Event.addListener(marker, "click", function(e) {
+            if (infowindow.getMap()) {
+                infowindow.close();
+            } else {
+                infowindow.open(map, marker);
+            }
         });
       }
     },
@@ -39,8 +54,6 @@ document.addEventListener("DOMContentLoaded", function () {
         "geolocation.getCurrentPosition() 위치" +
         "</div>"
     );
-
-    infowindow.open(map, location);
     console.log("Coordinates: " + location.toString());
   }
 
@@ -56,8 +69,6 @@ document.addEventListener("DOMContentLoaded", function () {
         center.lng() +
         "</div>"
     );
-
-    infowindow.open(map, center);
   }
 
   $(window).on("load", function () {
@@ -76,7 +87,23 @@ document.addEventListener("DOMContentLoaded", function () {
       infowindow.setContent(
         '<div style="padding:20px;"><h5 style="margin-bottom:5px;color:#f00;">Geolocation not supported</h5></div>'
       );
-      infowindow.open(map, center);
     }
   });
-});
+
+  var closed = 0;
+    $("#closeNav").click(function (e) { 
+      if (closed == 0) {
+      $("#nav").animate({left : '-400px'}, 300, 'linear')
+      $("#search").animate({left : '10px'}, 300, 'linear')
+      
+      closed = 1;
+    } else {
+        $("#nav").animate({left : '0'}, 300, 'linear')
+        $("#search").animate({left : '410px'}, 300, 'linear')
+        closed = 0;
+    }
+  });
+  
+
+
+}); // document.ready
