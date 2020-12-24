@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class MemberDAO implements MemberService{
 	
-	@Autowired @Qualifier("") private SqlSession sql;
+	@Autowired private SqlSession sql;
 
 		@Override
 	public int member_join(MemberDTO dto) {

@@ -30,7 +30,7 @@ public class WebController {
 	//로그인화면 호출
 	@RequestMapping("/login")
 	public String login() {
-		return "user/login";
+		return "member/login";
 	}
 	
 	//로그인 요청
