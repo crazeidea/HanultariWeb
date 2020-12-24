@@ -52,7 +52,28 @@ var map = new naver.maps.Map('map', {
     zoomControl: true, //줌 컨트롤의 표시 여부
     zoomControlOptions: { //줌 컨트롤의 옵션
     position: naver.maps.Position.TOP_RIGHT
-    }
+    },
+	mapTypeControl: true
+});
+
+//폴리곤 주차구역 표시에 좋을듯..
+var polygon = new naver.maps.Polygon({
+    map: map,
+    paths: [
+        [	//농성 주차장을 예로 해봄
+            new naver.maps.LatLng(35.151986688161756, 126.88875819358326),
+            new naver.maps.LatLng(35.151812934424456, 126.88849503911594 ),
+            new naver.maps.LatLng(35.151635067369426, 126.88865990075612 ),
+            new naver.maps.LatLng(35.15182237634732 , 126.8889614477661 ),
+            new naver.maps.LatLng(35.152006963704224 , 126.88875267866297 )
+            
+        ]
+    ],
+    fillColor: '#ff0000',
+    fillOpacity: 0.3,
+    strokeColor: '#ff0000',
+    strokeOpacity: 0.6,
+    strokeWeight: 3
 });
     
 var MARKER_ICON_URL = HOME_PATH +'/img/example/sp_pins_spot_v3.png';
@@ -417,12 +438,6 @@ var recognizer = new MarkerOverlapRecognizer({
 });
 recognizer.setMap(map);
 
-var bounds = map.getBounds(),
-    southWest = bounds.getSW(),
-    northEast = bounds.getNE(),
-    lngSpan = northEast.lng() - southWest.lng(),
-    latSpan = northEast.lat() - southWest.lat();
-
 function highlightMarker(marker) {
     var icon = marker.getIcon();
 
@@ -484,15 +499,10 @@ for (var key in MARKER_SPRITE_POSITION) {
 
     var infowindow = new naver.maps.InfoWindow({
         content: contentString,
-        maxWidth: 140,
-        backgroundColor: "#eee",
-        borderColor: "#2db400",
-        borderWidth: 5,
-        anchorSize: new naver.maps.Size(30, 30),
-        anchorSkew: true,
-        anchorColor: "#eee",
-        pixelOffset: new naver.maps.Point(20, -20)
+        anchorSkew: true
     });
+
+    map.setCursor('pointer');	//마우스 커서까지는 됌
 
     naver.maps.Event.addListener(marker, "click", function(e) {
         if (infowindow.getMap()) {
@@ -501,6 +511,7 @@ for (var key in MARKER_SPRITE_POSITION) {
             infowindow.open(map, marker);
         }
     });
+
 
     naver.maps.Event.addListener(map, 'click', function(e) {
         marker.setPosition(e.coord);
