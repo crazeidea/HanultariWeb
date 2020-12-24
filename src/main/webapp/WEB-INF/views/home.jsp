@@ -23,7 +23,7 @@
     height: 16px;
     padding: 9px 0 11px;
     font-weight: bold;
-    font-size: 12px;
+    font-size: 16px;
     line-height: 16px;
     color: #1f8cff;
     text-align: center;	 
@@ -556,11 +556,5 @@ naver.maps.Event.addListener(recognizer, 'clickItem', function(e) {
 
 map.setZoom(15);
 </script>
-=======
-    <p>test</p>
->>>>>>> c0d5386e4608eb40986a16056089c8cb971a0490
-=======
-    <a class="btn-f" href="https://www.naver.com">btn_test</a>
->>>>>>> a1af7219106caa196033eeeadccb147a100bd2d9
 </body>
 </html>
