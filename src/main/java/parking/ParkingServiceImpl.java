@@ -11,9 +11,16 @@ public class ParkingServiceImpl implements ParkingService{
 	@Autowired private ParkingDAO dao;
 	
 	@Override
-	public List<LatlngVO> getMarkerInfo() {
+	public List<LatlngVO> getMarkerData() {
 		
-		return dao.getMarkerInfo();
+		return dao.getMarkerData();
 	}
+
+	@Override
+	public ParkingVO getSingleParkingData(int id) {
+		return dao.getSingleParkingData(id);
+	}
+
+	
 
 }
