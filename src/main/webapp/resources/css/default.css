@@ -8,6 +8,8 @@
 	--red : #FF463C;
 	--text-white : #F4F4F4;
 }
+.left { text-align:left; }
+.right { text-align:right; }
 
 * {
   margin: 0;

@@ -1,13 +1,15 @@
 package notice;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class NoticServiceImpl implements NoticeService {
+	@Autowired private NoticeDAO dao;
 
 	@Override
 	public void notice_insert(NoticeDTO dto) {
-		// TODO Auto-generated method stub
+		dao.notice_insert(dto);
 	}
 
 	@Override
