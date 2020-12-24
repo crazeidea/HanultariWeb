@@ -1,13 +1,12 @@
 package member;
 
 public class MemberDTO {
-	private String name, id, pw, email;
-	private int tel, age;
+	private String name, id, pw, email, tel, nickname;
 
 	public String getName() {
 		return name;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -28,15 +27,6 @@ public class MemberDTO {
 		this.pw = pw;
 	}
 
-
-	public int getTel() {
-		return tel;
-	}
-
-	public void setTel(int tel) {
-		this.tel = tel;
-	}
-
 	public String getEmail() {
 		return email;
 	}
@@ -45,4 +35,22 @@ public class MemberDTO {
 		this.email = email;
 	}
 
+	public String getTel() {
+		return tel;
+	}
+
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	
+	
+	
 }
