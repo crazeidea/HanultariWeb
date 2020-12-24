@@ -11,13 +11,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import user.UserDTO;
-import user.UserServiceImpl;
+import member.MemberDTO;
+import member.MemberServiceImpl;
 
 @Controller
 public class WebController {
 
-	@Autowired private UserServiceImpl service;
+	@Autowired private MemberServiceImpl service;
 	
 	private static final Logger logger = LoggerFactory.getLogger(WebController.class);
 	
@@ -39,7 +39,7 @@ public class WebController {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("id", id);
 		map.put("pw", pw);
-		UserDTO dto = service.user_login(map);
+		MemberDTO dto = service.member_login(map);
 		session.setAttribute("login_info", dto);
 		return dto==null ? false : true;
 	}

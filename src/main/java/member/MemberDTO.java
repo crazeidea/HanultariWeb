@@ -1,12 +1,13 @@
-package user;
+package member;
 
-public class UserDTO {
-	private String name, id, pw, addr, tel, email, gender, birth, post;
+public class MemberDTO {
+	private String name, id, pw, email;
+	private int tel, age;
 
 	public String getName() {
 		return name;
 	}
-
+	
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -27,19 +28,12 @@ public class UserDTO {
 		this.pw = pw;
 	}
 
-	public String getAddr() {
-		return addr;
-	}
 
-	public void setAddr(String addr) {
-		this.addr = addr;
-	}
-
-	public String getTel() {
+	public int getTel() {
 		return tel;
 	}
 
-	public void setTel(String tel) {
+	public void setTel(int tel) {
 		this.tel = tel;
 	}
 
@@ -50,31 +44,5 @@ public class UserDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	public String getGender() {
-		return gender;
-	}
-
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-
-	public String getBirth() {
-		return birth;
-	}
-
-	public void setBirth(String birth) {
-		this.birth = birth;
-	}
-
-	public String getPost() {
-		return post;
-	}
-
-	public void setPost(String post) {
-		this.post = post;
-	}
-	
-	
 
 }
