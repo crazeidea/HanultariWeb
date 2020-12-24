@@ -10,12 +10,17 @@ body{
 background-color: black;
 color: white;
 }
+
+.social{
+width: 100%;
+height: 50px;
+}
 </style>
 </head>
 <body>
 <div class="logo">logo</div>
-<div class="login_wrap">
-	<div class="login_form">
+<div class="wrap">
+	<div class="form">
 		<form>
 			<div class="title_intro">
 				<span class="title_text_before" >주차장을 찾는</span><br/>

@@ -7,16 +7,38 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
 <title>Insert title here</title>
+<style type="text/css">
+.form{
+    position: absolute;
+    top: 11px;	
+    right: 37px;
+    z-index: 10;
+    width: 120px;
+    padding: 1px 3px 5px;
+}
+.login{
+    display: block;
+    overflow: hidden;
+    width: 69px;
+    height: 16px;
+    padding: 9px 0 11px;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 16px;
+    color: #1f8cff;
+    text-align: center;	 
+}
+</style>
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=zz60pls79j"></script>
 </head>
 <body>
-    <h3>home</h3>
-<<<<<<< HEAD
+<div class="form">
+	<a class="login" href="login">로그인</a>
+</div>
 
-    
 <!-- 	map api key -->
-
-<div id="map" style="width:100%;height:500px;"></div>
+<div id="map" style="width:100%;height:500px;">
+</div>
 
 <script>
 var HOME_PATH = window.HOME_PATH || '.';

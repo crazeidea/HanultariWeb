@@ -44,4 +44,10 @@ public class WebController {
 		return dto==null ? false : true;
 	}
 	
+	//회원가입화면 요청
+	@RequestMapping("/sign_up")
+	public String sign_up() {
+		return "member/sign_up";
+	}
+	
 }

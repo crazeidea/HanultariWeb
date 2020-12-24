@@ -33,7 +33,7 @@ font-weight: bold;
 text-align: center;
 }
 
-.login_wrap{
+.wrap{
 position: absolute;
 top: 50%;
 left: 0;
@@ -41,7 +41,7 @@ width: 100%;
 transform: translate(0%, -50%);
 }
 
-.login_form{
+.form{
 width: 520px;
 height: 620px;
 margin: 40px auto;
@@ -93,3 +93,4 @@ position: absolute;
 bottom: 0px;
 width: 100%;
 }
+
