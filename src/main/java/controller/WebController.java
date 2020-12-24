@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Insert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +14,34 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import member.MemberDTO;
 import member.MemberServiceImpl;
+import notice.NoticServiceImpl;
+import notice.NoticeDTO;
+import notice.NoticePage;
 
 @Controller
 public class WebController {
 
 	@Autowired private MemberServiceImpl service;
-	
+	@Autowired private NoticServiceImpl service1;	//위의 멤버서비스랑 충돌나서 서비스1으로 임시로 했습니다
+	@Autowired private NoticePage page;
 	private static final Logger logger = LoggerFactory.getLogger(WebController.class);
+	
+	//공지사항 작성페이지 저장요청
+	@RequestMapping("/insert.no")
+	public String insert(NoticeDTO dto, HttpSession session) {
+		MemberDTO member = (MemberDTO)session.getAttribute("login_info");
+		dto.setWriter(member.getId());
+		
+		service1.notice_insert(dto);
+		
+		return "redirect:list.no";
+	}
+	
+	//공지사항 작성페이지 화면
+	@RequestMapping("/create.no")
+	public String notice() {
+		return "notice/create";
+	}
 	
 	//메인화면 호출
 	@RequestMapping(value = "/", method = RequestMethod.GET)

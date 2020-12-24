@@ -7,6 +7,8 @@ body{
 	text-align: center;
 	font-family: 'Noto Sans KR', snas-serif;
 }
+.left { text-align:left; }
+.right { text-align:right; }
 
 a{text-decoration: none;}
 ul{list-style: none; margin: 0px; padding: 0px;}
