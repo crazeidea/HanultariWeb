@@ -11,8 +11,12 @@
      <script type="text/javascript" src="//www.kakao.com/resources/common/pc/common.js"></script>
 </head>
 <body>
-<h3>공지사항 작성페이지</h3>
-<div class="logo">logo</div>
+<div class="wrap_cont wrap_notices">
+	<div class="area_tit">
+		<h4 class="tit_corp">대따 서비스 <br/>
+					공지사항 작성페이지</h4>
+	</div>
+</div>
 
 <form method="post" action="insert.no" enctype="multipart/form-data">
 <table>

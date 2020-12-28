@@ -41,6 +41,8 @@ font-weight: bold;
 text-align: center;
 }
 
+
+
 .form{
 position: relative;
 max-width: 580px;
@@ -49,6 +51,24 @@ margin: 40px auto;
 padding: 58px 69px 139px;
 border-radius: 2px;
 box-sizing: border-box;
+}
+
+.wrap_cont {
+    overflow: visible;
+    position: relative;
+    width: 1160px;
+    margin: 0 auto;
+    padding-top: 20px;
+    clear: both;
+}
+
+.wrap_cont:after {
+    display: block;
+    visibility: hidden;
+    height: 0;
+    font-size: 0;
+    clear: both;
+    content: '';
 }
 
 .title_intro{width: 100%; text-align: left;}
