@@ -54,17 +54,23 @@ document.addEventListener("DOMContentLoaded", function () {
       markerList.forEach(function(marker, i){
         naver.maps.Event.addListener(marker, "click", function(e){
           console.log("Marker Clicked / ID : " + marker.id);
-          var infowindow = new naver.maps.InfoWindow();
+          var infowindow = new naver.maps.InfoWindow({
+            borderColor : "transparent",
+
+          });
           $.ajax({
             type: "GET",
             url: "/app/getSingleParkingData?id=" + marker.id,
             success: function (response) {
               console.log(response);
               console.log(marker.position.lat() + ", " + marker.position.lng());
-              var info = "<div id='infowindow'>"
-                       + "<h3>" + response.name + "</h3>"
-                       + "<p>현재 위치에서" + getDistance(marker.position.lat(), marker.position.lng()) + "</p>"
-                       + "지금 " + (response.total - response.parked) + "자리 남았어요."
+              console.log(response.paid);
+              var info = "<div id='infowindow'><div>"
+                       + "" + setBadge(response.paid, response.woman, response.disabled) + ""
+                       + "<span>현재 위치에서 " + getDistance(marker.position.lat(), marker.position.lng()) + "</span></div>"
+                       + "<h3 class='parkingname'>" + response.name + "</h3>"
+                       + "<p>지금 " + (response.total - response.parked) + "자리 남았어요.</p>"
+                       + "<button class='btn primary'>상세정보</button>"
                        + "</div>";
               infowindow.setContent(info);
             }
@@ -91,8 +97,23 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 }); // document.ready
 
-function setMarker(state) {
+function setBadge(paid, woman, disabled) { 
+  var data = "<div id='badge-set'>";
+  if (paid == true) {
+    data += "<span class='badge primary'>유료</span>";
+  } else {
+    data += "<span class='badge primary'>무료</span>";
+  }
 
+  if(woman == true) {
+    data += "<span class='badge woman'>여성</span>";
+  }
+  if(disabled == true) {
+    data += "<span class='badge disabled'>장애인</span>";
+  }
+  data += "</div>"
+
+  return data;
 }
 
 function getDistance(lat, lng) {
