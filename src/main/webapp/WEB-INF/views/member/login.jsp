@@ -1,5 +1,4 @@
 ﻿<div class="area" >
-
             <ul class="circles">
                     <li></li>
                     <li></li>
@@ -13,11 +12,8 @@
                     <li></li>
             </ul>
     </div >
-
 <div class="wrapper">
-<span onclick="location.href = '/app/'">대따</span>
-
-
+<span onclick="location.href = '/'">대따</span>
 <div class="login-form">
     <form id="login">
         <h1>주차장을 찾는 <br/> 새로운 경험</h1>

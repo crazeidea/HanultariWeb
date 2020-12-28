@@ -60,7 +60,7 @@ public class WebController {
 	//메인화면 호출
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(HttpSession session)  {
-		return "home";
+		return "index";
 	}
 	
 	//로그인화면 호출
@@ -81,9 +81,9 @@ public class WebController {
 	}
 	
 	//회원가입화면 요청
-	@RequestMapping("/sign_up")
+	@RequestMapping("/signup")
 	public String sign_up() {
-		return "member/sign_up";
+		return "member/signup";
 	}
 	
 	

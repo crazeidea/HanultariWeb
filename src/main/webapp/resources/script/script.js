@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var markerList = [];
   $.ajax({
     type: "GET",
-    url: "/app/getMarkerData",
+    url: "/getMarkerData",
     success: function (response) {
       for (var i = 0; i < Object.keys(response).length; i++) {
         var object = response[i];
@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
           });
           $.ajax({
             type: "GET",
-            url: "/app/getSingleParkingData?id=" + marker.id,
+            url: "/getSingleParkingData?id=" + marker.id,
             success: function (response) {
               console.log(response);
               console.log(marker.position.lat() + ", " + marker.position.lng());
@@ -98,11 +98,13 @@ document.addEventListener("DOMContentLoaded", function () {
       $("#nav").animate({ left: "-403px" }, 300, "linear");
       $("#search").animate({ left: "50px" }, 300, "linear");
       $("#current").animate({ left: "370px" }, 300, "linear");
+      $(".fa-chevron-left").animate({transform: "rotateX(180deg)"}, 300, "linear");
       closed = 1;
     } else {
       $("#nav").animate({ left: "0" }, 300, "linear");
       $("#search").animate({ left: "460px" }, 300, "linear");
       $("#current").animate({ left: "770px" }, 300, "linear");
+      $(".fa-chevron-left").animate({transform: ""}, 300, "linear");
       closed = 0;
     }
   });

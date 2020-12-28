@@ -106,6 +106,12 @@ input[type="text"]:focus, input[type="password"]:focus{
 
 /* 메인 화면 */
 
+/* 헤더 */
+header .logo {
+	width: 400px;
+	height: 240px;
+}
+
 /* 좌측 메뉴 */
 #nav {
 	display: grid;
@@ -118,7 +124,7 @@ input[type="text"]:focus, input[type="password"]:focus{
 	min-width: 400px;
 	max-width: 400px;
 	padding: 20px;
-	
+	max-height: calc(100vh - 40px);	
 }
 
 #closeNav {
@@ -142,6 +148,7 @@ input[type="text"]:focus, input[type="password"]:focus{
     place-items: center;
     grid-template-columns: 60% calc(40% - 20px);
     column-gap: 20px;
+    max-width: 400px;
 }
 
 #logo .btn-set {
@@ -214,7 +221,7 @@ input#query:focus {
 #current {
     background-color: white;
     position: absolute;
-    left: 770px;
+    left: 780px;
     top: 20px;
     height: 40px;
     padding: 0px 10px;
@@ -228,7 +235,7 @@ input#query:focus {
 
 #current span {
 	cursor: pointer;
-	font-family: Roboto;
+	font-family: 'roboto';
 }
 
 #current span:hover {

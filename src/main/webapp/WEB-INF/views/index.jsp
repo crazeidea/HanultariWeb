@@ -2,14 +2,14 @@
 
 <div id="nav">
     <div id="logo">
-        <img src="image/logo.png" style="height:70%;">
+        <img src="image/logo.png" style="height:50%;">
         <div class="btn-set">
-            <button class="btn bg-white">로그인</button>
-            <button class="btn bg-primary">회원가입</button>
+            <button class="btn bg-white" onclick="location.href = '/login'">로그인</button>
+            <button class="btn bg-primary" onclick="location.href = '/signup'">회원가입</button>
         </div>
     </div>
     <div id="menu">
-        <div class="btn bg-primary" onclick="location.href = '/notice'"><i class="fas fa-bullhorn"></i></div>
+        <div class="btn bg-primary" onclick="location.href = '/list.no'"><i class="fas fa-bullhorn"></i></div>
         <div class="btn bg-primary" onclick="location.href = '#'"><i class="fas fa-star"></i></div>
         <div class="btn bg-primary" onclick="location.href = '/cs'"><i class="fas fa-user"></i></div>
         <div class="btn bg-primary" onclick="location.href = '#'"><i class="fas fa-cogs"></i></div>
