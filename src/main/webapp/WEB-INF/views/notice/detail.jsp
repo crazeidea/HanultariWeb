@@ -9,6 +9,7 @@
 </head>
 <body>
 <h3>공지사항 안내</h3>
+<div class="logo">logo</div>
 <table>
 <tr><th>제목</th>
 	<td class="left" colspan="5">${dto.title }</td>
@@ -21,8 +22,8 @@
 	<td class='left' colspan='5'>${fn: replace(dto.content, crlf, '<br>') }</td>
 </tr>
 </table>
-<div>
-	<a href="list.no?curPage=${page.curPage }&search=${page.search}&keyword=${page.keyword}">목록으로</a>
+<div class="wrap-cont">
+	<a href="list.no?curPage=${page.curPage }&search=${page.search}&keyword=${page.keyword}">목록</a>
 	<a href='modify.no?id=${dto.id}'>수정</a>
 	<a onclick="if( confirm('정말 삭제하시겠습니까?') ){ href='delete.no?id=${dto.id}' }">삭제</a>
 	<c:if test='${not empty login_info}'>
