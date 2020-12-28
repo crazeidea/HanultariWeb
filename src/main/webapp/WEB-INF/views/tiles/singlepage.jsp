@@ -5,13 +5,23 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>대따 ⁝ 로그인</title>
+<c:choose>
+	<c:when test="${page eq 'login'}">
+		<c:set var="css" value="<link rel='stylesheet' type='text/css' href='css/login.css'"/>
+		<c:set var="title" value="로그인"/>
+	</c:when>
+	<c:when test="${page eq 'signup'}">
+		<c:set var="css" value="<link rel='stylesheet' type='text/css' href='css/signup.css'"/>
+		<c:set var="title" value="회원가입"/>
+	</c:when>
+</c:choose>
+<title>대따 ⁝ ${title}</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
 <script src='https://code.jquery.com/jquery-3.5.1.min.js'></script>
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="css/style.css?v=<%=new java.util.Date().getTime()%>">
-<link rel="stylesheet" type="text/css" href="css/login.css">
+${css}
 </head>
 <body>
 <tiles:insertAttribute name="content"/>

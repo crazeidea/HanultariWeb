@@ -116,7 +116,8 @@ public class WebController {
 	
 	//로그인화면 호출
 	@RequestMapping("/login")
-	public String login() {
+	public String login(HttpSession session) {
+		session.setAttribute("page", "login");
 		return "member/login";
 	}
 	
@@ -133,7 +134,8 @@ public class WebController {
 	
 	//회원가입화면 요청
 	@RequestMapping("/signup")
-	public String sign_up() {
+	public String sign_up(HttpSession session) {
+		session.setAttribute("page", "signup");
 		return "member/signup";
 	}
 	

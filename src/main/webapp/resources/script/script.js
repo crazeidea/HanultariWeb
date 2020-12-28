@@ -90,6 +90,11 @@ document.addEventListener("DOMContentLoaded", function () {
     coordsToAddr(latlng);
   })
 
+  /* 지도 클릭 시 정보 창 닫기 */
+  naver.maps.Event.addListener(map, "click", function(e) {
+    infowindow.close();
+  })
+
 
   /* 좌측 메뉴 여닫기 */
   var closed = 0;
