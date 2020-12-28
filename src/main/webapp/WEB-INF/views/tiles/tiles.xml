@@ -9,6 +9,9 @@
 		<put-attribute name="footer" value="/WEB-INF/views/tiles/footer.jsp"/>
 	</definition>
 	
+	<definition name="singlepage" template="/WEB-INF/views/tiles/singlepage.jsp">
+	</definition>
+	
 	<definition name="*/*" extends="layout">
 		<put-attribute name="content" value='/WEB-INF/views/{1}/{2}.jsp'/>
 	</definition>
@@ -16,6 +19,12 @@
 	<definition name="*" extends="layout">
 		<put-attribute name="content" value='/WEB-INF/views/{1}.jsp'/>
 	</definition>
+	
+	<definition name="member/login" extends="singlepage">
+		<put-attribute name="content" value='/WEB-INF/views/member/login.jsp'/>
+	</definition>
+	
+	
 	
 </tiles-definitions>
        

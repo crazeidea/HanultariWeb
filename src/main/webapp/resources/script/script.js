@@ -56,6 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
           console.log("Marker Clicked / ID : " + marker.id);
           var infowindow = new naver.maps.InfoWindow({
             borderColor : "transparent",
+            backgroundColor : "transparent"
 
           });
           $.ajax({
@@ -94,12 +95,14 @@ document.addEventListener("DOMContentLoaded", function () {
   var closed = 0;
   $("#closeNav").click(function (e) {
     if (closed == 0) {
-      $("#nav").animate({ left: "-450px" }, 300, "linear");
-      $("#search").animate({ left: "10px" }, 300, "linear");
+      $("#nav").animate({ left: "-403px" }, 300, "linear");
+      $("#search").animate({ left: "50px" }, 300, "linear");
+      $("#current").animate({ left: "370px" }, 300, "linear");
       closed = 1;
     } else {
       $("#nav").animate({ left: "0" }, 300, "linear");
       $("#search").animate({ left: "460px" }, 300, "linear");
+      $("#current").animate({ left: "770px" }, 300, "linear");
       closed = 0;
     }
   });
