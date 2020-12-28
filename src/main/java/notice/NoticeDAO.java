@@ -15,38 +15,34 @@ public class NoticeDAO implements NoticeService{
 
 	@Override
 	public void notice_reply_insert(NoticeDTO dto) {
-		// TODO Auto-generated method stub
-		
+		sql.insert("notice.mapper.reply_insert", dto);
 	}
 
 	@Override
 	public NoticePage notice_list(NoticePage page) {
-		// TODO Auto-generated method stub
-		return null;
+		//
+		return page;
 	}
 
 	@Override
 	public NoticeDTO notice_detail(int id) {
-		// TODO Auto-generated method stub
+		//return sql.selectOne("notice.mapper.detail", id);
 		return null;
 	}
 
 	@Override
 	public void notice_read(int id) {
-		// TODO Auto-generated method stub
-		
+		//sql.update("notice.mapper.read", id);
 	}
 
 	@Override
 	public void notice_update(NoticeDTO dto) {
-		// TODO Auto-generated method stub
-		
+		sql.update("notice.mapper.update", dto);
 	}
 
 	@Override
 	public void notice_delete(int id) {
-		// TODO Auto-generated method stub
-		
+		sql.delete("notice.mapper.delete", id);
 	}
 
 }
