@@ -14,38 +14,32 @@ public class NoticServiceImpl implements NoticeService {
 
 	@Override
 	public void notice_reply_insert(NoticeDTO dto) {
-		// TODO Auto-generated method stub
-		
+		dao.notice_reply_insert(dto);
 	}
 
 	@Override
 	public NoticePage notice_list(NoticePage page) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.notice_list(page);
 	}
 
 	@Override
 	public NoticeDTO notice_detail(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.notice_detail(id);
 	}
 
 	@Override
 	public void notice_read(int id) {
-		// TODO Auto-generated method stub
-		
+		dao.notice_read(id);
 	}
 
 	@Override
 	public void notice_update(NoticeDTO dto) {
-		// TODO Auto-generated method stub
-		
+		dao.notice_update(dto);
 	}
 
 	@Override
 	public void notice_delete(int id) {
-		// TODO Auto-generated method stub
-		
+		dao.notice_delete(id);
 	}
 
 }

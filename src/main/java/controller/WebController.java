@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import member.MemberDTO;
@@ -28,9 +29,51 @@ public class WebController {
 	@Autowired private NoticePage page;
 	private static final Logger logger = LoggerFactory.getLogger(WebController.class);
 	
-	//공지사항 상세페이지 화면요청, int id를 쓰면 500 에러 등장
+	//답글저장처리
+	@RequestMapping("/reply_insert.no")
+	public String reply_insert(NoticeDTO dto, HttpSession session) {
+		dto.setWriter(((MemberDTO)session.getAttribute("login_info")).getId());
+		service1.notice_reply_insert(dto);
+		return "redirect:list.no";
+	}
+	
+	//답글쓰기 화면
+	@RequestMapping("/reply.no")
+	public String reply(int id, Model model) {
+		model.addAttribute("dto", service1.notice_detail(id));
+		return "notice/reply";
+	}
+	
+	//공지사항 변경 저장처리
+	@RequestMapping("/update.no")
+	public String update(NoticeDTO dto, HttpSession session) {
+		service1.notice_update(dto);
+		return "redirect:detail.no?id="+ dto.getId();
+	}
+	
+	//공지사항 수정화면 
+	@RequestMapping("/modify.no")
+	public String modify(Model model, int id) {
+		model.addAttribute("dto", service1.notice_detail(id));
+		return "notice/modify";
+	}
+	
+	//공지사항 삭제처리 
+	@RequestMapping("/delete.no")
+	public String delete(int id, HttpSession session) {
+		service1.notice_delete(id);
+		return "redirect:list.no";
+	}
+	
+	//공지사항 첨부된 첨부파일 다운로드 요청
+	
+	//공지사항 상세페이지 화면요청
 	@RequestMapping("/detail.no")
-	public String detail(Model model) {
+	public String detail(Model model, int id) {
+		service1.notice_read(id);
+		model.addAttribute("dto", service1.notice_detail(id));
+		model.addAttribute("page", page);
+		model.addAttribute("crlf", "\r\n");
 		return "notice/detail";
 	}
 	
@@ -53,7 +96,15 @@ public class WebController {
 	
 	//공지사항 목록 화면 요청
 	@RequestMapping("/list.no")
-	public String list(HttpSession session, Model model) {
+	public String list(HttpSession session, Model model
+						, @RequestParam(defaultValue = "") String search
+						, @RequestParam(defaultValue = "") String keyword 
+						, @RequestParam(defaultValue = "1") int curPage) {
+		session.setAttribute("category", "no");
+		page.setCurPage(curPage);
+		page.setSearch(search);
+		page.setKeyword(keyword);
+		model.addAttribute("page", service1.notice_list(page));
 		return "notice/list";
 	}
 	

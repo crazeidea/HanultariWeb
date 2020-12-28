@@ -24,15 +24,16 @@
 <tr><th>내용</th>
 	<td><textarea title='내용' class='mandatory' name='content'></textarea></td>
 </tr>
-<tr><th>첨부파일</th>
+<!-- <tr><th>첨부파일</th>
 	<td class='left'>
 		<label>
 		<input type='file' name='file' id='attach-file' />
+		<img src='image/select.png' class='file-img' /> 
 		</label>
 		<span id='file-name'></span>
 		<a id='delete-file'><i class='fas fa-times'></i></a>
 	</td>
-</tr>
+</tr> -->
 </table>
 </form>
 <div class='wrap_btn'>

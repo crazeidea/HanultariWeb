@@ -160,7 +160,7 @@ a.btn_f {
 	font-size: 36px;
 }
 
-<<<<<<< HEAD
+/* <<<<<<< HEAD */
 
 
 .form{
@@ -194,12 +194,11 @@ box-sizing: border-box;
 .title_intro{width: 100%; text-align: left;}
 .title_text_before, .title_text_after{font-size: 36px;}
 .title_text_after{font-weight: bold;}
-=======
 .title_text_after {
 	font-weight: bold;
 }
 
->>>>>>> fbdca6e79cd9b626474c7f22c6172ce9a1274707
+/* >>>>>>> fbdca6e79cd9b626474c7f22c6172ce9a1274707 */
 .input_box {
 	width: 100%;
 	height: 47px;
@@ -241,12 +240,11 @@ input::placeholder {
 	background: none;
 }
 
-<<<<<<< HEAD
+/* <<<<<<< HEAD */
 
-.error_info{
-=======
+
 .error_info {
->>>>>>> fbdca6e79cd9b626474c7f22c6172ce9a1274707
+/* >>>>>>> fbdca6e79cd9b626474c7f22c6172ce9a1274707 */
 	width: 60px;
 	color: #e65f3e;
 	margin-top: 10px;
