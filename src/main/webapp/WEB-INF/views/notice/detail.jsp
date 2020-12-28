@@ -8,8 +8,11 @@
 <title>공지사항 안내</title>
 </head>
 <body>
-<h3>공지사항 안내</h3>
-<div class="logo">logo</div>
+<div class="wrap_cont wrap_notices">
+	<div class="area_tit">
+		<h4 class="tit_corp">대따 공지사항<br/>
+					작성페이지</h4>
+	</div>
 <table>
 <tr><th>제목</th>
 	<td class="left" colspan="5">${dto.title }</td>
@@ -29,6 +32,7 @@
 	<c:if test='${not empty login_info}'>
 	<a href='reply.no?id=${dto.id}'>답글쓰기</a>
 	</c:if>
+</div>
 </div>
 </body>
 </html>

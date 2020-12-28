@@ -12,6 +12,69 @@
 	--text-white: #F4F4F4;
 }
 
+table {
+	width:80%; margin:0 auto; 
+	border:1px solid;
+	border-collapse:collapse; 
+}
+table th, table td { border:1px solid; padding:5px 10px  }
+table td a:hover { font-weight:bold; }
+input { height:22px; padding:3px 5px; font-size:15px; }
+
+.wrap_cont {
+    overflow: visible;
+    position: relative;
+    width: 1160px;
+    margin: 0 auto;
+    padding-top: 20px;
+    clear: both;
+}
+
+.area_tit {
+    float: left;
+    width: 300px;
+}
+
+.wrap_cont:after {
+    display: block;
+    visibility: hidden;
+    height: 0;
+    font-size: 0;
+    clear: both;
+    content: '';
+}
+
+.wrap_btn .btn_save {
+    float: left;
+    width: 100px;
+    height: 40px;
+    font-size: 14px;
+    line-height: 40px;
+    color: #fff;
+    background-color: #4d4d4d;
+    text-align: center;
+    text-decoration: none;
+}
+
+.wrap_btn .btn_cancel {
+    float: right;
+    width: 98px;
+    height: 38px;
+    margin-right: 10px;
+    border: 1px solid #1e1e1e;
+    font-size: 14px;
+    line-height: 38px;
+    color: #1e1e1e;
+    text-align: center;
+    text-decoration: none;
+}
+
+.wrap_btn .btn_cancel:hover {
+    color: #fff;
+    background-color: #1e1e1e;
+}
+
+
 .left {
 	text-align: left;
 }

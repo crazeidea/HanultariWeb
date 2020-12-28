@@ -7,6 +7,6 @@
 <title>공지사항 리스트</title>
 </head>
 <body>
-<h4>대따 서비스 공지사항</h4>
+<h4>대따 공지사항</h4>
 </body>
 </html>
