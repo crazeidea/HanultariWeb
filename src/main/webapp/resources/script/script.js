@@ -91,6 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       markerList.forEach(function(marker, i){
         naver.maps.Event.addListener(marker, "click", function(e){
+          console.log("Marker Clicked!" + marker.id);
           var infowindow = new naver.maps.InfoWindow({
             borderColor : "transparent",
             backgroundColor : "transparent"
@@ -105,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function () {
                        + "<span class='small'>현재 위치에서 " + getDistance(marker.position.lat(), marker.position.lng()) + "</span></div>"
                        + "<h2 class='parkingname'>" + response.name + "</h2>"
                        + "<h3>지금 <span class='txt-primary'>" + (response.total - response.parked) + "</span>자리 남았어요.</h3>"
-                       + "<button class='btn bg-primary full' onclick='showInfo(" + marker.id + ")'>상세정보</button>"
+                       + "<button class='btn bg-primary full' onclick='showInfo(" + marker.id + "," + marker.position.lat()+ "," + marker.position.lng() + ")'>상세정보</button>"
                        + "</div>";
               infowindow.setContent(info);
             }
@@ -216,3 +217,33 @@ function coordsToAddr(coords) {
     
   })
 }
+
+/* 주차장 상세 정보 표시 */
+function showInfo(id, lat, lng) {
+  $('#content').html('/')
+  $.ajax({
+    type: "GET",
+    url: "/getSingleParkingData?id=" + id,
+    success: function (response) {
+      var html = "<h2>주차장 정보</h2>"
+                  + "<div id='pano' style='width:400px; height:400px'></div>"
+                  + "<h3>" + response.name + "</h3>"
+                  + "<h4>지금 " + (response.total - response.parked) + "대 주차할 수 있어요.</h4>"
+                  + "<h4>주차장 정보</h4>"
+                  + "<h5>기본요금 " + response.fare + "</h5>"
+                  + "<h5>추가요금" + response.added_fare + "</h5>"
+                  + "";
+      $('#content').html(html);
+
+      var pano = new naver.maps.Panorama("pano", {
+          position : new naver.maps.LatLng(lat, lng),
+          pov : {
+            pan: -135,
+            tilt: 29,
+            fov: 100
+          }
+        });
+      }
+
+    })
+  };

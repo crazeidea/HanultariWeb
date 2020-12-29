@@ -11,12 +11,21 @@
     height: 100vh;
     display:grid;
     place-items:center;
+    color: white;
+}
+
+.logo {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    cursor: pointer;
 }
 
 .right-section {
     display: grid;
     place-items:center;
     row-gap: 20px;
+
 }
 
 .signup-form {

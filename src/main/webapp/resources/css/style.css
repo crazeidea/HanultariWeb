@@ -77,6 +77,7 @@
 	font-weight: 800;
 	border-radius: 8px;
 	text-align:center;
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
 
 .btn.full {
@@ -120,7 +121,8 @@ header .logo {
 /* 좌측 메뉴 */
 #nav {
 	display: grid;
-	grid-template-rows: 1fr 1fr 6fr;
+	height : calc(100vh - 40px);
+	grid-template-rows: 1fr 1fr 8fr;
 	row-gap:30px;
 	background-color: white;
 	position: absolute;
@@ -151,16 +153,9 @@ header .logo {
 #logo {
 	display: grid;
     place-items: center;
-    grid-template-columns: 60% calc(40% - 20px);
+    grid-template-columns: repeat(3, 1fr);
     column-gap: 20px;
     max-width: 400px;
-}
-
-#logo .btn-set {
-	display: grid;
-	grid-template-rows : repeat(2, 1fr);
-	width: 100%;
-	height: 100%;
 }
 
 #logo .btn-set > * {
@@ -175,6 +170,7 @@ header .logo {
 #menu {
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
+	grid-template-rows: 1fr 1fr;
 	place-items: center;
 }
 

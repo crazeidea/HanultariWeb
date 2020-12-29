@@ -14,9 +14,16 @@
 	
 	<definition name="map" template="/WEB-INF/views/tiles/map.jsp">
 	</definition>
+	
+	<definition name="include" template="WEB-INF/views/tiles/include.jsp">
+	</definition>
 
 	<definition name="index" extends="map">
 		<put-attribute name="content" value="/WEB-INF/views/index.jsp"/>
+	</definition>
+	
+	<definition name="parkingdetail" extends="include">
+		<put-attribute name="content" value="/WEB-INF/views/includes/parkingdetail.jsp"/>
 	</definition>
 
 	<definition name="member/*" extends="singlepage">

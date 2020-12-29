@@ -20,12 +20,16 @@ import member.MemberServiceImpl;
 import notice.NoticServiceImpl;
 import notice.NoticeDTO;
 import notice.NoticePage;
+import parking.ParkingDTO;
+import parking.ParkingServiceImpl;
+import parking.ParkingVO;
 
 @Controller
 public class WebController {
 
 	@Autowired private MemberServiceImpl service;
-	@Autowired private NoticServiceImpl service1;	//위의 멤버서비스랑 충돌나서 서비스1으로 임시로 했습니다
+	@Autowired private NoticServiceImpl service1;
+	@Autowired private ParkingServiceImpl parkingService;
 	@Autowired private NoticePage page;
 	private static final Logger logger = LoggerFactory.getLogger(WebController.class);
 	
@@ -137,6 +141,14 @@ public class WebController {
 	public String sign_up(HttpSession session) {
 		session.setAttribute("page", "signup");
 		return "member/signup";
+	}
+	
+	@RequestMapping("/parkinginfo")
+	public String parkinginfo(int id, Model model) {
+		
+		ParkingVO dto = parkingService.getSingleParkingData(id);
+		model.addAttribute("data", dto);
+		return "includes/parkingdetail";
 	}
 	
 	
