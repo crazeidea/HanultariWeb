@@ -15,12 +15,40 @@ document.addEventListener("DOMContentLoaded", function () {
     success: function (response) {
       for (var i = 0; i < Object.keys(response).length; i++) {
         var object = response[i];
-        var marker = new naver.maps.Marker({
-          position: new naver.maps.LatLng(object.lat, object.lng),
-          map: map,
-          id: object.id,
-        });
-        markerList.push(marker);
+        if(object.parked == object.total) {
+          var marker = new naver.maps.Marker({
+            position: new naver.maps.LatLng(object.lat, object.lng),
+            icon: {
+                url : HOME_PATH + '/image/marker-na.png'
+            },
+            map: map,
+            id: object.id,
+          });
+          markerList.push(marker);
+        } else {
+          if (object.paid == 0) {
+            var marker = new naver.maps.Marker({
+              position: new naver.maps.LatLng(object.lat, object.lng),
+              icon: {
+                  url : HOME_PATH + '/image/marker-free.png'
+              },
+              map: map,
+              id: object.id,
+            });
+            markerList.push(marker);
+          } else {
+            var marker = new naver.maps.Marker({
+              position: new naver.maps.LatLng(object.lat, object.lng),
+              icon: {
+                  url : HOME_PATH + '/image/marker-paid.png'
+              },
+              map: map,
+              id: object.id,
+            });
+            markerList.push(marker);
+          }
+        }
+      
       }
       console.info("Markers Loaded");
     },
@@ -73,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function () {
             url: "/getSingleParkingData?id=" + marker.id,
             success: function (response) {
               var info = "<div id='infowindow'><div>"
-                       + "" + setBadge(response.paid, response.woman, response.disabled) + ""
+                       + "" + setBadge(response.paid) + ""
                        + "<span class='small'>현재 위치에서 " + getDistance(marker.position.lat(), marker.position.lng()) + "</span></div>"
                        + "<h2 class='parkingname'>" + response.name + "</h2>"
                        + "<h3>지금 <span class='txt-primary'>" + (response.total - response.parked) + "</span>자리 남았어요.</h3>"
@@ -116,19 +144,13 @@ document.addEventListener("DOMContentLoaded", function () {
 }); // document.ready
 
 /* 뱃지 출력 */
-function setBadge(paid, woman, disabled) { 
+function setBadge(paid) { 
   var data = "<div id='badge-set'>";
   if (paid == true) {
-    data += "<span class='badge bg-primary'>유료</span>";
+    data += "<span class='badge bg-secondary'>유료</span>";
   } else {
     data += "<span class='badge bg-primary'>무료</span>";
   }
-  // if(woman == true) {
-  //   data += "<span class='badge woman'>여성</span>";
-  // }
-  // if(disabled == true) {
-  //   data += "<span class='badge disabled'>장애인</span>";
-  // }
   data += "</div>"
 
   return data;

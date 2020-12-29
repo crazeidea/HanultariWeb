@@ -45,6 +45,11 @@
 	color:white;
 }
 
+.bg-secondary {
+	background-color: var(--secondary-color);
+	color:white;
+}
+
 .bg-white {
 	background-color: white;
 }

@@ -3,7 +3,7 @@
 <mapper namespace="parking.mapper">
 
 <select id="marker" resultType="parking.LatlngVO">
-	SELECT * FROM LATLNG
+	SELECT LATLNG.ID, LATLNG.LAT, LATLNG.LNG, PARKING.PAID, PARKING.TOTAL, PARKING.PARKED FROM PARKING, LATLNG WHERE LATLNG.ID = PARKING.ID
 </select>
 
 <select id="singleparking" resultType="parking.ParkingVO">

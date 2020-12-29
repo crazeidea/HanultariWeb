@@ -32,7 +32,7 @@ public class AndroidController {
 	public List<LatlngVO> listnearby(HttpServletRequest req, Model model) {
 		
 		List<LatlngVO> list = service.getMarkerData();
-		System.out.println("getMarkerData()");
+		System.out.println("INFO : Marker Data Requested");
 		return list;
 	}
 	
