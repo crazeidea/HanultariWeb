@@ -24,6 +24,13 @@
 <tr><th>내용</th>
 	<td class='left' colspan='5'>${fn: replace(dto.content, crlf, '<br>') }</td>
 </tr>
+<tr><th>첨부파일</th>
+	<td class='left' colspan='5'>${dto.filename}
+	<c:if test='${ ! empty dto.filename }'>
+	<a href='download.no?id=${dto.id}'><i class='fas fa-download'></i></a>
+	</c:if>
+	</td>
+</tr>
 </table>
 <div class="wrap-cont">
 	<a href="list.no?curPage=${page.curPage }&search=${page.search}&keyword=${page.keyword}">목록</a>

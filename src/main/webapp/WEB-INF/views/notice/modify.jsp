@@ -21,7 +21,7 @@
 <tr><th>내용</th>
 	<td><textarea name='content' class='mandatory' title='내용'>${dto.content}</textarea> </td>
 </tr>
-<%-- <tr><th>첨부파일</th>
+ <tr><th>첨부파일</th>
 	<td class='left'>
 		<label>
 			<input type='file' name='file' id='attach-file' />
@@ -30,7 +30,7 @@
 		<span id='file-name'>${dto.filename}</span>
 		<a id='delete-file'><i class='fas fa-times'></i></a>
 	</td>
-</tr> --%>
+</tr> 
 </table>
 </form>
 <div class='wrap_btn'>
@@ -42,7 +42,7 @@
 <script type="text/javascript" src='script/mandatory_check.js'></script>
 <script type="text/javascript" src='script/file_attach.js'></script>
 <script type="text/javascript">
-if( ${!empty vo.filename} ){
+if( ${!empty dto.filename} ){
 	$('#delete-file').css('display', 'inline');
 }
 

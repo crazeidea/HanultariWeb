@@ -100,6 +100,13 @@
 		    <version>2.8.0</version>
 		</dependency>
 		
+		<!-- org JSON 라이브러리 -->
+		<dependency>
+          <groupId>org.json</groupId>
+          <artifactId>json</artifactId>
+          <version>20200518</version>
+      </dependency>
+		
 		<!-- 파일업로드에 필요한 라이브러리 -->
 		<dependency>
 		    <groupId>commons-fileupload</groupId>
