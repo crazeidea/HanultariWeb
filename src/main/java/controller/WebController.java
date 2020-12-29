@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import board.BoardPage;
+import board.BoardServiceImpl;
 import command.CommonService;
 import member.MemberDTO;
 import member.MemberServiceImpl;
@@ -30,8 +32,30 @@ public class WebController {
 	@Autowired private MemberServiceImpl service;
 	@Autowired private NoticServiceImpl service1;	//위의 멤버서비스랑 충돌나서 서비스1으로 임시로 했습니다
 	@Autowired private NoticePage page;
+	//보드서비스임플리먼트가 서비스2
+	@Autowired private BoardServiceImpl service2;
+	//보드 페이지는 페이지1
+	@Autowired private BoardPage page1;
 	@Autowired private CommonService common;
+	
+	
 	private static final Logger logger = LoggerFactory.getLogger(WebController.class);
+	
+	//방명록 리스트 화면
+	@RequestMapping("/list.bo")
+	public String list(Model model, HttpSession session, String search, String keyword
+						, @RequestParam(defaultValue="list") String viewType
+						, @RequestParam(defaultValue="10") int pageList
+						, @RequestParam(defaultValue="1") int curPage ) {
+		session.setAttribute("category", "bo");
+		page1.setCurPage(curPage);
+		page1.setSearch(search);
+		page1.setKeyword(keyword);
+		page1.setPageList(pageList);
+		page1.setViewType(viewType);
+		model.addAttribute("page", service2.board_list(page1));
+		return "board/list";
+	}
 	
 	//답글저장처리
 	@RequestMapping("/reply_insert.no")

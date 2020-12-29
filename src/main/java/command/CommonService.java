@@ -24,7 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class CommonService {
-	
+	//
 	public String json_list( String list) {
 		JSONObject json = new JSONObject(list);
 		json = (JSONObject) json.get("response");
@@ -38,8 +38,6 @@ public class CommonService {
 		
 		return json.toString();
 	}
-	
-	
 	
 	//파일다운로드
 	public File download(String filename, String filepath, HttpSession session, HttpServletResponse response) {
