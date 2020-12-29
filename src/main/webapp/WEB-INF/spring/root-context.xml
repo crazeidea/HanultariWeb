@@ -7,6 +7,6 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<import resource="classpath:data/*.xml"/>
-	<context:component-scan base-package="command, controller, parking, member, notice" />
+	<context:component-scan base-package="command, controller, parking, member, notice, board" />
 	
 </beans>

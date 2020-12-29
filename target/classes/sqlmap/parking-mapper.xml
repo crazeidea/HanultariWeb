@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="parking.mapper">
+
+<select id="marker" resultType="parking.LatlngVO">
+	SELECT LATLNG.ID, LATLNG.LAT, LATLNG.LNG, PARKING.PAID, PARKING.TOTAL, PARKING.PARKED FROM PARKING, LATLNG WHERE LATLNG.ID = PARKING.ID
+</select>
+
+<select id="singleparking" resultType="parking.ParkingVO">
+	SELECT * FROM PARKING WHERE ID = #{id}
+</select>
+
+</mapper>
