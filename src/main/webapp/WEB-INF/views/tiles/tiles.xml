@@ -9,6 +9,20 @@
 		<put-attribute name="footer" value="/WEB-INF/views/tiles/footer.jsp"/>
 	</definition>
 	
+	<definition name="singlepage" template="/WEB-INF/views/tiles/singlepage.jsp">
+	</definition>
+	
+	<definition name="map" template="/WEB-INF/views/tiles/map.jsp">
+	</definition>
+
+	<definition name="index" extends="map">
+		<put-attribute name="content" value="/WEB-INF/views/index.jsp"/>
+	</definition>
+
+	<definition name="member/*" extends="singlepage">
+		<put-attribute name="content" value="/WEB-INF/views/member/{1}.jsp"/>
+	</definition>
+	
 	<definition name="*/*" extends="layout">
 		<put-attribute name="content" value='/WEB-INF/views/{1}/{2}.jsp'/>
 	</definition>
@@ -17,5 +31,6 @@
 		<put-attribute name="content" value='/WEB-INF/views/{1}.jsp'/>
 	</definition>
 	
+	
+	
 </tiles-definitions>
-       

@@ -1,0 +1,47 @@
+.wrapper {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    
+}
+
+.left-section {
+    background: linear-gradient(-45deg, #5b86e5, #4AE0DA, #7D5EE7);
+	background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+    height: 100vh;
+    display:grid;
+    place-items:center;
+}
+
+.right-section {
+    display: grid;
+    place-items:center;
+    row-gap: 20px;
+}
+
+.signup-form {
+    width: 400px;
+    padding: 30px;
+	background-color: white;
+	border-radius: 40px;
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px
+		rgba(0, 0, 0, 0.23);
+}
+
+form#signup {
+    display: grid;
+    grid-template-rows: auto;
+    row-gap: 20px;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}

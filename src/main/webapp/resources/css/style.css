@@ -15,7 +15,23 @@
 * {
 	margin: 0;
 	padding: 0;
-	font-family: 'Roboto', sans-serif;
+	font-family: 'roboto', sans-serif;
+}
+
+@font-face {
+	font-family : "vitro";
+	src:url("../resources/font/vitrocore.woff") format("woff");
+}
+
+@font-face {
+	font-family : "roboto";
+	src:url("../resources/font/roboto.woff") format("woff");
+}
+
+@font-face {
+	font-family : "roboto";
+	src:url("../resources/font/robotobold.woff") format("woff");
+	font-weight: 800;
 }
 
 /* 공통 요소 */
@@ -27,6 +43,15 @@
 .bg-primary {
 	background-color : var(--primary-color);
 	color:white;
+}
+
+.bg-secondary {
+	background-color: var(--secondary-color);
+	color:white;
+}
+
+.bg-white {
+	background-color: white;
 }
 
 .bg-woman {
@@ -47,6 +72,11 @@
 	outline : none;
 	border: none;
 	cursor: pointer;
+	padding: 10px 20px;
+	font-size:1.2rem;
+	font-weight: 800;
+	border-radius: 8px;
+	text-align:center;
 }
 
 .btn.full {
@@ -54,16 +84,44 @@
 	padding: 10px;
 	border-radius: 8px;
 	font-weight: 800;
-	font-size: 0.4rem;
+	font-size: 1.2rem;
+}
+.shadow {
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+/* 입력 */
+input[type="text"], input[type="password"] {
+	background-color: white;
+	color: var(--black);
+	padding: 15px 20px;
+	font-size: 1.2rem;
+	transition: background-color 300ms, color 300ms, border 300ms;
+	border:none;
+	border-bottom: 1px solid var(--black);
+}
+
+input[type="text"]:focus, input[type="password"]:focus{
+	background-color : var(--primary-color);
+	color: var(--text-white);
+	border:none;
+	outline:none;
 }
 
 
 /* 메인 화면 */
 
+/* 헤더 */
+header .logo {
+	width: 400px;
+	height: 240px;
+}
+
 /* 좌측 메뉴 */
 #nav {
 	display: grid;
 	grid-template-rows: 1fr 1fr 6fr;
+	row-gap:30px;
 	background-color: white;
 	position: absolute;
 	top: 0;
@@ -71,9 +129,7 @@
 	min-width: 400px;
 	max-width: 400px;
 	padding: 20px;
-	height: 100%;
-	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px
-		rgba(0, 0, 0, 0.23);
+	max-height: calc(100vh - 40px);	
 }
 
 #closeNav {
@@ -90,9 +146,46 @@
 	color:white;
 }
 
+/* 상단 로고 & 로그인 */
+
 #logo {
 	display: grid;
-	place-items:center;
+    place-items: center;
+    grid-template-columns: 60% calc(40% - 20px);
+    column-gap: 20px;
+    max-width: 400px;
+}
+
+#logo .btn-set {
+	display: grid;
+	grid-template-rows : repeat(2, 1fr);
+	width: 100%;
+	height: 100%;
+}
+
+#logo .btn-set > * {
+	margin: 0.4rem;
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px
+	rgba(0, 0, 0, 0.23);
+	border-radius: 8px;
+}
+
+/* 메뉴 버튼 */
+
+#menu {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	place-items: center;
+}
+
+#menu .btn {
+	width: 25px;
+	height: 25px;
+	padding: 20px;
+	text-align: center;
+	border-radius: 8px;
+	font-size:1.4rem;
+
 }
 
 /* 검색 */
@@ -100,13 +193,14 @@
 #search {
 	background-color: white;
 	position: absolute;
-	top: 0;
 	left: 460px;
 	top: 10px;
 	min-width: 300px;
 	height: 50px;
 	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px
 		rgba(0, 0, 0, 0.23);
+	border-radius: 8px;
+	overflow: hidden;
 }
 
 #search form {
@@ -132,7 +226,7 @@ input#query:focus {
 #current {
     background-color: white;
     position: absolute;
-    left: 770px;
+    left: 780px;
     top: 20px;
     height: 40px;
     padding: 0px 10px;
@@ -146,7 +240,7 @@ input#query:focus {
 
 #current span {
 	cursor: pointer;
-	font-family: Roboto;
+	font-family: 'roboto';
 }
 
 #current span:hover {
@@ -160,6 +254,7 @@ input#query:focus {
 	border-radius:40px;
 	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px
 	rgba(0, 0, 0, 0.23);
+	background-color:white;
 }
 
 #infowindow > * {
@@ -179,3 +274,4 @@ input#query:focus {
 	font-family: "Roboto";
 	font-weight: 800;
 }
+
