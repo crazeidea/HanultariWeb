@@ -1,6 +1,6 @@
 <div id="map" style="width: 100vw; height: 100vh" class="clearfix"></div>
 
-<div id="nav">
+<div id="nav" class="shadow">
     <div id="logo">
         <img src="image/logo.png" style="height:50%;">
         <div class="btn-set">

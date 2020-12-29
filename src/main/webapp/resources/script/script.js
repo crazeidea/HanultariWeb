@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var map = new naver.maps.Map("map", {
     zoom: 17,
   });
+  var currentLocation;
 
   /* 마커 데이터 수신 및 처리 */
   var markerList = [];
@@ -31,8 +32,17 @@ document.addEventListener("DOMContentLoaded", function () {
       position.coords.latitude,
       position.coords.longitude
     );
-    currentLocation = location;
-    map.setCenter(location); // 얻은 좌표를 지도의 중심으로 설정합니다.
+    currentLocation = location; // 거리 계산을 위해 현재 위치 변수 전달
+    map.setCenter(location); // 얻은 좌표를 지도의 중심으로 설정
+
+    // 사용자 위치에 마커 생성
+    var userMarker = new naver.maps.Marker({
+      position: new naver.maps.LatLng(position.coords.latitude, position.coords.longitude),
+      icon : {
+        url : HOME_PATH + '/image/usermarker.gif'
+      },
+      map : map
+    })
   }
 
   function onErrorGeolocation() {
@@ -53,7 +63,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
       markerList.forEach(function(marker, i){
         naver.maps.Event.addListener(marker, "click", function(e){
-          console.log("Marker Clicked / ID : " + marker.id);
           var infowindow = new naver.maps.InfoWindow({
             borderColor : "transparent",
             backgroundColor : "transparent"
@@ -63,9 +72,6 @@ document.addEventListener("DOMContentLoaded", function () {
             type: "GET",
             url: "/getSingleParkingData?id=" + marker.id,
             success: function (response) {
-              console.log(response);
-              console.log(marker.position.lat() + ", " + marker.position.lng());
-              console.log(response.paid);
               var info = "<div id='infowindow'><div>"
                        + "" + setBadge(response.paid, response.woman, response.disabled) + ""
                        + "<span class='small'>현재 위치에서 " + getDistance(marker.position.lat(), marker.position.lng()) + "</span></div>"
@@ -84,17 +90,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  /* 현재 지도 위치 출력 */
+  /* 현재 지도 위치 주소 출력 */
   naver.maps.Event.addListener(map, "bounds_changed", function(bounds) {
     var latlng = map.getCenter();
     coordsToAddr(latlng);
   })
-
-  /* 지도 클릭 시 정보 창 닫기 */
-  naver.maps.Event.addListener(map, "click", function(e) {
-    infowindow.close();
-  })
-
 
   /* 좌측 메뉴 여닫기 */
   var closed = 0;
@@ -108,7 +108,7 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
       $("#nav").animate({ left: "0" }, 300, "linear");
       $("#search").animate({ left: "460px" }, 300, "linear");
-      $("#current").animate({ left: "770px" }, 300, "linear");
+      $("#current").animate({ left: "780px" }, 300, "linear");
       $(".fa-chevron-left").animate({transform: ""}, 300, "linear");
       closed = 0;
     }
