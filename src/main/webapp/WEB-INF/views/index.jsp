@@ -31,6 +31,10 @@
     </form>
 </div>
 
+<div id="searchresult">
+        
+</div>
+
 <div id="current">
     <span id="si"></span>
     <span id="gu"></span>
