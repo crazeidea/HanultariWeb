@@ -142,6 +142,13 @@ document.addEventListener("DOMContentLoaded", function () {
       closed = 0;
     }
   });
+
+  /* 검색창 입력 시 지역정보 출력 */
+  $("input#query").on("change keyup", function (e) {     
+    var query = $("input#query").val();
+    showQuery(query);
+  });
+
 }); // document.ready
 
 /* 뱃지 출력 */
@@ -238,12 +245,43 @@ function showInfo(id, lat, lng) {
       var pano = new naver.maps.Panorama("pano", {
           position : new naver.maps.LatLng(lat, lng),
           pov : {
-            pan: -135,
-            tilt: 29,
+            pan: -30,
+            tilt: 10,
             fov: 100
+          },
+          aroundControl : false
+        });
+
+        naver.maps.Event.addListener(pano, "init", function() {
+          panomarker.setMap(pano);
+
+          var proj = pano.getProjection();
+          var lookAtPov = proj.fromCoordsToPov(panomarker.getPosition());
+          if (lookAtPov) {
+            pano.setPov(lookAtPov);
           }
         });
+
+        var panomarker = new naver.maps.Marker({
+          position: new naver.maps.Marker(lat, lng)
+        })
       }
 
     })
   };
+
+  function showQuery(query) {
+    $.ajax({
+      type : "GET",
+      url: "/search?query=" + query,
+      success: function (response) {
+      	$("#searchresult").html("");
+        for(let i = 0; i < response.length ; i++) {          
+          var result = "<div>" + response[i].title + response[i].address + "</div>";
+          $("#searchresult").append(result);
+        }
+        
+        
+      }
+    });
+  }
