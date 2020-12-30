@@ -11,7 +11,7 @@
 <div class="wrap_cont wrap_notices">
 	<div class="area_tit">
 		<h4 class="tit_corp">대따 공지사항<br/>
-					작성페이지</h4>
+					상세페이지</h4>
 	</div>
 <table>
 <tr><th>제목</th>
