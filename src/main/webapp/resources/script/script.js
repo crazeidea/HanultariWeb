@@ -95,7 +95,6 @@ document.addEventListener("DOMContentLoaded", function () {
           var infowindow = new naver.maps.InfoWindow({
             borderColor : "transparent",
             backgroundColor : "transparent"
-
           });
           $.ajax({
             type: "GET",
@@ -112,6 +111,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
           });
           infowindow.open(map, marker);
+          map.panTo(marker.position);
         });
       });
     } else {
@@ -123,7 +123,11 @@ document.addEventListener("DOMContentLoaded", function () {
   naver.maps.Event.addListener(map, "bounds_changed", function(bounds) {
     var latlng = map.getCenter();
     coordsToAddr(latlng);
-  })
+  });
+
+  naver.maps.Event.addListener(map, "click", function(e) {
+    console.log("Map clicked!");
+  });
 
   /* 좌측 메뉴 여닫기 */
   var closed = 0;
@@ -133,15 +137,23 @@ document.addEventListener("DOMContentLoaded", function () {
       $("#search").animate({ left: "50px" }, 300, "linear");
       $("#current").animate({ left: "370px" }, 300, "linear");
       $(".fa-chevron-left").animate({transform: "rotateX(180deg)"}, 300, "linear");
+      $("#searchresult").animate({left: "50px"}, 300, "linear");
       closed = 1;
     } else {
       $("#nav").animate({ left: "0" }, 300, "linear");
       $("#search").animate({ left: "460px" }, 300, "linear");
       $("#current").animate({ left: "780px" }, 300, "linear");
+      $("#searchresult").animate({left: "460px"}, 300, "linear");
       $(".fa-chevron-left").animate({transform: ""}, 300, "linear");
       closed = 0;
     }
   });
+
+  $(document).on('click', '.searchitem', function() {
+    console.log($(this).attr('data-lat'));
+    var latlng = new naver.maps.LatLng($(this).attr('data-lat'), $(this).attr('data-lng'));
+    map.panTo(latlng);
+  })
 
   /* 검색창 입력 시 지역정보 출력 */
   $("input#query").on("change keyup", function (e) {     
@@ -243,12 +255,12 @@ function showInfo(id, lat, lng) {
       $('#content').html(html);
 
       var pano = new naver.maps.Panorama("pano", {
-          position : new naver.maps.LatLng(lat, lng),
-          pov : {
-            pan: -30,
-            tilt: 10,
-            fov: 100
-          },
+          // position : new naver.maps.LatLng(lat, lng),
+          // pov : {
+          //   pan: -30,
+          //   tilt: 10,
+          //   fov: 100
+          // },
           aroundControl : false
         });
 
@@ -270,18 +282,31 @@ function showInfo(id, lat, lng) {
     })
   };
 
+  
+  /* 검색 결과 표시 */
   function showQuery(query) {
     $.ajax({
       type : "GET",
       url: "/search?query=" + query,
       success: function (response) {
       	$("#searchresult").html("");
-        for(let i = 0; i < response.length ; i++) {          
-          var result = "<div>" + response[i].title + response[i].address + "</div>";
+        for(let i = 0; i < response.length ; i++) {
+          let latlng = convertCoords(response[i].mapx, response[i].mapy);
+          let lat = latlng.x;
+          let lng = latlng.y;
+          var result = "<div class='searchitem' data-lat='" + lat + "' data-lng='" + lng + "'>" + response[i].title + "</div>";
           $("#searchresult").append(result);
-        }
-        
-        
+        }  
       }
     });
+  }
+
+  /* 카텍좌표계 -> 위도,경도 변환 */
+  function convertCoords(x, y) {
+    var geo = new GeoTrans();
+    geo.init("katec", "geo")
+    var pt = new Point(x, y);
+    var output = geo.conv(pt);
+
+    return output;
   }

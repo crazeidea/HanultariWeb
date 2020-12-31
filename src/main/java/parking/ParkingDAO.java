@@ -3,6 +3,7 @@ package parking;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -20,6 +21,13 @@ public class ParkingDAO implements ParkingService {
 	public ParkingVO getSingleParkingData(int id) {
 		return sql.selectOne("parking.mapper.singleparking", id);
 	}
+
+	@Override
+	public LatlngVO getSingleParkingLatlng(int id) {
+	
+		return sql.selectOne("parking.mapper.singleparkinglatlng", id);
+	}
+
 
 	
 }

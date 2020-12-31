@@ -10,4 +10,8 @@
 	SELECT * FROM PARKING WHERE ID = #{id}
 </select>
 
+<select id="singleparkinglatlng" resultType="parking.LatlngVO">
+	SELECT * FROM LATLNG WHERE ID = #{id}
+</select>
+
 </mapper>

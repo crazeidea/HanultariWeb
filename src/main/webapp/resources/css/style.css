@@ -191,10 +191,13 @@ header .logo {
   left: 460px;
   top: 10px;
   min-width: 300px;
+  max-width: 300px;
   height: 50px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   border-radius: 8px;
   overflow: hidden;
+  display: grid;
+    grid-template-columns: 1fr 1fr;
 }
 
 #search form {
@@ -217,12 +220,33 @@ input#query:focus {
 
 #searchresult {
   position: absolute;
+  max-width: 300px;
+  min-width: 300px;
+  border-radius: 30px;
   top: 80px;
   left: 460px;
   background-color: white;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   display: grid;
   grid-template-rows: auto;
+  row-gap: 5px;
+  transition: width 300ms, height 300ms;
+  -webkit-transition: width 300ms, height 300ms;
+}
+
+.searchitem {
+  font-size: 1.2em;
+  margin: 5px 10px;
+  padding: 10px;
+  cursor:pointer;
+  border-radius: 30px;
+  transition : background-color 300ms, color 300ms;
+}
+
+.searchitem:hover, .searchitem:focus {
+  background-color: var(--primary-color);
+  opacity: 0.8;
+  color: white;
 }
 
 /* 현재 지도 위치 */

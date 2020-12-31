@@ -25,14 +25,11 @@
 </div>
 
 <div id="search">
-	<form id="searchParkinglot">
-        <input type="text" id="query" name="query" placeholder=""/>
+        <input type="text" id="query" name="query" onkeypress="if(event.keyCode==9 || event.keyCode==40){moveFocus()}"/>
         <button class="btn bg-primary"><i class="fas fa-search"></i></button>
-    </form>
 </div>
 
 <div id="searchresult">
-        
 </div>
 
 <div id="current">
