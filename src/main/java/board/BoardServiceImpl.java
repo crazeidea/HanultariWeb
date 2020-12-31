@@ -41,26 +41,22 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public int board_comment_insert(BoardCommentDTO dto) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.board_comment_insert(dto);
 	}
 
 	@Override
 	public List<BoardCommentDTO> board_comment_list(int pid) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.board_comment_list(pid);
 	}
 
 	@Override
 	public int board_comment_update(BoardCommentDTO dto) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.board_comment_update(dto);
 	}
 
 	@Override
 	public int board_comment_delete(int id) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.board_comment_delete(id);
 	}
 
 }

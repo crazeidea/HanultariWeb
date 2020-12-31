@@ -44,5 +44,83 @@
 	</c:if>
 </div>
 </div>
+
+<div style='margin:0 auto; padding-top:20px; width:500px;'>
+	<div id='comment_regist'>
+		<span class='left'><strong>댓글작성</strong></span>
+		<span class='right'><a onclick='comment_regist()'>댓글등록</a></span>  <!-- onclick 안먹음... -->
+		<textarea id='comment' style='width:99%; height:60px; resize:none; margin-top:5px'></textarea>
+	</div>
+	<div id='comment_list' class='left'>
+	</div>
+</div>
+
+<form method="post" action='list.bo'>
+<input type='hidden' name='id' value='${dto.id}' />
+<input type='hidden' name='curPage' value='${page.curPage}' />
+<input type='hidden' name='search' value='${page.search}' />
+<input type='hidden' name='keyword' value='${page.keyword}' />
+<input type='hidden' name='pageList' value='${page.pageList}' />
+<input type='hidden' name='viewType' value='${page.viewType}' />
+</form>
+
+<div id='popup-background' onclick="$('#popup, #popup-background').css('display', 'none');"></div>
+<div id='popup'></div>
+
+<script type="text/javascript">
+if( ${!empty dto.filename} ){ //첨부파일이 있는 경우 이미지파일인지를 판단하여 미리보기
+	showAttachedImage( '#preview', '${dto.filename}', '${dto.filepath}' );
+}
+$('#preview-img').click(function(){
+	$('#popup, #popup-background').css('display', 'block');
+	showAttachedImage( '#popup', '${dto.filename}', '${dto.filepath}' );
+});
+
+//여기가 안되는데...
+function comment_regist(){
+	//로그인되어 있어야 댓글저장 가능
+	if( ${empty login_info} ){
+		alert('댓글을 등록하려면 로그인하세요');
+		return;
+	}else if( $('#comment').val().trim()=='' ){
+	//댓글이 입력되어 있어야 저장 가능
+		alert('댓글을 입력하세요');
+		$('#comment').val('');
+		$('#comment').focus();
+		return;
+	}		
+
+	$.ajax({
+		type: 'post',
+		url: 'board/comment/insert',
+		data: { pid:${dto.id}, content:$('#comment').val() },
+		success: function( response ){
+			if( response==1 ){
+				alert('댓글이 등록되었습니다');
+				$('#comment').val('');
+				comment_list();
+			}else if( response==0 ) alert('댓글등록 실패!');
+			else {
+				location = 'list.bo';
+			}
+			
+		},error: function(req, text){
+			alert(text + ':' + req.status);
+		}
+	});
+}
+
+function comment_list(){
+	$.ajax({
+		url: 'board/comment/${dto.id}',
+		success: function(response){
+			$('#comment_list').html( response );
+		},error: function(req, text){
+			alert(text + ':' + req.status);
+		}		
+	});
+}
+comment_list();
+</script>
 </body>
 </html>

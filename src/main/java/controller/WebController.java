@@ -12,12 +12,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import board.BoardCommentDTO;
 import board.BoardDTO;
 import board.BoardPage;
 import board.BoardServiceImpl;
@@ -46,6 +49,36 @@ public class WebController {
 	
 	
 	private static final Logger logger = LoggerFactory.getLogger(WebController.class);
+	
+	//방명록 댓글 삭제처리 
+	@ResponseBody @RequestMapping("/board/comment/delete/{id}")
+	public void comment_delete(@PathVariable int id) {
+		service2.board_comment_delete(id);
+	}
+	
+	//방명록 댓글 수정저장처리 
+	@ResponseBody @RequestMapping(value="/board/comment/update", produces = "application/text; charset=utf-8")
+	public String comment_update(@RequestBody BoardCommentDTO dto) {
+		return service2.board_comment_update(dto) == 1 ? "성공" : "실패";
+	}
+	
+	//방명록 댓글 목록조회
+	@RequestMapping("/board/comment/{pid}")
+	public String comment_list(@PathVariable int pid, Model model) {
+		model.addAttribute("list", service2.board_comment_list(pid));
+		model.addAttribute("crlf", "\r\n");
+		model.addAttribute("lf", "\n");
+		return "board/comment/comment_list";
+	}
+	
+	//방명록 댓글 저장처리
+	@ResponseBody @RequestMapping("/board/comment/insert")
+	public int comment_insert(BoardCommentDTO dto, HttpSession session) {
+		MemberDTO member = (MemberDTO) session.getAttribute("login_info");
+		if(member == null) return -1;
+		dto.setWriter(member.getId());
+		return service2.board_comment_insert(dto);
+	}
 	
 	//방명록 수정 저장처리
 	@RequestMapping("/update.bo")
