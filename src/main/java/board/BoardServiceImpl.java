@@ -11,8 +11,7 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Override
 	public int board_insert(BoardDTO dto) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.board_insert(dto);
 	}
 
 	@Override
@@ -22,50 +21,42 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public BoardDTO board_detail(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.board_detail(id);
 	}
 
 	@Override
 	public int board_read(int id) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.board_read(id);
 	}
 
 	@Override
 	public int board_update(BoardDTO dto) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.board_update(dto);
 	}
 
 	@Override
 	public int board_delete(int id) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.board_delete(id);
 	}
 
 	@Override
 	public int board_comment_insert(BoardCommentDTO dto) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.board_comment_insert(dto);
 	}
 
 	@Override
 	public List<BoardCommentDTO> board_comment_list(int pid) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.board_comment_list(pid);
 	}
 
 	@Override
 	public int board_comment_update(BoardCommentDTO dto) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.board_comment_update(dto);
 	}
 
 	@Override
 	public int board_comment_delete(int id) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.board_comment_delete(id);
 	}
 
 }
