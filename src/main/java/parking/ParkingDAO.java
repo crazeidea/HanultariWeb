@@ -28,6 +28,12 @@ public class ParkingDAO implements ParkingService {
 		return sql.selectOne("parking.mapper.singleparkinglatlng", id);
 	}
 
+	@Override
+	public List<ParkingVO> searchParking(String query) {
+			
+		return sql.selectList("parking.mapper.searchparking", query);
+	}
+
 
 	
 }

@@ -1,4 +1,4 @@
-<div class="wrapper">
+﻿<div class="wrapper">
   <div class="left-section">
     <span class="logo" onclick="location.href = '/'">대따</span>
     <div>

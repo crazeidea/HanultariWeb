@@ -28,6 +28,14 @@ public class ParkingServiceImpl implements ParkingService{
 		return dao.getSingleParkingLatlng(id);
 	}
 
+	@Override
+	public List<ParkingVO> searchParking(String query) {
+		
+		return dao.searchParking(query);
+	}
+	
+	
+
 	
 
 }

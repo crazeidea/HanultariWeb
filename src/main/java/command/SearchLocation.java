@@ -6,7 +6,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
-public class Search {
+public class SearchLocation {
 	public static String search(String query) {
 
         String clientId = "M2YtvrWQFuOcIa8ZXgz_";//애플리케이션 클라이언트 아이디값";
@@ -35,7 +35,6 @@ public class Search {
                 response.append(inputLine);
             }
             br.close();
-            System.out.println("code:"+responseCode + ":" + response.toString());
             return response.toString();
         } catch (Exception e) {
             System.out.println(e);

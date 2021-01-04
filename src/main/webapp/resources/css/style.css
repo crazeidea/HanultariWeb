@@ -29,7 +29,7 @@
 }
 
 @font-face {
-  font-family: "roboto";
+  font-family: "robotobold";
   src: url("../resources/font/robotobold.woff") format("woff");
   font-weight: 800;
 }
@@ -120,15 +120,28 @@ header .logo {
 }
 
 /* 좌측 메뉴 */
+
+#navCircle {
+  width: 50px;
+  height: 50px;
+  border-radius: 40px;
+  position: absolute;
+  top: 80px;
+  left: 10px;
+  display:grid;
+  place-items:center;
+  cursor:pointer;
+  box-sizing: border-box;
+  transition: background-color 300ms, color 300ms, width 300ms, height 300ms;
+}
+
 #nav {
-  display: grid;
-  height: calc(100vh - 40px);
-  grid-template-rows: 1fr 1fr 8fr;
+  display: none;
   row-gap: 30px;
   background-color: white;
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 125px;
+  left: 10px;
   min-width: 400px;
   max-width: 400px;
   padding: 20px;
@@ -165,7 +178,9 @@ header .logo {
   border-radius: 8px;
 }
 
-/* 메뉴 버튼 */
+/* 메뉴 */
+
+
 
 #menu {
   display: grid;
@@ -183,13 +198,17 @@ header .logo {
   font-size: 1.4rem;
 }
 
+#menu p {
+	
+}
+
 /* 검색 */
 
 #search {
   background-color: white;
   position: absolute;
-  left: 460px;
-  top: 10px;
+  left: 125px;
+  top: 15px;
   min-width: 300px;
   max-width: 300px;
   height: 50px;
@@ -220,14 +239,14 @@ input#query:focus {
 
 #searchresult {
   position: absolute;
-  max-width: 300px;
   min-width: 300px;
+  padding: 20px;
   border-radius: 30px;
   top: 80px;
-  left: 460px;
+  left: 125px;
   background-color: white;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-  display: grid;
+  display: none;
   grid-template-rows: auto;
   row-gap: 5px;
   transition: width 300ms, height 300ms;
@@ -254,8 +273,8 @@ input#query:focus {
 #current {
   background-color: white;
   position: absolute;
-  left: 780px;
-  top: 20px;
+  left: 445px;
+  top: 25px;
   height: 40px;
   padding: 0px 10px;
   border-radius: 40px;
@@ -273,6 +292,22 @@ input#query:focus {
 
 #current span:hover {
   font-weight: 800;
+}
+
+/* 계정정보 */
+#profile {
+width: 50px;
+  height: 50px;
+  border-radius: 40px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display:grid;
+  place-items:center;
+  cursor:pointer;
+  box-sizing: border-box;
+  transition: background-color 300ms, color 300ms, width 300ms, height 300ms;
+	
 }
 
 /* 정보창 */

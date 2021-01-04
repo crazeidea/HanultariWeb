@@ -25,36 +25,60 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.JsonParser;
 
 import command.CommonCommand;
-import command.Search;
+import command.SearchLocation;
 import parking.LatlngVO;
 import parking.ParkingServiceImpl;
 import parking.ParkingVO;
 
 @Controller
 public class DataController {
-	
-	@Autowired ParkingServiceImpl service;
-	
-	
-	@ResponseBody @RequestMapping("/getMarkerData")
+
+	@Autowired
+	ParkingServiceImpl service;
+
+	@ResponseBody
+	@RequestMapping("/getMarkerData")
 	public List<LatlngVO> listnearby(HttpServletRequest req, Model model) {
-		
+
 		List<LatlngVO> list = service.getMarkerData();
 		System.out.println("INFO : Marker Data Requested");
 		return list;
 	}
-	
-	@ResponseBody @RequestMapping("/getSingleParkingData")
+
+	@ResponseBody
+	@RequestMapping("/getSingleParkingData")
 	public ParkingVO getSingleParkingData(int id) {
 		return service.getSingleParkingData(id);
 	}
-	
-	@ResponseBody @RequestMapping("/search")
-	public JSONArray search(String query, Model model) throws ParseException {
+
+	@ResponseBody
+	@RequestMapping("/searchLocation")
+	public JSONArray searchLocation(String query, Model model) {
+		JSONArray result = new JSONArray();
 		JSONParser parser = new JSONParser();
-		JSONObject data =  (JSONObject) parser.parse(Search.search(query));
-		JSONArray array = (JSONArray) data.get("items");
-		return array;
+		JSONObject data;
+		try {
+			data = (JSONObject) parser.parse(SearchLocation.search(query));
+			JSONArray array = (JSONArray) data.get("items");
+			if (array.size() > 0) {
+				for (int i = 0; i < array.size(); i++) {
+					JSONObject object = (JSONObject) array.get(i);
+					if (String.valueOf(object.get("address")).contains("광주"))
+						result.add(object);
+				}
+			}
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+		return result;
+		}
+	}
+
+	@ResponseBody
+	@RequestMapping("/searchParking")
+	public List<ParkingVO> searchParking(String query, Model model) throws ParseException {
+		return service.searchParking(query);
 	}
 
 }
