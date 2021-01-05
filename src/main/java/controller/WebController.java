@@ -342,6 +342,11 @@ public class WebController {
 		return "includes/parkingdetail";
 	}
 	
+	@RequestMapping("/about")
+	public String about() {
+		return "/about";
+	}
+	
 	
 	
 	
