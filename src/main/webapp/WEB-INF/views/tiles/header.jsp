@@ -1,4 +1,4 @@
-﻿<span class='logo'> 대따 </span>
+﻿<span class='logo' onclick='location.href="/"'> 대따 </span>
 <div class="header-nav">
     <a href='/about'>대따 소개</a>
     <a href='/list.no'>공지사항</a>

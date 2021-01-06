@@ -12,10 +12,10 @@ public class MemberDAO implements MemberService{
 	
 	@Autowired private SqlSession sql;
 
-		@Override
+	@Override
 	public int member_join(MemberDTO dto) {
 		// TODO Auto-generated method stub
-		return 0;
+		return sql.insert("member.mapper.signup", dto);
 	}
 
 	@Override
@@ -24,7 +24,7 @@ public class MemberDAO implements MemberService{
 	}
 
 	@Override
-	public boolean member_id_check(String id) {
+	public boolean member_id_check(int id) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -36,7 +36,7 @@ public class MemberDAO implements MemberService{
 	}
 
 	@Override
-	public int member_delete(String id) {
+	public int member_delete(int id) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

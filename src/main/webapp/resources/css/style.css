@@ -407,20 +407,17 @@ width: 50px;
 }
 
 #profileMenu {
-  display: none;
+  display: grid;
   grid-template-rows: repeat(4, 1fr);
   border-radius: 10px;
   row-gap: 5px;
   font-size:1.2em;
-}
-
-#profileMenu.open {
-  display: grid;
-  width: 100px;
+  padding: 10px;
 }
 
 #profileMenu a {
   width: 100%;
+  font-weight: 500;
   
 }
 

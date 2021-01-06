@@ -216,17 +216,11 @@ $(document).ready(function () {
 
 
     /* 프로필 아이콘 마우스 오버시 메뉴 출력 */
-    tippy('#profile', {
-      content: "<div id='profileMenu' class='open'>"
-      + '<a href="/login">로그인</a>'
-      + '<a href="/list.no">공지사항</a>'
-      + '<a href="/list.bo">고객센터</a>'
-      + '<a href="/login">로그아웃</a>'
-      + '</div>',
-      allowHTML: true,
-      interactive: true,
-      theme: 'light',
-    });
+    tippy('#profile', {allowHTML : true, interactive: true, theme: 'light'});
+    const profileinstance = document.getElementById('profile');
+    const content = document.getElementById('profileMenu');
+    content.style.display = 'grid';
+    profileinstance._tippy.setContent(content);
 
     /* 좌측 메뉴 열기 / 숨기기 */
     $("#navClose").on('click', function(e){
