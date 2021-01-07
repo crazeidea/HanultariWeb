@@ -15,6 +15,8 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.mail.EmailAttachment;
+import org.apache.commons.mail.HtmlEmail;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
@@ -37,6 +39,44 @@ public class CommonService {
 		json.put("count", count);
 		
 		return json.toString();
+	}
+	
+	public void htmlSend(String email, String name, HttpSession session) {
+		HtmlEmail mail = new HtmlEmail();
+		
+		mail.setCharset("utf-8");
+		mail.setDebug(true);
+		
+		mail.setHostName("smtp.naver.com");
+		mail.setAuthentication("it-study", "It-Study!");
+		mail.setSSLOnConnect(true);
+		
+		try {
+			mail.setFrom("it-study@naver.com", "한울관리자");  //보내는이 지정
+			mail.addTo(email, name); //메일 받을사람 지정
+			mail.setSubject("한울 IoT 과정"); //제목쓰기
+			//내용쓰기
+			StringBuffer msg = new StringBuffer();
+			msg.append("<html>");
+			msg.append("<body>");
+			msg.append("<a href='https://blog.mybatis.org'><img src='https://3.bp.blogspot.com/-HKtWXLIvvdk/T6VWCexS-qI/AAAAAAAAATo/QmRUDiFjWd0/s1600/mybatis-superbird-small.png' /></a>");
+			msg.append("<hr>");
+			msg.append("<h3>한울 IoT과정 가입축하 메일</h3>");
+			msg.append("<p>축하합니다~</p>");
+			msg.append("<p>프로젝트까지 마무리하고 취업에 성공하시길 바랍니다~</p>");
+			msg.append("</body>");
+			msg.append("</html>");
+			mail.setHtmlMsg(msg.toString());
+		
+			EmailAttachment file = new EmailAttachment();
+			file.setPath(session.getServletContext().getRealPath("resources")
+							+ "/css/common.css"); //첨부파일 선택하기
+			mail.attach(file); //파일첨부하기버튼 클릭
+			
+			mail.send(); //메일보내기버튼 클릭
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	//파일다운로드

@@ -7,6 +7,7 @@ public class NoticeDTO {
 	private int no, id, readcnt, root, step, indent;
 	private String title, content, writer, filename, filepath, name;
 	private Date writedate;
+	
 	public int getNo() {
 		return no;
 	}

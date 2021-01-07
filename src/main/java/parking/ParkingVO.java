@@ -136,7 +136,7 @@ public class ParkingVO {
 		return lng;
 	}
 
-	public void setLng(float lon) {
+	public void setLng(float lng) {
 		this.lng = lng;
 	}
 

@@ -1,37 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>공지사항 리스트</title>
-</head>
-<style>
-header ul, header ul li { margin:0; padding:0; display:inline; }
-header div.category { font-size:18px; }
-header div.category li:not(:first-child) { padding-left:30px; }
-header div.category li a:hover, header div.category li a.active { 
-		font-weight:bold; color:#0000cd; }
-</style>
-<body>
-<h4>대따 공지사항 목록</h4>
+﻿<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <div id='list-top'>
-<!-- 	로그인 테스트 -->
-<div style='position:absolute; right:0; top:25px; margin-right:100px '>
-	<ul>
-		<c:if test='${ empty login_info }'>
-		<li><a class='btn-fill' href='login'>로그인</a></li>
-		<li><a class='btn-fill' href='member'>회원가입</a></li>
-		</c:if>
-		
-		<c:if test='${ !empty login_info }'>
-		<li><strong>${login_info.name}</strong> 님</li>
-		<li><a class='btn-fill' href='logout'>로그아웃</a></li>
-		</c:if>
-	</ul>
-	</div>
-<div>
 	<form method="post" action="list.no">
 		<input type='hidden' name='curPage' value='1' />
 		<ul>
@@ -73,5 +41,3 @@ header div.category li a:hover, header div.category li a.active {
 </tr>
 </c:forEach>
 </table>
-</body>
-</html>

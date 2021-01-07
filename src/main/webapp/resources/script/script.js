@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
   /* 루트 폴더 설정 */
   var HOME_PATH = window.HOME_PATH || ".";
   /* 지도 생성 */
-  var map = new naver.maps.Map("map", {
+  map = new naver.maps.Map("map", {
     zoom: 17,
   });
   var currentLocation;
@@ -95,7 +95,6 @@ document.addEventListener("DOMContentLoaded", function () {
           var infowindow = new naver.maps.InfoWindow({
             borderColor : "transparent",
             backgroundColor : "transparent"
-
           });
           $.ajax({
             type: "GET",
@@ -112,6 +111,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
           });
           infowindow.open(map, marker);
+          map.panTo(marker.position);
         });
       });
     } else {
@@ -123,25 +123,34 @@ document.addEventListener("DOMContentLoaded", function () {
   naver.maps.Event.addListener(map, "bounds_changed", function(bounds) {
     var latlng = map.getCenter();
     coordsToAddr(latlng);
-  })
+  });
+
+  naver.maps.Event.addListener(map, "click", function(e) {
+    console.log("Map clicked!");
+  });
 
   /* 좌측 메뉴 여닫기 */
-  var closed = 0;
-  $("#closeNav").click(function (e) {
-    if (closed == 0) {
-      $("#nav").animate({ left: "-403px" }, 300, "linear");
-      $("#search").animate({ left: "50px" }, 300, "linear");
-      $("#current").animate({ left: "370px" }, 300, "linear");
-      $(".fa-chevron-left").animate({transform: "rotateX(180deg)"}, 300, "linear");
-      closed = 1;
-    } else {
-      $("#nav").animate({ left: "0" }, 300, "linear");
-      $("#search").animate({ left: "460px" }, 300, "linear");
-      $("#current").animate({ left: "780px" }, 300, "linear");
-      $(".fa-chevron-left").animate({transform: ""}, 300, "linear");
-      closed = 0;
+  
+  var navcircle = $('#navCircle');
+  var navtoggle = 0;
+  navcircle.on("click", function() {
+    if ( navtoggle == 0) {
+    $('#nav').css("display", "grid");
+    navcircle.css("background-color", "white").css("border", "5px solid var(--primary-color)").css("color", "var(--primary-color)").css("border-radius", "40px 40px 0px 0px");
+    navtoggle = 1;
+    } else if (navtoggle == 1) {
+      $('#nav').css("display", "none");
+      navcircle.css("background-color", "var(--primary-color)").css("border", "none").css("color", "white").css("border-radius", "40px");
+      navtoggle = 0;
     }
   });
+  
+  /* 검색 결과 클릭 */
+  $(document).on('click', '.searchitem', function() {
+    var latlng = new naver.maps.LatLng($(this).attr('data-lat'), $(this).attr('data-lng'));
+    console.log("Searchitem Clicked " + latlng);
+    showSearchItem(latlng);
+  })
 
   /* 검색창 입력 시 지역정보 출력 */
   $("input#query").on("change keyup", function (e) {     
@@ -151,137 +160,3 @@ document.addEventListener("DOMContentLoaded", function () {
 
 }); // document.ready
 
-/* 뱃지 출력 */
-function setBadge(paid) { 
-  var data = "<div id='badge-set'>";
-  if (paid == true) {
-    data += "<span class='badge bg-secondary'>유료</span>";
-  } else {
-    data += "<span class='badge bg-primary'>무료</span>";
-  }
-  data += "</div>"
-
-  return data;
-}
-
-/* 현재 위치와 마커간의 거리 계산 */
-function getDistance(lat, lng) {
-  function deg2rad(deg) {return deg * Math.PI / 180.0;}
-  function rad2deg(rad) {return rad * 180.0 / Math.PI;}
-
-  navigator.geolocation.getCurrentPosition(function(position){
-    currentLocation = new naver.maps.LatLng(
-      position.coords.latitude, position.coords.longitude
-    )
-  });
-  var currentlat = currentLocation.lat();
-  var currentlng = currentLocation.lng();
-  var theta = currentlng - lng;
-  var distance = Math.sin(deg2rad(currentlat))
-                * Math.sin(deg2rad(lat))
-                + Math.cos(deg2rad(currentlat))
-                * Math.cos(deg2rad(lat))
-                * Math.cos(deg2rad(theta));
-  distance = Math.acos(distance);
-  distance = rad2deg(distance);
-  distance = distance * 60 * 1.1515 / 0.62137;
-
-  if ((distance * 1000) > 1000) {
-    return Math.round(distance * 10) / 10 + "km";
-  } else {
-    return Math.round(distance * 1000) + "m"
-  }
-}
-
-/* 지도 중심점 -> 지번주소 */
-function coordsToAddr(coords) {
-  var addrArray = [];
-  naver.maps.Service.reverseGeocode({
-    coords: coords,
-    orders: [
-      naver.maps.Service.OrderType.ADDR,
-      naver.maps.Service.OrderType.ROAD_ADDR
-    ].join(',')
-  }, function(status, response) {
-    if (status === naver.maps.Service.Status.ERROR) {
-      if (!latlng) {
-        return alert('ReverseGeocode Error, Please check latlng');
-      }
-      if (latlng.toString) {
-        return alert('ReverseGeocode Error, latlng:' + latlng.toString());
-      }
-      if (latlng.x && latlng.y) {
-        return alert('ReverseGeocode Error, x:' + latlng.x + ', y:' + latlng.y);
-      }
-      return alert('ReverseGeocode Error, Please check latlng');
-    }
-
-    var address = response.v2.address;
-    var jibun = address.jibunAddress.split(' ');
-    $("#si").html(jibun[0]);
-    $("#gu").html(jibun[1]);
-    $("#dong").html(jibun[2]);
-    
-  })
-}
-
-/* 주차장 상세 정보 표시 */
-function showInfo(id, lat, lng) {
-  $('#content').html('/')
-  $.ajax({
-    type: "GET",
-    url: "/getSingleParkingData?id=" + id,
-    success: function (response) {
-      var html = "<h2>주차장 정보</h2>"
-                  + "<div id='pano' style='width:400px; height:400px'></div>"
-                  + "<h3>" + response.name + "</h3>"
-                  + "<h4>지금 " + (response.total - response.parked) + "대 주차할 수 있어요.</h4>"
-                  + "<h4>주차장 정보</h4>"
-                  + "<h5>기본요금 " + response.fare + "</h5>"
-                  + "<h5>추가요금" + response.added_fare + "</h5>"
-                  + "";
-      $('#content').html(html);
-
-      var pano = new naver.maps.Panorama("pano", {
-          position : new naver.maps.LatLng(lat, lng),
-          pov : {
-            pan: -30,
-            tilt: 10,
-            fov: 100
-          },
-          aroundControl : false
-        });
-
-        naver.maps.Event.addListener(pano, "init", function() {
-          panomarker.setMap(pano);
-
-          var proj = pano.getProjection();
-          var lookAtPov = proj.fromCoordsToPov(panomarker.getPosition());
-          if (lookAtPov) {
-            pano.setPov(lookAtPov);
-          }
-        });
-
-        var panomarker = new naver.maps.Marker({
-          position: new naver.maps.Marker(lat, lng)
-        })
-      }
-
-    })
-  };
-
-  function showQuery(query) {
-    $.ajax({
-      type : "GET",
-      url: "/search?query=" + query,
-      success: function (response) {
-      	$("#searchresult").html("");
-        for(let i = 0; i < response.length ; i++) {          
-          var result = "<div>" + response[i].title + response[i].address + "</div>";
-          $("#searchresult").append(result);
-        }
-        
-        
-      }
-    });
-  }

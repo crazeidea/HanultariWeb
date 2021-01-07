@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class NoticServiceImpl implements NoticeService {
+public class NoticeServiceImpl implements NoticeService {
 	@Autowired private NoticeDAO dao;
 
 	@Override

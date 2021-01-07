@@ -2,13 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member.mapper">
 
-<!-- id 중복확인 -->
-<select id="id_check" resultType="integer">
-	select count(*) from member where id = #{id}
-</select>
-
-<!-- id/pw 일치하는 정보 조회 -->
-<select id="login" resultType="member.MemberDTO">
-	select * from member where id = #{id} and pw = #{pw}
-</select>
+	<select id="id_check" resultType="integer">
+		select count(*) from member where id = #{id}
+	</select>
+	
+	<select id="login" resultType="member.MemberDTO">
+		SELECT * FROM MEMBER WHERE EMAIL = #{email ,jdbcType=VARCHAR} AND PW = #{pw ,jdbcType=VARCHAR}
+	</select>
+	
+	<!-- 회원가입 -->
+	<insert id="signup">
+	INSERT INTO MEMBER (ID, EMAIL, PW, NAME, TEL)
+	VALUES(ID_SEQ.nextval, #{email ,jdbcType=VARCHAR}, #{pw ,jdbcType=VARCHAR}, #{name ,jdbcType=VARCHAR}, #{tel ,jdbcType=VARCHAR})
+	</insert>
+	
 </mapper>
