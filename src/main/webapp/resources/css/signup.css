@@ -37,6 +37,7 @@
 		rgba(0, 0, 0, 0.23);
 }
 
+
 form#signup {
     display: grid;
     grid-template-rows: auto;
@@ -53,4 +54,14 @@ form#signup {
 	100% {
 		background-position: 0% 50%;
 	}
+}
+
+#year {
+	display: inline-block;
+	width: 70px;
+}
+
+#month, #day {
+	display: inline-block;
+	width: 50px;
 }

@@ -17,8 +17,8 @@ public class BoardDAO implements BoardService {
 
 	@Override
 	public BoardPage board_list(BoardPage page) {
-		page.setTotalList( sql.selectOne("board.mapper.total_count", page) );
-		page.setList( sql.selectList("board.mapper.list", page) );
+//		page.setTotalList( sql.selectOne("board.mapper.total_count", page) );	//갑자기 안됨 500에러
+//		page.setList( sql.selectList("board.mapper.list", page) );
 		return page;
 	}
 

@@ -65,9 +65,9 @@
 	</choose>
 </sql>
 
-<select id='total_count' resultType="integer">
-	select count(*) from board <include refid="search_where"/>
-</select>
+<!-- <select id='total_count' resultType="integer"> -->
+<!-- 	select count(*) from board <include refid="search_where"/> -->
+<!-- </select> -->
 
 <select id='list' resultType="board.BoardDTO">
 	select b.*, (select name from member m where m.id=writer) name 
