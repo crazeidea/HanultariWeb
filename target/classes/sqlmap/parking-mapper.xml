@@ -3,11 +3,19 @@
 <mapper namespace="parking.mapper">
 
 <select id="marker" resultType="parking.LatlngVO">
-	SELECT LATLNG.ID, LATLNG.LAT, LATLNG.LNG, PARKING.PAID, PARKING.TOTAL, PARKING.PARKED FROM PARKING, LATLNG WHERE LATLNG.ID = PARKING.ID
+	SELECT ID, LAT, LNG, PAID, TOTAL, PARKED FROM PARKING
 </select>
 
 <select id="singleparking" resultType="parking.ParkingVO">
 	SELECT * FROM PARKING WHERE ID = #{id}
+</select>
+
+<select id="singleparkinglatlng" resultType="parking.LatlngVO">
+	SELECT * FROM LATLNG WHERE ID = #{id}
+</select>
+
+<select id="searchparking" resultType="parking.ParkingVO">
+	SELECT ID, NAME, LAT, LNG FROM PARKING WHERE NAME LIKE '%'||#{query}||'%' AND UTL_MATCH.edit_distance_similarity(NAME, #{query}) > 0 <![CDATA[ AND ROWNUM <= 5]]> 
 </select>
 
 </mapper>
