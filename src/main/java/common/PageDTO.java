@@ -1,4 +1,4 @@
-package command;
+package common;
 
 public class PageDTO {
 	private int totalList; //총 글건수 

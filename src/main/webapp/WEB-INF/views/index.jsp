@@ -1,32 +1,4 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<c:choose>
-	<c:when test="${page eq 'login'}">
-		<c:set var="css" value="<link rel='stylesheet' type='text/css' href='css/login.css'"/>
-		<c:set var="title" value="로그인"/>
-	</c:when>
-	<c:when test="${page eq 'signup'}">
-		<c:set var="css" value="<link rel='stylesheet' type='text/css' href='css/signup.css'"/>
-		<c:set var="title" value="회원가입"/>
-	</c:when>
-</c:choose>
-<title>대따 ⁝ ${title}</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
-<script src='https://code.jquery.com/jquery-3.5.1.min.js'></script>
-<script src="https://unpkg.com/@popperjs/core@2"></script>
-<script src="https://unpkg.com/tippy.js@6"></script>
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link rel="stylesheet" type="text/css" href="css/style.css?v=<%=new java.util.Date().getTime()%>">
-${css}
-</head>
-<body>
-
-
+﻿<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div id="map" style="width: 100vw; height: 100vh" class="clearfix"></div>
 <div style="font-family:'vitro'; font-size:3rem; position: absolute; top:10px; left: 10px; color: var(--black);">대따</div>
 
@@ -40,9 +12,9 @@ ${css}
     <i class="fas fa-chevron-left"></i>
 </div>
 
-<div id="search">
-        <input type="text" id="query" name="query"/>
-        <button class="btn bg-primary"><i class="fas fa-search"></i></button>
+<div id="search" class="ui huge icon input">
+  <input type="text" id="query", name="query">
+  <i class="search icon"></i>
 </div>
 
 <div id="searchresult">
@@ -56,22 +28,43 @@ ${css}
     <span id="dong"></span>
 </div>
 
-<div id="profile" class="bg-primary"><i class="fas fa-user"></i>
-</div>
+<div id="menuicon" class="ui icon top left pointing dropdown button">
+  <i class="wrench icon"></i>
+  <div class="menu">
+	<div class="header">대따</div>
+	<div class="ui divider"></div>
+	<c:if test="${empty user}">
+  		<div class="item" onclick="location.href='/login'">로그인</div>
+  	</c:if>
+  	<c:if test="${not empty user}">
+  		<div class="item" onclick="location.href='/logout'">로그아웃</div>
+  	</c:if> 
+  		<div class="item">
+	      <i class="dropdown icon"></i>
+	      <span class="text">설정</span>
+	      <div class="menu">
+	        <div class="item">
+	          Convert Uploaded Files to PDF
+	        </div>
+	      </div>
+    	</div>
+  		
 
-<div id="profileMenu" style="display:none;">
-    <c:if test="${empty user}">
-	    <a href='/login'>로그인</a>
-	    <a href='/notice'>공지사항</a>
-	    <a href='/customer'>고객센터</a>
-	    <a href='/signup'>회원가입</a>
-    </c:if>
-    <c:if test="${not empty user}">
-        <p>${user.nickname}</p>
- 	    <a href='/account'>계정 설정</a>
-	    <a href='/notice'>공지사항</a>
-	    <a href='/customer'>고객센터</a>
-	    <a href='/logout'>로그아웃</a>
-    </c:if>
+    
+    <div class="item">Comfortable</div>
+    <div class="item">Cozy</div>
+    <div class="item">Compact</div>
+    <div class="ui divider"></div>
+    <div class="item">Settings</div>
+    
+    <div class="item">Manage Apps</div>
+    <div class="item">Keyboard Shortcuts</div>
+    <div class="item">Help</div>
+  </div>
 </div>
+<script>
+$('.ui.dropdown')
+  .dropdown()
+;
+</script>
 

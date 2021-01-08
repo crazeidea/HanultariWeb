@@ -1,7 +1,7 @@
 package member;
 
 public class MemberDTO {
-	private String email, pw, name, nickname, tel;
+	private String email, pw, name, nickname, tel, admin;
 	private int id;
 	
 	public MemberDTO() {};	
@@ -14,18 +14,15 @@ public class MemberDTO {
 		this.nickname = nickname;
 		this.tel = tel;
 		this.id = id;
+		this.admin = admin;
 	}
 
 	public String getTel() {
 		return tel;
 	}
-
-
 	public void setTel(String tel) {
 		this.tel = tel;
 	}
-
-
 	public String getEmail() {
 		return email;
 	}
@@ -55,6 +52,12 @@ public class MemberDTO {
 	}
 	public void setId(int id) {
 		this.id = id;
+	}	
+	public String getAdmin() {
+		return admin;
+	}
+	public void setAdmin(String admin) {
+		this.admin = admin;
 	}
 	
 }

@@ -1,43 +1,69 @@
-﻿<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<div id='list-top'>
-	<form method="post" action="list.no">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
+<div id="notice" class="ui grid container">
+
+	<div class="four column row">
+		<div class="left floated column">
+			<h1>공지사항</h1>
+		</div>
+	</div>
+	<form method="post" action="/notice" class="four column row">
 		<input type='hidden' name='curPage' value='1' />
-		<ul>
-			<li><select name='search'>
-					<option value='all' ${page.search eq 'all' ? 'selected' : ''}>전체</option>
-					<option value='title' ${page.search eq 'title' ? 'selected' : ''}>제목</option>
-					<option value='content' ${page.search eq 'content' ? 'selected' : ''}>내용</option>
-					<option value='writer' ${page.search eq 'writer' ? 'selected' : ''}>작성자</option>
-				</select>
-			</li>
-			<li><input type='text' name='keyword' value='${page.keyword}'/></li>
-			<li><a onclick="$('form').submit()">검색</a></li>
-		</ul>
-		<ul>
-<%-- 		<c:if test='${login_info.admin eq "Y" }'> --%>
-		<li><a href='create.no'>글쓰기</a></li>
-<%-- 		</c:if> --%>
-		</ul>
+		<div class="three wide column">
+			<select name='search' class="ui selection dropdown">
+				<option value='all' ${page.search eq 'all' ? 'selected' : ''}>전체</option>
+				<option value='title' ${page.search eq 'title' ? 'selected' : ''}>제목</option>
+				<option value='content'
+					${page.search eq 'content' ? 'selected' : ''}>내용</option>
+				<option value='writer' ${page.search eq 'writer' ? 'selected' : ''}>작성자</option>
+			</select>
+		</div>
+		<div class="ten wide column">
+			<div class="ui icon input action">
+				<input type='text' name='keyword' value='${page.keyword}' />
+				<button class="ui icon button" onclick="$('form').submit()">
+					<i class="search icon"></i>
+				</button>
+			</div>
+		</div>
+		<div class="three wide column">
+			<c:if test='${user.admin eq "y" }'>
+				<a class="ui button primary" href='notice/write'>글쓰기</a>
+			</c:if>
+		</div>
 	</form>
-</div>
+
+	<table class="ui single line table">
+	<thead>
+		<tr>
+			<th class='w-px60'>번호</th>
+			<th>제목</th>
+			<th class='w-px100'>작성자</th>
+			<th class='w-px120'>작성일자</th>
+		</tr>
+	</thead>
+	<tbody>
+		<c:forEach items="${page.list}" var="dto">
+			<tr>
+				<td>${dto.no }</td>
+				<td class='left'><c:forEach var='i' begin="1"
+						end='${dto.indent}'>
+			${i eq dto.indent ? "<img src='imgs/re.gif'/>" : "&nbsp;&nbsp;"}
+		</c:forEach> <c:set var='title'
+						value="<span class='search'>${page.keyword}</span>" /> <a
+					href='notice/detail?id=${dto.id}'>${fn:replace(dto.title, page.keyword, title)}</a></td>
+				<td>${dto.writer}</td>
+				<td>${dto.writedate}</td>
+			</tr>
+		</c:forEach>
+		</tbody>
+	</table>
+	<div class='btnSet'>
+		<jsp:include page="/WEB-INF/views/include/page.jsp" />
+	</div>
 </div>
 
-<table>
-<tr><th >번호</th><th>제목</th>
-	<th >작성자</th><th>작성일자</th>
-	<th>첨부파일</th>
-</tr>
-<c:forEach items="${page.list}" var="dto">
-<tr><td>${dto.no }</td>
-	<td class='left'>
-		<c:forEach var='i' begin="1" end='${dto.indent}'>
-			${i eq dto.indent ? "<img src='image/re.gif'/>" : "&nbsp;&nbsp;"}
-		</c:forEach>
-		<c:set var='title' value="<span class='search'>${page.keyword}</span>"/>
-		<a href='detail.no?id=${dto.id}'>${fn:replace(dto.title, page.keyword, title)}</a></td>
-	<td>${dto.name}</td>
-	<td>${dto.writedate}</td>
-	<td>${empty dto.filename ? '' : '<img class="file-img" src="image/attach.png"/>' }</td>
-</tr>
-</c:forEach>
-</table>
+</div>

@@ -1,5 +1,6 @@
 package controller;
 
+import java.net.http.HttpRequest;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import command.CommonService;
+import common.CommonService;
 import member.MemberDTO;
 import member.MemberServiceImpl;
 
@@ -45,9 +46,10 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/logout")
-	public String logout(HttpSession session) {
+	public String logout(HttpSession session, HttpServletRequest req) {
 		session.removeAttribute("user");
-		return "redirect:/";
+		String referer = req.getHeader("referer");
+		return "redirect:" + referer;
 	}
 	
 	

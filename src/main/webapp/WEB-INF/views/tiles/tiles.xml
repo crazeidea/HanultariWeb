@@ -15,9 +15,6 @@
 	<definition name="map" template="/WEB-INF/views/tiles/map.jsp">
 	</definition>
 	
-	<definition name="include" template="/WEB-INF/views/tiles/include.jsp">
-	</definition>
-	
 	<definition name="parkingPanorama" template="/WEB-INF/views/tiles/parkingpanorama.jsp">
 	</definition>
 
@@ -28,21 +25,17 @@
 	<definition name="Android/*" extends="parkingPanorama">
 		<put-attribute name="content" value="/WEB-INF/views/Android/getParkingPanorama.jsp"/>
 	</definition>
-	
-	<definition name="parkingdetail" extends="include">
-		<put-attribute name="content" value="/WEB-INF/views/includes/parkingdetail.jsp"/>
-	</definition>
 
 	<definition name="member/*" extends="singlepage">
 		<put-attribute name="content" value="/WEB-INF/views/member/{1}.jsp"/>
 	</definition>
 	
-	<definition name="*/*" extends="layout">
-		<put-attribute name="content" value='/WEB-INF/views/{1}/{2}.jsp'/>
-	</definition>
-	
 	<definition name="*" extends="layout">
 		<put-attribute name="content" value='/WEB-INF/views/{1}.jsp'/>
+	</definition>
+	
+	<definition name="*/*" extends="layout">
+		<put-attribute name="content" value='/WEB-INF/views/{1}/{2}.jsp'/>
 	</definition>
 	
 	

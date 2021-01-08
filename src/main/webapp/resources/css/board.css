@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+#notice.wrapper {
+	display: grid;
+	place-items: center;
+}
+
+.board-content {
+	width: 60%;
+}
