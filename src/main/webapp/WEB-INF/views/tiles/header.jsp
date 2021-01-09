@@ -1,7 +1,43 @@
-﻿<span class='logo' onclick='location.href="/"'> 대따 </span>
-<div class="header-nav">
-    <a href='/about'>대따 소개</a>
-    <a href='/list.no'>공지사항</a>
-    <a href='/list.cs'>고객센터</a>
-    <div id='circle-profile'></div>
+﻿<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<div class="ui container">
+	<div class="ui massive secondary menu">
+		<div class="item">
+			<span onclick='location.href="/"' class="ui text huge logo">대따</span>
+		</div>
+		<div class="right menu">
+			<a href="/about" class="item">대따소개</a> <a href="/notice" class="item">공지사항</a>
+			<div class="ui simple dropdown item">
+				고객센터 <i class="dropdown icon"></i>
+				<div class="menu">
+					<a class="item" href="/ticket/faq">FAQ</a>
+					<a class="item"	href="/ticket/submit">1:1 문의</a>
+					<a class="item" href="/ticket/log">내 1:1 문의</a>
+					<c:if test="${user.admin eq 'y'}">
+					<a class="item" href="/ticket/list">문의 관리</a>
+					</c:if>
+				</div>
+			</div>
+			<div class="ui simple dropdown item">
+				<c:if test="${empty user}">
+				로그인
+				<i class="dropdown icon"></i>
+					<div class="menu">
+						<a class="item" href="/login">로그인</a>
+						<div class="item">Choice 2</div>
+						<div class="item">Choice 3</div>
+					</div>
+				</c:if>
+				<c:if test="${not empty user}"> 
+				${user.nickname} 
+				<i class="dropdown icon"></i>
+					<div class="menu">
+						<a class="item" href="/account">계정 설정</a> <a class="item"
+							href="/logout">로그아웃</a>
+						<div class="item">Choice 2</div>
+						<div class="item">Choice 3</div>
+					</div>
+				</c:if>
+			</div>
+		</div>
+	</div>
 </div>

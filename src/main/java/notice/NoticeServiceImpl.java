@@ -5,41 +5,37 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class NoticeServiceImpl implements NoticeService {
-	@Autowired private NoticeDAO dao;
 
+	@Autowired NoticeDAO dao;
+	
 	@Override
-	public void notice_insert(NoticeDTO dto) {
-		dao.notice_insert(dto);
+	public void noticeInsert(NoticeDTO dto) {
+		dao.noticeInsert(dto);
 	}
 
 	@Override
-	public void notice_reply_insert(NoticeDTO dto) {
-		dao.notice_reply_insert(dto);
+	public NoticePage noticeList(NoticePage page) {
+		return dao.noticeList(page);
+	}
+
+	public NoticeDTO noticeDetail(int id) {
+		return dao.noticeDetail(id);
+		
 	}
 
 	@Override
-	public NoticePage notice_list(NoticePage page) {
-		return dao.notice_list(page);
+	public void noticeRead(int id) {
+		dao.noticeRead(id);		
 	}
 
 	@Override
-	public NoticeDTO notice_detail(int id) {
-		return dao.notice_detail(id);
+	public void noticeDelete(int id) {
+		dao.noticeDelete(id);		
 	}
 
 	@Override
-	public void notice_read(int id) {
-		dao.notice_read(id);
-	}
-
-	@Override
-	public void notice_update(NoticeDTO dto) {
-		dao.notice_update(dto);
-	}
-
-	@Override
-	public void notice_delete(int id) {
-		dao.notice_delete(id);
+	public void noticeUpdate(NoticeDTO dto) {
+		dao.noticeUpdate(dto);		
 	}
 
 }

@@ -28,7 +28,6 @@
 	onclick="if( confirm('정말 삭제?') ){ href='delete?id=${dto.id}' }">삭제</a>
 	</c:if>
 </div>
-
 </div>
 </div>
 

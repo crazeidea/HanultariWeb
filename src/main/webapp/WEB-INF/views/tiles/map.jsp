@@ -9,14 +9,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
 <script src='https://code.jquery.com/jquery-3.5.1.min.js'></script>
 <link rel="preconnect" href="https://fonts.gstatic.com">
-<link rel="stylesheet" type="text/css" href="css/style.css?v=<%=new java.util.Date().getTime()%>">
-<script type="text/javascript" src="script/script_new.js"></script>
+<link rel="stylesheet" type="text/css" href="css/index.css?v=<%=new java.util.Date().getTime()%>">
+<script type="text/javascript" src="script/script.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.8.7/semantic.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.8.7/semantic.min.js"></script>
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=zz60pls79j&submodules=geocoder,panorama"></script>
 <script type="text/javascript" src="script/function.js"></script>
 <script type="text/javascript" src="script/GeoTrans.js"></script>
-<script src="https://unpkg.com/@popperjs/core@2"></script>
-<script src="https://unpkg.com/tippy.js@6"></script>
-<link rel="stylesheet" href="https://unpkg.com/tippy.js@6/themes/light.css"/>
 </head>
 <body>
 <tiles:insertAttribute name="content"/>

@@ -1,8 +1,8 @@
-package notice;
+package ticket;
 
 import java.sql.Date;
 
-public class NoticeDTO {
+public class TicketDTO {
 	private int no, id, readcnt, root, step, indent;
 	private String title, content, writer, name, filename, filepath;
 	private Date writedate;

@@ -24,8 +24,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.JsonParser;
 
-import command.CommonCommand;
-import command.SearchLocation;
+import common.CommonCommand;
+import common.SearchLocation;
 import parking.LatlngVO;
 import parking.ParkingServiceImpl;
 import parking.ParkingVO;

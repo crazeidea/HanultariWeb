@@ -1,13 +1,10 @@
 /* 뱃지 출력 */
 function setBadge(paid) { 
-    var data = "<div id='badge-set'>";
     if (paid == true) {
-      data += "<span class='badge bg-secondary'>유료</span>";
+      var data = "유료";
     } else {
-      data += "<span class='badge bg-primary'>무료</span>";
-    }
-    data += "</div>"
-  
+      var data = "무료";
+    }  
     return data;
   }
   
