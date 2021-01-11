@@ -18,4 +18,16 @@
 	SELECT ID, NAME, LAT, LNG FROM PARKING WHERE NAME LIKE '%'||#{query}||'%' AND UTL_MATCH.edit_distance_similarity(NAME, #{query}) > 0 <![CDATA[ AND ROWNUM <= 5]]> 
 </select>
 
+<select id="getfavorite" resultType="parking.ParkingVO">
+	SELECT PARKING_ID FROM FAVORITE WHERE ACC_ID = #{id} ORDER BY ADDED_DATE ASC
+</select>
+
+<select id="checkfavorite" resultType="Integer">
+	SELECT * FROM FAVORITE WHERE MEMBER_ID = #{memberid ,jdbcType=INTEGER} AND PARKING_ID = #{parkingid ,jdbcType=INTEGER}
+</select>
+
+<insert id="insertfavorite">
+	INSERT INTO FAVORITE (MEMBER_ID, PARKING_ID, ADDED_DATE) VALUES ( #{memberid ,jdbcType=INTEGER}, #{parkingid ,jdbcType=INTEGER}, SYSDATE)
+</insert>
+
 </mapper>

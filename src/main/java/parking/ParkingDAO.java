@@ -1,5 +1,6 @@
 package parking;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -34,6 +35,4 @@ public class ParkingDAO implements ParkingService {
 		return sql.selectList("parking.mapper.searchparking", query);
 	}
 
-
-	
 }

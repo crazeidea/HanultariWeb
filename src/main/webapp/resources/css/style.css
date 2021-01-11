@@ -7,6 +7,21 @@
   src: url("../resources/font/vitrocore.woff") format("woff");
 }
 
+* {
+	margin: 0;
+	padding: 0;
+}
+
+:root {
+  --primary : #5b86e5;
+  --secondary : #36d1dc;
+  --red : #ff463c;
+  --pink : #FF8CE6;
+  --green : #4CB759;
+  --black : #2b2b2b;
+  --yellow : #ff9b3c;
+}
+
 .logo {
 	font-family : 'vitro';
 }

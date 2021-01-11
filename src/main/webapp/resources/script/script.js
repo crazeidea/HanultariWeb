@@ -1,4 +1,5 @@
 var markerList = [];
+var currentLocation;
 
 $(document).ready(function () {
 
@@ -10,9 +11,8 @@ $(document).ready(function () {
   });
 
     infowindow = new naver.maps.InfoWindow();
-  var currentLocation;
-
-  function onSuccessGeolocation(position) {
+    
+    function onSuccessGeolocation(position) {
     var location = new naver.maps.LatLng(
       position.coords.latitude,
       position.coords.longitude
@@ -105,11 +105,15 @@ $(document).ready(function () {
                 success: function (response) {
                   var distance = getDistance(currentLocation.lat(), currentLocation.lng(), marker.position.lat(), marker.position.lng());
                   var info = "<div id='infowindow' class='ui column grid'>"
+                           + "<div class='ui row'>"
+                           if(response.paid == true) {
+                           info += "<div class='ui label large teal'>유료<a class='detail'>" + formatDistance(distance) + "</a>" + "</div>";
+                           } else if (response.paid == false) {
+                           info += "<div class='ui label large primary'>무료<a class='detail'>" + formatDistance(distance) + "</a>" + "</div>"; 
+                           }
+                           info += "</div>"
                            + "<div class='ui row'>" 
-                           + "<div class='ui label large primary'>" + setBadge(response.paid) + "<a class='detail'>" + formatDistance(distance) + "</a>" + "</div>"
-                           + "</div>"
-                           + "<div class='ui row'>" 
-						   + "<div class='ui column'>"
+						               + "<div class='ui column'>"
                            + "<span class='ui text big' style='font-weight:700'>" + response.name + "</span></br>"
                            + "<span class='ui text big' style='font-weight:700'>지금 <span class='ui text primary'>" + (response.total - response.parked) + "</span>자리 남았어요.</h3>"
                            + "</div>"
@@ -139,37 +143,49 @@ $(document).ready(function () {
         showQuery(query);
     });
 
+    /* 검색 결과 상하 버튼 입력 시 선택 */
+    var currentTabIndex = 0;
+    $(document).on("keyup", function(e) {
+      var code = e.which;
+      console.log(code + ", " + currentTabIndex);
+      if (code == 40 || code == 39) { $(".searchitem[tabindex=" + (currentTabIndex + 1) + "]").focus(); currentTabIndex++; };
+      if (code == 38 || code == 37) { $(".searchitem[tabindex=" + (currentTabIndex - 1) + "]").focus(); currentTabIndex--; };
+    })
+
+
     /* 장소 검색 결과 클릭 */
     var searchmarker = new naver.maps.Marker({
         position: null,
         map : map,
         animation : naver.maps.Animation.BOUNCE
     });
-    $(document).on('click', '#locationSearchResult .searchitem', function() {
-        $('input#query').val($(this).text());
-        let lat = $(this).attr('data-lat');
-        let lng = $(this).attr('data-lng');
-        searchmarker.setPosition(new naver.maps.LatLng(lat, lng));
-        // map.setZoom(16);
-        map.panTo(new naver.maps.LatLng(lat, lng));
-        let name = $(this).html();
-        let info = "<div id='infowindow'><div>"
-        + "<h2 style='margin-bottom:10px; text-align:center'>" + name + "</h2>"
-        + "<button class='ui button primary' onclick='showParkingNearby(" + lat + ", " + lng +")'>주변 주차장 검색</button>"
-        + "</div>";
-
-        let infowindow = new naver.maps.InfoWindow({
-            borderColor : "transparent",
-            backgroundColor : "transparent",
-            content : info
-        })
-        
-        infowindow.open(map, searchmarker);
-        naver.maps.Event.addListener(searchmarker, "click", function(){
-            map.panTo(new naver.maps.LatLng(lat, lng));
-            infowindow.open(map, searchmarker);
-        })
-        $('#searchresult').css('display', 'none');
+    $(document).on('click keypress', '#locationSearchResult .searchitem', function(e) {
+		if(e.which == 13) {
+	        $('input#query').val($(this).text());
+	        let lat = $(this).attr('data-lat');
+	        let lng = $(this).attr('data-lng');
+	        searchmarker.setPosition(new naver.maps.LatLng(lat, lng));
+	        // map.setZoom(16);
+	        map.panTo(new naver.maps.LatLng(lat, lng));
+	        let name = $(this).html();
+	        let info = "<div id='infowindow'><div>"
+	        + "<h2 style='margin-bottom:10px; text-align:center'>" + name + "</h2>"
+	        + "<button class='ui button primary' onclick='showParkingNearby(" + lat + ", " + lng +")'>주변 주차장 검색</button>"
+	        + "</div>";
+	
+	        let infowindow = new naver.maps.InfoWindow({
+	            borderColor : "transparent",
+	            backgroundColor : "transparent",
+	            content : info
+	        })
+	        
+	        infowindow.open(map, searchmarker);
+	        naver.maps.Event.addListener(searchmarker, "click", function(){
+	            map.panTo(new naver.maps.LatLng(lat, lng));
+	            infowindow.open(map, searchmarker);
+	        })
+	        $('#searchresult').css('display', 'none');
+		}
     })
 
     /* 주차장 검색 결과 클릭 */

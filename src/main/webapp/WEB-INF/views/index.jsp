@@ -28,13 +28,14 @@
     <span id="dong"></span>
 </div>
 
-<div id="menuicon" class="ui icon top left pointing primary dropdown button" style="position: absolute; top: 10px; right: 10px;">
+<div id="menuicon" tabindex="-1" class="ui icon top left pointing primary dropdown button" style="position: absolute; top: 10px; right: 10px;">
   <i class="user alternate icon"></i>
   <div class="menu">
 	<div class="header">대따</div>
 	<div class="ui divider"></div>
 	<c:if test="${empty user}">
   		<div class="item" onclick="location.href='/login'">로그인</div>
+  		<div class="item" onclick="location.href='/signup'">회원가입</div>
   	</c:if>
   	<c:if test="${not empty user}">
   		<div class="item" onclick="location.href='/logout'">로그아웃</div>
@@ -48,10 +49,9 @@
 	        </div>
 	      </div>
     	</div>
-  		
-
-    
-    <div class="item">Comfortable</div>
+    <c:if test="${not empty user}">
+      <div class="item" onclick="showFav(${user.id});">즐겨찾기</div>
+    </c:if>
     <div class="item">Cozy</div>
     <div class="item">Compact</div>
     <div class="ui divider"></div>
