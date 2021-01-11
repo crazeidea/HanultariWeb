@@ -36,7 +36,7 @@ public class MemberController {
 	};
 	
 	@ResponseBody @RequestMapping("/login/execute")
-	public boolean login(String email, String pw, HttpServletRequest request, HttpSession session) {
+	public boolean login(String email, String pw, HttpSession session) {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("email", email);
 		map.put("pw", pw);		

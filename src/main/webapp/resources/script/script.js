@@ -106,7 +106,7 @@ $(document).ready(function () {
                   var distance = getDistance(currentLocation.lat(), currentLocation.lng(), marker.position.lat(), marker.position.lng());
                   var info = "<div id='infowindow' class='ui column grid'>"
                            + "<div class='ui row'>" 
-                           + "<div class='ui label large primary'>" + setBadge(response.paid) + "<a class='detail'>" + distance + "</a>" + "</div>"
+                           + "<div class='ui label large primary'>" + setBadge(response.paid) + "<a class='detail'>" + formatDistance(distance) + "</a>" + "</div>"
                            + "</div>"
                            + "<div class='ui row'>" 
 						   + "<div class='ui column'>"
@@ -114,7 +114,7 @@ $(document).ready(function () {
                            + "<span class='ui text big' style='font-weight:700'>지금 <span class='ui text primary'>" + (response.total - response.parked) + "</span>자리 남았어요.</h3>"
                            + "</div>"
 						   + "</div>"
-                           + "<button class='ui button fluid primary' onclick='showInfo(" + marker.id + "," + marker.position.lat()+ "," + marker.position.lng() + ")'>상세정보</button>"
+                           + "<button class='ui button primary' onclick='showInfo(" + marker.id + "," + marker.position.lat()+ "," + marker.position.lng() + ")'>상세정보</button>"
                            + "</div>";
                   infowindow.setContent(info);
                 }
@@ -155,7 +155,7 @@ $(document).ready(function () {
         let name = $(this).html();
         let info = "<div id='infowindow'><div>"
         + "<h2 style='margin-bottom:10px; text-align:center'>" + name + "</h2>"
-        + "<button class='ui button fluid primary' onclick='showParkingNearby(" + lat + ", " + lng +")'>주변 주차장 검색</button>"
+        + "<button class='ui button primary' onclick='showParkingNearby(" + lat + ", " + lng +")'>주변 주차장 검색</button>"
         + "</div>";
 
         let infowindow = new naver.maps.InfoWindow({

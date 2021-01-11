@@ -1,6 +1,6 @@
 ﻿<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div id="map" style="width: 100vw; height: 100vh" class="clearfix"></div>
-<div style="font-family:'vitro'; font-size:3rem; position: absolute; top:10px; left: 10px; color: var(--black);">대따</div>
+<div class="logo" style="font-size: 3em; position: absolute; top:30px; left: 10px; color: var(--black);">대따</div>
 
 <div id="nav" class="shadow closed">
     <div id="navContent">
@@ -28,8 +28,8 @@
     <span id="dong"></span>
 </div>
 
-<div id="menuicon" class="ui icon top left pointing dropdown button">
-  <i class="wrench icon"></i>
+<div id="menuicon" class="ui icon top left pointing primary dropdown button" style="position: absolute; top: 10px; right: 10px;">
+  <i class="user alternate icon"></i>
   <div class="menu">
 	<div class="header">대따</div>
 	<div class="ui divider"></div>
