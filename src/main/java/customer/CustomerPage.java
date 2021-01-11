@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import command.PageDTO;
+import common.PageDTO;
 
 @Component
 public class CustomerPage extends PageDTO{
