@@ -71,7 +71,6 @@
                     + "<div id='favButton' class='ui button right' onclick='toggleFav(" + response.id +")' tabindex='0'>"
 	                  + "<i class='star icon'></i>즐겨찾기"
 	                  + "</div>"
-                    + "<button class='ui toggle button'>Vote</button>"
             		+ "</div>"
 					+ "<div>"
 	                  + "<div id='pano' style='width:400px; height:200px'></div>"
@@ -115,8 +114,6 @@
               pano.setPov(lookAtPov);
             }
           });
-  
-          setFavState(id);
           if ($('#nav').hasClass('closed')) toggleNav();
         }
   
@@ -258,7 +255,6 @@
                           + "</div>";
 
               $('#itemlist').append(html);
-              setFavState(id);
             }
 
           });
@@ -274,17 +270,15 @@
       function toggleFav(id) {
         $("#favButton").toggleClass("yellow");
         $.ajax({
-          type: "POST",
+          type: "GET",
           url: "/checkFavorite?id=" + id,
-          success: function (response) {
-
-            console.log(response);
-
+          success: function (response, status, xhr) {
             if(response) {
               $.ajax({
                 type: "POST",
                 url: "/insertFavorite?id=" + id,
-                success: function (response) {
+                done: function (response) {
+                  setFavState(id);
                   $('body').toast({
                         class: 'success',
                         position: 'bottom right',
@@ -298,6 +292,7 @@
                   type: "POST",
                   url: "/deleteFavorite?id=" + id,
                   success: function (response) {
+                    setFavState(id);
                     $('body').toast({
                       class: 'warning',
                       position: 'bottom right',
@@ -358,8 +353,7 @@
             $("#itemlist").append(html);
                       
           }
-            
-          }
+        }        
         });
       }
 

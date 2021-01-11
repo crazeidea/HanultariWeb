@@ -14,24 +14,32 @@
     </div>
   </div>
   <div class="right-section">
-    <h1>회원가입</h1>
-    <div class="signup-form">
-      <form id="signup" method="post" action="signup/execute">
-        <p style="font-weight: 700">이메일</p>
-        <input type="text" id="email" name="email" required />
-        <p style="font-weight: 700">비밀번호</p>
-        <input type="password" id="pw" name="pw" required />
-        <p style="font-weight: 700">비밀번호 확인</p>
-        <input type="password" id="pw-check" required />
-        <p style="font-weight: 700">이름</p>
-        <input type="text" id="name" name="name" required />
-        <p style="font-weight: 700">전화번호</p>
-        <input type="text" id="tel" name="tel" onkeypress="if(event.keyCode==13){signup()}" required />
-        <div class="btn bg-primary shadow" onclick="signup()">회원가입</div>
-        <div class="btn bg-white shadow" onclick="history.go(-1)">취소</div>
+      <form class="ui form container" method="post" action="signup/execute">
+	    <h1>회원가입</h1>
+        <div class='field'>
+          <label>이메일</label>
+          <input type="text" id="email" name="email" required />
+        </div>
+        <div class="field">
+          <label>비밀번호</label>
+          <input type="password" id="pw" name="pw" required />
+        </div>
+        <div class="field">
+          <label>비밀번호 확인</label>
+          <input type="password" id="pw-check" required />
+        </div>
+        <div class="field">
+        	<label>이름</label>
+        	<input type="text" id="name" name="name" required />
+        </div>
+        <div class="field">
+        	<label>전화번호</label>
+        	<input type="text" id="tel" name="tel" onkeypress="if(event.keyCode==13){signup()}" required />
+        </div>
+        <button class="ui button primary" onclick="signup()">회원가입</button>
+        <button class="ui button" onclick="history.go(-1)">취소</button>
       </form>
     </div>
-  </div>
 </div>
 <script>
   tippy.setDefaultProps({ placement: "left" });
