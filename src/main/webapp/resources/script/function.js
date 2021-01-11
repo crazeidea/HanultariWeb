@@ -24,6 +24,16 @@ function setBadge(paid) {
     return Math.round(distance * 1000)
   }
   
+  /* 거리를 km, m 단위로 출력 */
+  function formatDistance(distance) {
+	if (distance > 1000) {
+		var result = Number(distance/1000).toFixed(1);
+		return result + "km";
+	} else {
+		return distance.toString() + "m";
+	}
+}
+  
   
   /* 지도 중심점 -> 지번주소 */
   function coordsToAddr(latlng) {

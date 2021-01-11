@@ -15,7 +15,7 @@
     </div >
 <div class="wrapper">
 <span class="logo" onclick="location.href = '/'">대따</span>
-        <form id="login" method="POST" action="login/execute" class="ui large form">
+        <form id="login" class="ui large form">
         	<div class="ui stacked segment">
         		<div class="ui field">
 	            	<h1>주차장을 찾는 <br/> 새로운 경험</h1>
@@ -36,12 +36,13 @@
 	            </div>
 	            
 	            <button class="ui primary button fluid large" onclick="login()">로그인</div>
+          	</form>
 	            <div class="ui message">
 	            <h4>회원이 아니신가요?</h4>
 	            <button class="ui primary button fluid large" onclick="location.href = '/signup'">회원가입</div>
 	            </div>
 	            
-        	</form>
+
     	</div>
     </div>
 
@@ -52,37 +53,45 @@
     const idinstance = document.getElementById('email');
     idinstance._tippy.disable();
 
-    function login() {    
+    function login() {
+        var idcheck, pwcheck;    
         if($('#email').val() == "" ) {
             tippy('#email', {
                 content: '❗ 이메일을 입력하세요.'
             });
             $('#email').focus();
             return;
+        } else {
+			idcheck = true;
         }
 
         if($('#pw').val() == "" ) {
-         tippy('#pw', {
-             content: '❗ 비밀번호를 입력하세요.'
-         });
-         $('#pw').focus();
-         return;
+			tippy('#pw', {
+			    content: '❗ 비밀번호를 입력하세요.'
+			});
+			$('#pw').focus();
+			return;
+        } else {
+			pwcheck = true;
         }
 
-        $.ajax({
-        type: "POST",
-        url: "login/execute",
-        data: {email: $('#email').val(), pw: $('#pw').val()},
-        success: function (response) {
-            if(response == true) {
-            	location.href = document.referrer; 
-            } else {
-                idinstance._tippy.enable();
-                idinstance._tippy.show();
-            }
-            
+        if (idcheck && pwcheck) {
+	        $.ajax({
+	        type: "GET",
+	        url: "login/execute",
+	        data: {email: $('#email').val(), pw: $('#pw').val()},
+	        success: function (response) {
+	            console.log(response);
+	            if(response == true) {
+	            	location.href = document.referrer; 
+	            } else if (response == false) {
+	                idinstance._tippy.enable();
+	                idinstance._tippy.show();
+	            }
+	            
+	        	}
+	   		 });
         }
-    });
     }
 
 </script>
