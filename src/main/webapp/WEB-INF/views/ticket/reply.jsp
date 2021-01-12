@@ -9,9 +9,9 @@
 <body>
 <h3>답글쓰기</h3>
 <form method="post" enctype='multipart/form-data' action='reply_insert.no'>
-<input type='hidden' name='root' value='${vo.root}'/>
-<input type='hidden' name='step' value='${vo.step}'/>
-<input type='hidden' name='indent' value='${vo.indent}'/>
+<input type='hidden' name='root' value='${dto.root}'/>
+<input type='hidden' name='step' value='${dto.step}'/>
+<input type='hidden' name='indent' value='${dto.indent}'/>
 <table>
 <tr><th class='w-px150'>제목</th>
 	<td><input type='text' name='title' class='mandatory' title='제목' /></td>
@@ -35,7 +35,7 @@
 </form>
 <div class='btnSet'>
 	<a class='btn-fill' onclick='if( necessary() ){ $("form").submit() }'>저장</a>
-	<a class='btn-empty' href='detail.no?id=${vo.id}'>취소</a>
+	<a class='btn-empty' href='detail.no?id=${dto.id}'>취소</a>
 </div>
 
 <script type="text/javascript" src='js/file_attach.js'></script>

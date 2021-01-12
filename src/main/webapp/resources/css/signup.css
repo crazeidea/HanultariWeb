@@ -55,13 +55,3 @@ form#signup {
 		background-position: 0% 50%;
 	}
 }
-
-#year {
-	display: inline-block;
-	width: 70px;
-}
-
-#month, #day {
-	display: inline-block;
-	width: 50px;
-}
