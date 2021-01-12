@@ -26,14 +26,14 @@ public class MemberController {
 		if (service.member_join(dto) == 1) {
 			common.htmlSend(dto.getEmail(), dto.getName(), session);
 		};
-		
-		return "redirect:/welcome";
+		session.setAttribute("user", dto);
+		return "redirect:/";
 	};
 	
-	@RequestMapping("/welcome")
-	public String welcome() {
-		return "member/welcome";
-	};
+	@ResponseBody @RequestMapping("/checkEmail")
+	public boolean checkEmail(String email) {
+		return service.checkEmail(email);
+	}
 	
 	@ResponseBody @RequestMapping("/login/execute")
 	public boolean login(String email, String pw, HttpSession session) {

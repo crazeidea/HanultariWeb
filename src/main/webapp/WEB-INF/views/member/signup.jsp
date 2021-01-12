@@ -1,136 +1,222 @@
-﻿<div class="wrapper">
-  <div class="left-section">
+﻿<div class="ui grid" style="place-items:center;">
+  <div id="right" class="eight wide column">
+    <div class='ripple-background' style="height:100vh">
+      <div class='circle xxlarge shade1'></div>
+      <div class='circle xlarge shade2'></div>
+      <div class='circle large shade3'></div>
+      <div class='circle mediun shade4'></div>
+      <div class='circle small shade5'></div>
     <span
       class="logo"
       style="font-family: 'vitro'; font-size: 2.4em; color: white"
       onclick="location.href = '/'"
       >대따</span
     >
-    <div>
+    <div class="title">
       <h1 style="color: white; font-size: 5rem">
         주차장을 찾는 <br />
         새로운 경험
       </h1>
     </div>
   </div>
-  <div class="right-section">
-      <form class="ui form container" method="post" action="signup/execute">
+</div>
+
+  <div class="eight wide column centered grid">
+      <form id="signup" class="ui form huge" method="post" action="signup/execute" style="width:400px; margin: 0 auto;">
 	    <h1>회원가입</h1>
         <div class='field'>
           <label>이메일</label>
-          <input type="text" id="email" name="email" required />
+          <input type="text" id="email" name="email" />
+          <button type="button" class="ui button primary" onclick="checkEmail()">중복확인</button>
         </div>
         <div class="field">
           <label>비밀번호</label>
-          <input type="password" id="pw" name="pw" required />
+          <input type="password" id="pw" name="pw" />
         </div>
         <div class="field">
           <label>비밀번호 확인</label>
-          <input type="password" id="pw-check" required />
+          <input type="password" id="pw-check" />
         </div>
         <div class="field">
         	<label>이름</label>
-        	<input type="text" id="name" name="name" required />
+        	<input type="text" id="name" name="name" />
         </div>
         <div class="field">
         	<label>전화번호</label>
-        	<input type="text" id="tel" name="tel" onkeypress="if(event.keyCode==13){signup()}" required />
+        	<input type="text" id="tel" name="tel" onkeypress="if(event.keyCode==13){signup()}" />
         </div>
-        <button class="ui button primary" onclick="signup()">회원가입</button>
-        <button class="ui button" onclick="history.go(-1)">취소</button>
+        <button type="button" class="ui button primary" onclick="signup()">회원가입</button>
+        <button type="button" class="ui button" onclick="history.go(-1)">취소</button>
       </form>
     </div>
 </div>
 <script>
-  tippy.setDefaultProps({ placement: "left" });
 
-  tippy('#email', {
-    content: '❗ 올바르지 않은 이메일 입니다.',
-    trigger: 'manual'
+  $("#email").on('change keyup', function(){
+    $("#email").removeClass('valid');
   })
-	const emailinstance = document.getElementById('email');
-  $("#email").on("keyup", function () {
-    var emailregexp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-    if (emailregexp.test($("#email").val()) == false) {
-      
-    	emailinstance._tippy.show();
-    } else {
-    	emailinstance._tippy.hide();
+
+  function checkEmail() {
+    var email = $('#email').val();
+    $.ajax({
+      type: "GET",
+      url: "/checkEmail?email=" + email,
+      success: function (response) {
+        console.log(response);
+        if(response == true || email == "") {
+          $('body').toast({class: 'error', message: `입력하신 이메일을 사용할 수 없습니다.`});
+          $("#email").removeClass('valid');
+        } else if (response == false) {
+          $('body').toast({class: 'success', message: `입력하신 이메일을 사용할 수 있습니다.`});
+          $('#email').addClass('valid');
         }
-  });
-
-  tippy('#pw', {
-    content: '❗ 비밀번호는 숫자와 특수기호를 포함해야 합니다.',
-    trigger: 'manual'
-  })
-  const pwinstance = document.getElementById('pw');
-
-  $('#pw').on('keyup', function(){
-    var pwregexp = /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,50}$/;
-    if (pwregexp.test($('#pw').val()) == false) {
-      pwinstance._tippy.show();
-    } else {
-      pwinstance._tippy.hide();
-    }
-  })
-
-  tippy('#tel', {
-    content : '❗ 올바르지 않은 전화번호 입니다.',
-    trigger: 'manual'
-  })
-  const telinstance = document.getElementById('tel');
-
-  $('#tel').on('keyup', function() {
-    var telregexp = /^\d{3}\d{3,4}\d{4}$/;
-	console.log(telregexp.test($('#tel').val()));
-    if (telregexp.test($('#tel').val()) == false) {
-      telinstance._tippy.show();
-    } else {
-      telinstance._tippy.hide();
-    }
-  })
+      }
+    });
+  }
 
   function signup() {
-    if ($("#email").val() == "") {
-      tippy("#email", {
-        content: "❗ 이메일을 입력하세요.",
-      });
-      $("#email").focus();
-      return;
-    }
-
-    if ($("#pw").val() == "") {
-      tippy("#pw", {
-        content: "❗ 비밀번호를 입력하세요.",
-      });
-      $("#pw").focus();
-      return;
-    }
-
-    if ($("#pw-check").val() == "" || $("#pw").val() != $("#pw-check").val()) {
-      tippy("#pw-check", {
-        content: "❗ 입력한 비밀번호와 동일한 비밀번호를 입력하세요.",
-      });
-      $("#pw-check").focus();
-      return;
-    }
-
-    if ($("#name").val() == "") {
-      tippy("#name", {
-        content: "❗ 이름을 입력하세요",
-      });
-      $("#name").focus();
-      return;
-    }
-
-    if ($("#tel").val() == "") {
-      tippy("#tel", {
-        content: "❗ 휴대전화번호를 입력하세요",
-      });
-      $("#tel").focus();
-      return;
-    }
-
-    $("#signup").submit();
+      if ($("#email").val() == "") {
+        $('#email').popup({content : '이메일을 입력하세요', on:'manual', position:'left center'});
+        $('#email').popup('show');
+        $('#email').focus();
+        return;
+      }
+      if (!$("#email").hasClass('valid')) {
+        $('#email').popup({content : '이메일 중복확인을 해주세요.', on:'manual', position:'left center'});
+        $('#email').popup('show');
+        $('#email').focus();
+        return;
+      }
+      if ($("#pw").val() == "") {
+        $('#pw').popup({content : '비밀번호를 입력하세요', on:'manual', position:'left center'});
+        $('#pw').popup('show');
+        $('#pw').focus();
+        return;
+      }
+      if ($("#pw-check").val() == "" || $("#pw-check").val() != $("#pw").val()) {
+        $('#pw-check').popup({content : '비밀번호가 일치하지 않습니다.', on:'manual', position:'left center'});
+        $('#pw-check').popup('show');
+        $('#pw-check').focus();
+        return;
+      }
+      if ($("#name").val() == "") {
+        $('#name').popup({content : '이름을 입력하세요', on:'manual', position:'left center'});
+        $('#name').popup('show');
+        $('#name').focus();
+        return;
+      }
+      if ($("#tel").val() == "") {
+        $('#tel').popup({content : '휴대전화번호를 입력하세요', on:'manual', position:'left center'});
+        $('#tel').popup('show');
+        $('#tel').focus();
+        return;
+      }
+      $("#signup").submit();
   }
 </script>
+<style>
+
+#right{
+  background: #3399ff;
+}
+
+
+.circle{
+  position: absolute;
+  border-radius: 50%;
+  background: white;
+  animation: ripple 15s infinite;
+  box-shadow: 0px 0px 1px 0px #508fb9;
+}
+
+.small{
+  width: 200px;
+  height: 200px;
+  left: -100px;
+  bottom: -100px;
+}
+
+.medium{
+  width: 400px;
+  height: 400px;
+  left: -200px;
+  bottom: -200px;
+}
+
+.large{
+  width: 600px;
+  height: 600px;
+  left: -300px;
+  bottom: -300px;
+}
+
+.xlarge{
+  width: 800px;
+  height: 800px;
+  left: -400px;
+  bottom: -400px;
+}
+
+.xxlarge{
+  width: 1000px;
+  height: 1000px;
+  left: -500px;
+  bottom: -500px;
+}
+
+.shade1{
+  opacity: 0.2;
+}
+.shade2{
+  opacity: 0.5;
+}
+
+.shade3{
+  opacity: 0.7;
+}
+
+.shade4{
+  opacity: 0.8;
+}
+
+.shade5{
+  opacity: 0.9;
+}
+
+.logo {
+    font-family: 'vitro';
+    font-size: 2.4em;
+    color: white;
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    cursor: pointer;
+}
+
+.title {
+    position: absolute;
+    top: 41%;
+    left: 40%;
+}
+
+	#right {
+	overflow:hidden;
+	padding: 0.5em;
+	
+	}
+
+@keyframes ripple{
+  0%{
+    transform: scale(0.8);
+  }
+  
+  50%{
+    transform: scale(1.2);
+  }
+  
+  100%{
+    transform: scale(0.8);
+  }
+}
+
+</style>

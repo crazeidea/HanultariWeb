@@ -2,10 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member.mapper">
 
-	<select id="id_check" resultType="integer">
-		select count(*) from member where id = #{id}
-	</select>
-	
 	<select id="login" resultType="member.MemberDTO">
 		SELECT * FROM MEMBER WHERE EMAIL = #{email ,jdbcType=VARCHAR} AND PW = #{pw ,jdbcType=VARCHAR}
 	</select>
@@ -15,5 +11,9 @@
 	INSERT INTO MEMBER (ID, EMAIL, PW, NAME, TEL)
 	VALUES(ID_SEQ.nextval, #{email ,jdbcType=VARCHAR}, #{pw ,jdbcType=VARCHAR}, #{name ,jdbcType=VARCHAR}, #{tel ,jdbcType=VARCHAR})
 	</insert>
+	
+	<select id="checkemail" resultType="integer">
+		SELECT * FROM MEMBER WHERE EMAIL = #{email}
+	</select>
 	
 </mapper>

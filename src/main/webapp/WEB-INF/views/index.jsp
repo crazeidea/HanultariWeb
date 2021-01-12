@@ -39,29 +39,21 @@
   	</c:if>
   	<c:if test="${not empty user}">
   		<div class="item" onclick="location.href='/logout'">로그아웃</div>
-  	</c:if> 
-  		<div class="item">
-	      <i class="dropdown icon"></i>
-	      <span class="text">설정</span>
-	      <div class="menu">
-	        <div class="item">
-	          Convert Uploaded Files to PDF
-	        </div>
-	      </div>
-    	</div>
+  	</c:if>
+    <div class="ui divider"></div>
     <c:if test="${not empty user}">
       <div class="item" onclick="showFav(${user.id});">즐겨찾기</div>
     </c:if>
-    <div class="item">Cozy</div>
-    <div class="item">Compact</div>
-    <div class="ui divider"></div>
-    <div class="item">Settings</div>
-    
-    <div class="item">Manage Apps</div>
-    <div class="item">Keyboard Shortcuts</div>
-    <div class="item">Help</div>
+    <div class="item" onclick="location.href='/notice'">공지사항</div>
+    <div class="item" onclick="location.href='/faq'">자주 묻는 질문</div>
   </div>
 </div>
+<c:if test="${not empty user}">
+	<input type="hidden" value="1" id="islogined">
+</c:if>
+<c:if test="${empty user} }">
+	<input type="hidden" value="0" id="islogined">
+</c:if>
 <script>
 $('.ui.dropdown')
   .dropdown()

@@ -35,14 +35,14 @@ public class WebController {
 	//로그인화면 호출
 	@RequestMapping("/login")
 	public String login(HttpSession session) {
-		session.setAttribute("page", "login");
+		session.setAttribute("title", "로그인");
 		return "member/login";
 	}
 	
 	//회원가입화면 요청
 	@RequestMapping("/signup")
 	public String sign_up(HttpSession session) {
-		session.setAttribute("page", "signup");
+		session.setAttribute("title", "회원가입");
 		return "member/signup";
 	}
 	

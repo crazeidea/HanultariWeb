@@ -9,11 +9,13 @@
 			<div class="ui simple dropdown item">
 				고객센터 <i class="dropdown icon"></i>
 				<div class="menu">
-					<a class="item" href="/ticket/faq">FAQ</a>
-					<a class="item"	href="/ticket/submit">1:1 문의</a>
-					<a class="item" href="/ticket/log">내 1:1 문의</a>
+					<a class="item" href="/ticket/faq">자주 묻는 질문</a>
+					<c:if test="${not empty user}">
+						<a class="item"	href="/ticket/submit">1:1 문의</a>
+						<a class="item" href="/ticket/log">내 1:1 문의</a>
+					</c:if>
 					<c:if test="${user.admin eq 'y'}">
-					<a class="item" href="/ticket/list">문의 관리</a>
+						<a class="item" href="/ticket/list">문의 관리</a>
 					</c:if>
 				</div>
 			</div>
@@ -23,18 +25,15 @@
 				<i class="dropdown icon"></i>
 					<div class="menu">
 						<a class="item" href="/login">로그인</a>
-						<div class="item">Choice 2</div>
-						<div class="item">Choice 3</div>
+						<a class="item" href="/signup">회원가입</a>
 					</div>
 				</c:if>
 				<c:if test="${not empty user}"> 
 				${user.nickname} 
 				<i class="dropdown icon"></i>
 					<div class="menu">
-						<a class="item" href="/account">계정 설정</a> <a class="item"
-							href="/logout">로그아웃</a>
-						<div class="item">Choice 2</div>
-						<div class="item">Choice 3</div>
+						<a class="item" href="/account">계정 설정</a> 
+						<a class="item" href="/logout">로그아웃</a>
 					</div>
 				</c:if>
 			</div>

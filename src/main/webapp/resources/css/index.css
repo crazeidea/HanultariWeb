@@ -44,6 +44,7 @@
 #navContent {
   display: grid;
   grid-template-rows: auto;
+  overflow-y: scroll;
 }
 
 #itemlist {
@@ -225,8 +226,8 @@ input#query:focus {
   background-color: white;
 }
 
-#infowindow > * {
-  margin-bottom: 0.4em;
+#infowindow > div {
+  margin-bottom: 1.2em;
 }
 
 #badge-set {

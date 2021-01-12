@@ -59,5 +59,9 @@ public class MemberDAO implements MemberService{
 		return 0;
 	}
 
+	public boolean checkEmail(String email) {
+		return (Integer)sql.selectOne("member.mapper.checkemail", email) != null ? true : false;
+	}
+
 
 }
