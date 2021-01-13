@@ -66,7 +66,7 @@ public class DataController {
 			if (array.size() > 0) {
 				for (int i = 0; i < array.size(); i++) {
 					JSONObject object = (JSONObject) array.get(i);
-					if (String.valueOf(object.get("address")).contains("광주"))
+					if (String.valueOf(object.get("address")).contains("광주광역시"))
 						result.add(object);
 				}
 			}
