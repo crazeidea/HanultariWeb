@@ -1,14 +1,4 @@
-/* 뱃지 출력 */
-function setBadge(paid) { 
-    if (paid == true) {
-      var data = "유료";
-    } else {
-      var data = "무료";
-    }  
-    return data;
-  }
-  
-  /* 현재 위치와 특정 위치간의 거리 계산하여 m 단위로 출력 */
+/* 현재 위치와 특정 위치간의 거리 계산하여 m 단위로 출력 */
   function getDistance(slat, slng, dlat, dlng) {
     function deg2rad(deg) {return deg * Math.PI / 180.0;}
     function rad2deg(rad) {return rad * 180.0 / Math.PI;}
@@ -72,32 +62,43 @@ function setBadge(paid) {
   function showInfo(id, lat, lng) {
     map.panTo(new naver.maps.LatLng(lat, lng));
     infowindow.close();
+    rcinfo.close();
+
+    console.log($(this));
+    
     $.ajax({
       type: "GET",
       url: "/getSingleParkingData?id=" + id,
       success: function (response) {
-        var html = "<div><h1>" + response.name + "</h1>"
-                    + "<div id='pano' style='width:400px; height:200px'></div></div>"
-                    + "<div><h2>주차장 정보</h2>"
-                    + "<h3>지금 " + (response.total - response.parked) + "대 주차할 수 있어요.</h3>"
-                    + "<div id='layoutwrapper'></div>"
+        var html = "<div style='margin-bottom:1em'>"
+                     +"<span class='ui text large' style='font-weight: 700; margin-right:1rem;'>" + response.name + "</span>";
+                     if($("#islogined").val() == 1) {
+                      html += "<div id='favButton' class='ui button right' onclick='toggleFav(" + response.id +")' tabindex='0'>"
+	                           + "<i class='star icon'></i>즐겨찾기"
+	                           + "</div>"
+                             + "</div>";
+                     }
+      html += "<div>"
+	                  + "<div id='pano' style='width:400px; height:200px'></div>"
+					          + "</div>"
+                    + "<h2 class='ui header'>지금 " + (response.total - response.parked) + "대 주차할 수 있어요.</h2>"
+                    + "<div id='layoutwrapper'></div>";
                     if(response.paid == 0) {
-                        html = html + "<span class='content'>이용요금 무료</span>";
+                      html = html + "<h3 class='ui header'>이용요금 무료</h3>";
                     } else {
-                    html = html + "<span class='content'>기본요금 " + response.fare + "원</span>"
-                    + "<span class='subcontent''> 추가요금 " + response.added_fare + "원 / "
-                    + response.duration_interval + "분"
-                    + "</span>";
-                    }                    
-                    if (response.payment_cash == 1) html = html + "<span>현금결제</span>";
-                    if (response.payment_card == 1) html = html + "<span>카드결제</span>";
-                    if(response.payment_machine == 1) html = html + "<span>무인계산기</span>";
-                    html = html + "</div>";
-
+                      html = html + "<h4 class='ui header'><span class='ui text large' style='font-weight:700'>기본요금 " + response.fare + "원</span>"
+                      + "<span class='ui text medium' style='font-weight:700'> 추가요금 " + response.added_fare + "원 / "
+                      + response.duration_interval + "분"
+                      + "</span></h4>";
+                    }
+                    html += "<div class='ui labels blue'>"
+                    if (response.payment_cash == 1) html = html + "<div class='ui label '><i class='money bill icon'></i>현금 결제</div>";
+                    if (response.payment_card == 1) html = html + "<div class='ui label '><i class='credit card outline icon'></i>카드결제</div>";
+                    if(response.payment_machine == 1) html = html + "<div class='ui label '><i class='cash register icon'></i>무인계산기</div>";
                     html = html 
-                            + "<div><h3>운영시간</h3><span class='content'>" + response.start_time.substr(0, 2) + ":" + response.start_time.substr(2,2) + " ~ " + response.end_time.substr(0, 2) + ":" + response.end_time.substr(2, 2) + "</span>"
-                            + "<h3>주소</h3><div style='display:grid; grid-template-rows:repeat(2, 1fr);'><span class='content'>" + response.addr + "</span><span class='subcontent'>" + response.prev_addr + "</span></div> "
-                            + "<h3>관리자</h3><div style='display:grid; grid-template-rows:repeat(2, 1fr);'><span class='content'>" + response.manager + "</span><span class='subcontent'>" + response.contact + "</span></div> "
+                            + "</div><div style='margin-top:2em;'><h2  class='ui header'>운영시간</h2><span class='ui text large' style='font-weight:700;' >" + response.start_time.substr(0, 2) + ":" + response.start_time.substr(2,2) + " ~ " + response.end_time.substr(0, 2) + ":" + response.end_time.substr(2, 2) + "</span>"
+                            + "<h2  class='ui header'>주소</h2><div style='display:grid; grid-template-rows:repeat(2, 1fr);'><h3 class='ui header'>" + response.addr + "</h3><span class='ui text medium' style='font-weight:400;' >" + response.prev_addr + "</span></div> "
+                            + "<h2  class='ui header'>관리자</h2><div style='display:grid; grid-template-rows:repeat(2, 1fr);'><h3 class='ui header'>" + response.manager + "</h3><span class='ui text medium' style='font-weight:400;' >" + response.contact + "</span></div> "
                             + "</div>";
                     $('#navContent').html(html);
                     showParkingLayout(response.layout);
@@ -106,43 +107,30 @@ function setBadge(paid) {
             position : new naver.maps.LatLng(lat, lng),
           });
 
-        var panomarker = new naver.maps.Marker({
-          position: new naver.maps.Marker(lat, lng)
-        })
-
-          naver.maps.Event.addListener(pano, "init", function() {
-            panomarker.setMap(pano);
-  
-            var proj = pano.getProjection();
-            var lookAtPov = proj.fromCoordsToPov(panomarker.getPosition());
-            if (lookAtPov) {
-              pano.setPov(lookAtPov);
-            }
-          });
-  
-
+		      setFavState(id);
           if ($('#nav').hasClass('closed')) toggleNav();
-        }
-  
+          
+        }  
       })
     };
   
     
     /* 검색 결과 표시 */
     function showQuery(query) {
-      if($("#searchresult").css('display') == 'none') $("#searchresult").css('display', 'grid');
       if($("input#query").val().length > 0) {
+       
       $.ajax({
         type : "GET",
         url: "/searchLocation?query=" + query,
         success: function (response) {
+          if($("#searchresult").css('display') == 'none') $("#searchresult").css('display', 'grid');
             $("#locationSearchResult").html("").append("<h5>장소</h5>")
             if(response.length > 2) {
             for(let i = 0; i < response.length ; i++) {
                 let latlng = naver.maps.TransCoord.fromTM128ToLatLng(new naver.maps.Point(response[i].mapx, response[i].mapy));
                 let lat = latlng.lat();
                 let lng = latlng.lng();
-                var result = "<div class='searchitem' data-lat='" + lat + "' data-lng='" + lng + "'>" + response[i].title + "</div>";
+                var result = "<div class='searchitem place' tabindex='" + (i + 1) + "' data-lat='" + lat + "' data-lng='" + lng + "'>" + response[i].title + "</div>";
                 $("#locationSearchResult").append(result);
           }  
         } else {
@@ -161,7 +149,7 @@ function setBadge(paid) {
               if (response.length > 1) {
               $("#parkingSearchResult").html("").append("<h5>주차장</h5>")
               for(let j = 0; j < response.length; j++) {
-                  var result = "<div class='searchitem' data-id='" + response[j].id + "' data-lat='" + response[j].lat + "'data-lng='" + response[j].lng + "'>" + queryToBold(query, response[j].name) + "</div>";
+                  var result = "<div class='searchitem parking' tabindex='" + (j + 6) + "' data-id='" + response[j].id + "' data-lat='" + response[j].lat + "'data-lng='" + response[j].lng + "'>" + queryToBold(query, response[j].name) + "</div>";
                   $("#parkingSearchResult").append(result);
               }
             } else {
@@ -185,7 +173,6 @@ function setBadge(paid) {
     }
 
     function showParkingLayout(layout){
-      console.log("showParkingLayout()");
         let wrapper = $('#layoutwrapper');
         let seatcount = 1;
         if(layout != null) {
@@ -218,7 +205,7 @@ function setBadge(paid) {
       function showParkingNearby(lat, lng) {
         if($('#nav').hasClass('closed')) toggleNav();
         $('#navContent').html("");
-        $('#navContent').append("<div id='parkingnearby'></div>");
+        $('#navContent').append("<div id='itemlist'></div>");
         let slat = lat;
         let slng = lng;
         let resultList = [];
@@ -237,9 +224,9 @@ function setBadge(paid) {
           return a.distance - b.distance;
         });
 
-        $('#parkingnearby').append("<span>주변 주차장</span>");
-        $('#parkingnearby').append("<span style='float: right'>" + resultList.length + "개의 주차장</span>");
-      
+        $('#itemlist').append("<span class='ui text large' style='font-weight: 700;'>주변 주차장</span>");
+        $('#itemlist').append("<span class='ui text medium' style='float: right'>" + resultList.length + "개의 주차장</span>");
+        if(resultList.length > 0) {
         for(let i = 0; i < resultList.length; i++) {
           let id = resultList[i].id;
           $.ajax({
@@ -250,18 +237,134 @@ function setBadge(paid) {
               let name = response.name;
               let distance = getDistance(slat, slng, response.lat, response.lng);
               let addr = response.addr;
-              let badge = "";
-              if(paid == 0) badge = "<span class='badge bg-primary'>무료</span>";
-              else badge = "<span class='badge bg-secondary'>유료</span>";
 
-              let html = "<div class='parkingnearbyitem' onclick='showInfo(" + id + ", " + response.lat + "," + response.lng + ")'>"
-                          + badge
-                          + "<h4>" + name + "</h4>"
+              let html = "<div class='item' onclick='showInfo(" + id + ", " + response.lat + "," + response.lng + ")'>";
+              if($("#islogined").val() == 1) html += "<button id='favButton' class='circular ui right floated icon button yellow' onclick='toggleFav('" + id + "')><i class='star icon'></i></button>";
+                          if(paid == true ) {
+                            html += "<div class='ui label large teal'>유료<a class='detail'>" + formatDistance(distance) + "</a>" + "</div>";
+                          } else if (paid == false) {
+                            html += "<div class='ui label large primary'>무료<a class='detail'>" + formatDistance(distance) + "</a>" + "</div>";
+                          }
+                          html += "<h4>" + name + "</h4>"
                           + "<p>검색 장소로부터 " + distance + "m </p>"
                           + "</div>";
 
-              $('#parkingnearby').append(html);
+              $('#itemlist').append(html);
             }
+
           });
         }
+      } else {
+        let html = "<div style='display: grid; place-items: center; height:100%;'>"
+                        + "<h2 class='ui header'>주변에 가까운 주차장이 없습니다.</h2>"
+                        + "</div>";
+        $("#itemlist").append(html);
+      }
+    }
+
+      function toggleFav(id) {
+        $("#favButton").toggleClass("yellow");
+        $.ajax({
+          type: "GET",
+          url: "/checkFavorite?id=" + id,
+          success: function (response, status, xhr) {
+            if(response) {
+              $.ajax({
+                type: "POST",
+                url: "/insertFavorite?id=" + id,
+                success: function (response) {
+                  setFavState(id);
+                  $('body').toast({
+                        class: 'success',
+                        position: 'bottom right',
+                        message: '즐겨찾기에 추가되었습니다.'
+                  });
+                }
+              });
+
+            } else if (!response) {
+                $.ajax({
+                  type: "POST",
+                  url: "/deleteFavorite?id=" + id,
+                  success: function (response) {
+                    setFavState(id);
+                    $('body').toast({
+                      class: 'warning',
+                      position: 'bottom right',
+                      message: '즐겨찾기에서 제거되었습니다.'
+                    });
+                  }
+                });
+            }
+          }
+        });
+      }
+
+      function showFav(id) {
+        if($('#nav').hasClass('closed')) toggleNav();
+        $("#navContent").html("");
+        $("#navContent").append("<div id='itemlist'></div>");
+
+        $.ajax({
+          type: "GET",
+          url: "/getFavorite?id=" + id,
+          success: function (response) {
+            console.log(response);
+            var result = [];
+            for (let i = 0; i < response.length ; i++) {
+              result.push(response[i]);
+            }
+            if (response.length > 0) {
+            for (let i = 0; i < result.length; i++) {
+              let id = result[i].parking_id;
+              
+              $.ajax({
+                type: "GET",
+                url: "/getSingleParkingData?id=" + id,
+                success: function (response) {
+                  let paid = response.paid;
+                  let name = response.name;
+                  let distance = getDistance(currentLocation.y, currentLocation.x, response.lat, response.lng);
+                  let addr = response.addr;
+                  let html = "<div class='item' onclick='showInfo(" + id + ", " + response.lat + "," + response.lng + ")'>"
+                              + "<button class='circular right floated ui icon button yellow' onclick='toggleFav('" + id + "')><i class='star icon'></i></button>";
+                  if(paid == true ) {
+                    html += "<div class='ui label large teal'>유료<a class='detail'>" + formatDistance(distance) + "</a>" + "</div>";
+                  } else if (paid == false) {
+                    html += "<div class='ui label large primary'>무료<a class='detail'>" + formatDistance(distance) + "</a>" + "</div>";
+                  }
+                  html += "<h4>" + name + "</h4>"
+                  + "<p>" + addr + "</p>"
+                  + "</div>";
+
+                  $("#itemlist").append(html);
+                }
+              });
+            }
+          } else {
+            let html = "<div style='display: grid; place-items: center; height:100%;'>"
+                        + "<h2 class='ui header'>등록된 즐겨찾기가 없습니다.</h2>"
+                        + "</div>";
+            $("#itemlist").append(html);
+                      
+          }
+        }        
+        });
+      }
+
+      function setFavState(id) {
+          $.ajax({
+            type: "GET",
+            url: "/checkFavorite?id=" + id,
+            success: function (response) {
+              console.log(response);
+              if(response) {
+                $("#favButton").removeClass("yellow");
+              } else {
+                $("#favButton").addClass("yellow");
+              }
+            }
+          });
+
+
       }

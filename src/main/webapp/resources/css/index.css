@@ -1,22 +1,7 @@
 @charset "UTF-8";
 
-@font-face {
-  font-family: "vitro";
-  src: url("../resources/font/vitrocore.woff") format("woff");
-}
+@import url('/css/style.css');
 
-.logo {
-	font-family : 'vitro';
-}
-
-* {
-	margin: 0;
-	padding: 0;
-}
-
-h1, h2, h3, h4, h5, h6, span, p {
-  font-family: 'Noto Sans KR'!important;
-}
 
 /* 지도 화면*/
 
@@ -28,13 +13,15 @@ h1, h2, h3, h4, h5, h6, span, p {
   position: absolute;
   top: 90px;
   left: 10px;
-  min-width: 400px;
-  max-width: 400px;
+  min-width: 450px;
   padding: 20px;
   height: calc(100vh - 160px);
   border-radius: 40px;
   transition: left 300ms ease-in-out;
-  overflow:scroll;
+}
+
+*::-webkit-scrollbar {
+  display: none;
 }
 
 #nav.closed {
@@ -43,14 +30,13 @@ h1, h2, h3, h4, h5, h6, span, p {
 
 #navClose {
   position: absolute;
-  width: 10px;
   height: 30px;
   top: calc(50% - 30px);
   left: 0px;
   background-color: white;
   padding: 5px;
   cursor: pointer;
-  color: var(--primary-color);
+  color: var(--primary);
   font-size:1.2em;
   transition: left 300ms ease-in-out;
 }
@@ -58,21 +44,21 @@ h1, h2, h3, h4, h5, h6, span, p {
 #navContent {
   display: grid;
   grid-template-rows: auto;
+  overflow-y: scroll;
 }
 
-#parkingnearby {
-  overflow: scroll;
-  
+#itemlist {
+  overflow-y: scroll;  
 }
 
-#parkingnearby .parkingnearbyitem {
+#itemlist .item {
 	margin: 15px 5px;
 	padding: 10px;
 	border-radius: 20px;
     cursor: pointer;
     transition: box-shadow 300ms ease-in;
 }
-#parkingnearby .parkingnearbyitem:hover {
+#itemlist .item:hover {
 	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 	
 }
@@ -90,8 +76,8 @@ h1, h2, h3, h4, h5, h6, span, p {
   width: 100%;
   height: 100%;
 }
-.seat.normal {background-color: var(--primary-color); cursor: pointer;}
-.seat.disabled {background-color: var(--secondary-color); cursor: pointer;}
+.seat.normal {background-color: var(--primary); cursor: pointer;}
+.seat.disabled {background-color: var(--secondary); cursor: pointer;}
 .seat.woman {background-color: var(--pink); cursor: pointer;}
 .seat.na{background-color: #B5B5B5; cursor: pointer;};
 .seat.road {cursor: default;}
@@ -203,7 +189,7 @@ input#query:focus {
 }
 
 .searchitem:hover, .searchitem:focus {
-  background-color: var(--primary-color);
+  background-color: var(--primary);
   opacity: 0.8;
   color: white;
 }
@@ -240,8 +226,8 @@ input#query:focus {
   background-color: white;
 }
 
-#infowindow > * {
-  margin-bottom: 0.4em;
+#infowindow > div {
+  margin-bottom: 1.2em;
 }
 
 #badge-set {

@@ -1,5 +1,6 @@
 package parking;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.json.simple.JSONObject;
@@ -33,6 +34,7 @@ public class ParkingServiceImpl implements ParkingService{
 		
 		return dao.searchParking(query);
 	}
+
 	
 	
 

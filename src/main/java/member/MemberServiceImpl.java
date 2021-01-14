@@ -58,5 +58,10 @@ public class MemberServiceImpl implements MemberService{
 		return 0;
 	}
 
+	public boolean checkEmail(String email) {
+		return dao.checkEmail(email);
+		
+	}
+
 	
 }

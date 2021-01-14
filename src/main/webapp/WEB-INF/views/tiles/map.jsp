@@ -16,6 +16,8 @@
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=zz60pls79j&submodules=geocoder,panorama"></script>
 <script type="text/javascript" src="script/function.js"></script>
 <script type="text/javascript" src="script/GeoTrans.js"></script>
+<script src="https://unpkg.com/@popperjs/core@2"></script>
+<script src="https://unpkg.com/tippy.js@6"></script>
 </head>
 <body>
 <tiles:insertAttribute name="content"/>

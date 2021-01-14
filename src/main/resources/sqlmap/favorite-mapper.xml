@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="favorite.mapper">
+
+<select id="check" resultType="favorite.FavoriteDTO">
+	SELECT * FROM FAVORITE WHERE MEMBER_ID = #{memberid ,jdbcType=INTEGER} AND PARKING_ID = #{parkingid ,jdbcType=INTEGER}
+</select>
+
+<insert id="insert">
+	INSERT INTO FAVORITE VALUES (#{memberid ,jdbcType=INTEGER}, #{parkingid ,jdbcType=INTEGER}, SYSDATE)
+</insert>
+
+<delete id="delete">
+	DELETE FROM FAVORITE WHERE MEMBER_ID = #{memberid} AND PARKING_ID = #{parkingid}
+</delete>
+
+<select id="get" resultType="favorite.FavoriteDTO">
+	SELECT * FROM FAVORITE WHERE MEMBER_ID = #{id ,jdbcType=INTEGER}
+</select>
+
+</mapper>

@@ -3,10 +3,12 @@ package controller;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
@@ -26,6 +28,7 @@ import com.google.gson.JsonParser;
 
 import common.CommonCommand;
 import common.SearchLocation;
+import member.MemberDTO;
 import parking.LatlngVO;
 import parking.ParkingServiceImpl;
 import parking.ParkingVO;
@@ -63,7 +66,7 @@ public class DataController {
 			if (array.size() > 0) {
 				for (int i = 0; i < array.size(); i++) {
 					JSONObject object = (JSONObject) array.get(i);
-					if (String.valueOf(object.get("address")).contains("광주"))
+					if (String.valueOf(object.get("address")).contains("광주광역시"))
 						result.add(object);
 				}
 			}
@@ -74,11 +77,12 @@ public class DataController {
 		return result;
 		}
 	}
-
-	@ResponseBody
-	@RequestMapping("/searchParking")
+	
+	@ResponseBody @RequestMapping("/searchParking")
 	public List<ParkingVO> searchParking(String query, Model model) throws ParseException {
 		return service.searchParking(query);
 	}
+	
+
 
 }

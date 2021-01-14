@@ -1,4 +1,5 @@
 var markerList = [];
+var currentLocation;
 
 $(document).ready(function () {
 
@@ -10,9 +11,8 @@ $(document).ready(function () {
   });
 
     infowindow = new naver.maps.InfoWindow();
-  var currentLocation;
-
-  function onSuccessGeolocation(position) {
+    
+    function onSuccessGeolocation(position) {
     var location = new naver.maps.LatLng(
       position.coords.latitude,
       position.coords.longitude
@@ -50,7 +50,6 @@ $(document).ready(function () {
     };
   
     /* 마커 데이터 수신 및 클릭 이벤트 등록 */
-
     $.ajax({
       type: "GET",
       url: "/getMarkerData",
@@ -104,34 +103,26 @@ $(document).ready(function () {
                 url: "/getSingleParkingData?id=" + marker.id,
                 success: function (response) {
                   var distance = getDistance(currentLocation.lat(), currentLocation.lng(), marker.position.lat(), marker.position.lng());
-                  var info = "<div id='infowindow' class='ui column grid'>"
-                           + "<div class='ui row'>" 
-                           + "<div class='ui label large primary'>" + setBadge(response.paid) + "<a class='detail'>" + formatDistance(distance) + "</a>" + "</div>"
-                           + "</div>"
-                           + "<div class='ui row'>" 
-						   + "<div class='ui column'>"
-                           + "<span class='ui text big' style='font-weight:700'>" + response.name + "</span></br>"
-                           + "<span class='ui text big' style='font-weight:700'>지금 <span class='ui text primary'>" + (response.total - response.parked) + "</span>자리 남았어요.</h3>"
-                           + "</div>"
-						   + "</div>"
-                           + "<button class='ui button primary' onclick='showInfo(" + marker.id + "," + marker.position.lat()+ "," + marker.position.lng() + ")'>상세정보</button>"
-                           + "</div>";
+                  var info = "<div id='infowindow'>"
+                           if(response.paid == true) {
+                           info += "<div><div class='ui label large teal'>유료<a class='detail'>" + formatDistance(distance) + "</a>" + "</div></div>";
+                           } else if (response.paid == false) {
+                           info += "<div><div class='ui label large primary'>무료<a class='detail'>" + formatDistance(distance) + "</a>" + "</div></div>"; 
+                           }
+                           info += "<div><span class='ui text big' style='font-weight:700'>" + response.name + "</span></br></div>"
+                                  + "<div><span class='ui text big' style='font-weight:700'>지금 <span class='ui text primary'>" + (response.total - response.parked) + "</span>자리 남았어요.</h3></div>"
+                                  + "<div style='display:grid; place-items:center'><button class='ui button primary' style='margin:0 auto' onclick='showInfo(" + marker.id + "," + marker.position.lat()+ "," + marker.position.lng() + ")'>상세정보</button></div>"
+                                  + "</div>";
                   infowindow.setContent(info);
                 }
               });
               infowindow.open(map, marker);
-              map.panTo(marker.position);
             });
           });
       },
     }); // 마커 데이터 수신 및 클릭 이벤트 등록
 
-    /* 현재 지도 위치 주소 출력 */
-    naver.maps.Event.addListener(map, "bounds_changed", function(bounds) {
-        var latlng = map.getCenter();
-        coordsToAddr(latlng);
-        infowindow.close();
-    });
+ 
 
      /* 검색창 입력 시 지역정보 출력 */
     $("input#query").on("keyup", function (e) {     
@@ -139,41 +130,51 @@ $(document).ready(function () {
         showQuery(query);
     });
 
+    /* 검색 결과 상하 버튼 입력 시 선택 */
+    var currentTabIndex = 0;
+    $(document).on("keyup", function(e) {
+      var code = e.which;
+      console.log(code + ", " + currentTabIndex);
+      if (code == 40 || code == 39) { $(".searchitem[tabindex=" + (currentTabIndex + 1) + "]").focus(); currentTabIndex++; };
+      if (code == 38 || code == 37) { $(".searchitem[tabindex=" + (currentTabIndex - 1) + "]").focus(); currentTabIndex--; };
+    })
+
+
     /* 장소 검색 결과 클릭 */
     var searchmarker = new naver.maps.Marker({
         position: null,
         map : map,
         animation : naver.maps.Animation.BOUNCE
     });
-    $(document).on('click', '#locationSearchResult .searchitem', function() {
-        $('input#query').val($(this).text());
-        let lat = $(this).attr('data-lat');
-        let lng = $(this).attr('data-lng');
-        searchmarker.setPosition(new naver.maps.LatLng(lat, lng));
-        // map.setZoom(16);
-        map.panTo(new naver.maps.LatLng(lat, lng));
-        let name = $(this).html();
-        let info = "<div id='infowindow'><div>"
-        + "<h2 style='margin-bottom:10px; text-align:center'>" + name + "</h2>"
-        + "<button class='ui button primary' onclick='showParkingNearby(" + lat + ", " + lng +")'>주변 주차장 검색</button>"
-        + "</div>";
-
-        let infowindow = new naver.maps.InfoWindow({
-            borderColor : "transparent",
-            backgroundColor : "transparent",
-            content : info
-        })
-        
-        infowindow.open(map, searchmarker);
-        naver.maps.Event.addListener(searchmarker, "click", function(){
-            map.panTo(new naver.maps.LatLng(lat, lng));
-            infowindow.open(map, searchmarker);
-        })
-        $('#searchresult').css('display', 'none');
+    $(document).on('click keypress', '.place', function(e) {
+	        $('input#query').val($(this).text());
+	        let lat = $(this).attr('data-lat');
+	        let lng = $(this).attr('data-lng');
+	        searchmarker.setPosition(new naver.maps.LatLng(lat, lng));
+	        // map.setZoom(16);
+	        map.panTo(new naver.maps.LatLng(lat, lng));
+	        let name = $(this).html();
+	        let info = "<div id='infowindow'><div>"
+	        + "<h2 style='margin-bottom:10px; text-align:center'>" + name + "</h2>"
+	        + "<button class='ui button primary' onclick='showParkingNearby(" + lat + ", " + lng +")'>주변 주차장 검색</button>"
+	        + "</div>";
+	
+	        let infowindow = new naver.maps.InfoWindow({
+	            borderColor : "transparent",
+	            backgroundColor : "transparent",
+	            content : info
+	        })
+	        
+	        infowindow.open(map, searchmarker);
+	        naver.maps.Event.addListener(searchmarker, "click", function(){
+	            map.panTo(new naver.maps.LatLng(lat, lng));
+	            infowindow.open(map, searchmarker);
+	        })
+	        $('#searchresult').css('display', 'none');
     })
 
     /* 주차장 검색 결과 클릭 */
-    $(document).on('click', '#parkingSearchResult .searchitem', function() {
+    $(document).on('click keypress', '.parking', function() {
         let id = $(this).attr('data-id');
         let lat = $(this).attr('data-lat');
         let lng = $(this).attr('data-lng');
@@ -182,9 +183,13 @@ $(document).ready(function () {
             type: "GET",
             url: "/getSingleParkingData?id=" + id,
             success: function (response) {
-              var info = "<div id='infowindow'><div>"
-                       + "" + setBadge(response.paid) + ""
-                       + "<span class='small'>현재 위치에서 " + getDistance(currentLocation.lat(), currentLocation.lng(), lat, lng) + "</span></div>"
+              var info = "<div id='infowindow'>";
+                          if(response.paid == true) {
+                            info += "<div><div class='ui label large teal'>유료<a class='detail'>" + formatDistance(distance) + "</a>" + "</div></div>";
+                            } else if (response.paid == false) {
+                            info += "<div><div class='ui label large primary'>무료<a class='detail'>" + formatDistance(distance) + "</a>" + "</div></div>"; 
+                            }
+                       + "<span class='small'>현재 위치에서 " + formatDistnace(getDistance(currentLocation.lat(), currentLocation.lng(), lat, lng)) + "</span></div>"
                        + "<h2 class='parkingname'>" + response.name + "</h2>"
                        + "<h3>지금 <span class='txt-primary'>" + (response.total - response.parked) + "</span>자리 남았어요.</h3>"
                        + "<button class='btn bg-primary full' onclick='showInfo(" + response.id + "," + $(this).attr('data-lat')+ "," + $(this).attr('data-lng') + ")'>상세정보</button>"
@@ -206,38 +211,49 @@ $(document).ready(function () {
 
     })
 
-    /* 검색 창 클릭 시 검색 결과 출력 */
+    /* 검색 상호작용 이벤트 */
+
+    /* 검색 창 클릭 시 */
     $('input#query').on('click', function(e) {
-        if($('#searchresult').css('display') == 'none') $('#searchresult').css('display', 'grid');
+        if($('#searchresult').css('display') == 'none') $('#searchresult').css('display', 'grid'); // 이전의 검색 결과 표시
     })
 
+    /* 검색 결과 클릭 시 */
     $('.searchitem').on('click', function(e){
         $('#searchresult').css('display', 'none');
-        rcinfo.close();
-        rcmarker.setMap(null);
+        rcinfo.close(); // 열려있던 정보 창 제거
+        rcmarker.setMap(null); // 표시된 마커 제거
     })
 
     /* 검색어 모두 삭제 시 검색 결과 창 숨김 */
     if ($('input#query').val() == "") $('#searchresult').css('display', 'none');
 
-    /* 좌측 메뉴 열기 / 숨기기 */
-    $("#navClose").on('click', function(e){
-        toggleNav();
+    /* 지도 상호작용 이벤트 */
+
+    /* 지도 클릭 시 */
+    naver.maps.Event.addListener(map, 'click', function() {
+      if($('#searchresult').css('display') == 'grid') $('#searchresult').css('display', 'none'); // 검색 결과 숨김
     })
 
+    /* 지도 스크롤 시 */
+      naver.maps.Event.addListener(map, "bounds_changed", function(bounds) {
+      var latlng = map.getCenter();
+      coordsToAddr(latlng); // 현재 위치 지번주소 출력
+      if($('#searchresult').css('display') == 'grid') $('#searchresult').css('display', 'none'); // 검색 결과 숨김
+    });
 
-    /* 지도 마우스 우클릭 시 Context Menu 팝업 */
+    /* 지도 우클릭 시 */
     rcmarker = new naver.maps.Marker({
         position : null,
         map : map
-    });
+    }); // 마커 초기화
     
     rcinfo = new naver.maps.InfoWindow({
       content : null,
       borderColor : "transparent",
       backgroundColor : "transparent"
-    })
-    
+    }) // 정보창 초기화
+
     naver.maps.Event.addListener(map, 'rightclick', function(e){
       naver.maps.Service.reverseGeocode({
         coords: e.latlng,
@@ -262,13 +278,18 @@ $(document).ready(function () {
       });
 
       var content = "<div id='infowindow'>"  
-                      + "<h3>" + addr + "</h3>"
-                      + "<div class='ui button primary center' onclick='showParkingNearby(" + e.latlng._lat + ", " + e.latlng._lng + ")'>주변 주차장 검색</div>"
+                      + "<h3 class='ui header'>" + addr + "</h3>"
+                      + "<div style='display:grid; place-items:center'><div class='ui button primary center' onclick='showParkingNearby(" + e.latlng._lat + ", " + e.latlng._lng + ")'>주변 주차장 검색</div></div>"
                       + "</div>";
       rcmarker.setPosition(e.latlng);
       rcinfo.setContent(content);
-	    rcinfo.open(map, rcmarker);
-	    map.panTo(e.latlng);
+	    rcinfo.open(map, rcmarker); // 클릭 지점 정보 출력
+	    map.panTo(e.latlng); // 클릭 지점 이동
+    })
+
+    /* 좌측 메뉴 열기 / 숨기기 */
+    $("#navClose").on('click', function(e){
+        toggleNav();
     })
 
     }); // window.onload

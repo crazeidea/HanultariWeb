@@ -28,40 +28,32 @@
     <span id="dong"></span>
 </div>
 
-<div id="menuicon" class="ui icon top left pointing primary dropdown button" style="position: absolute; top: 10px; right: 10px;">
+<div id="menuicon" tabindex="-1" class="ui icon top left pointing primary dropdown button" style="position: absolute; top: 10px; right: 10px;">
   <i class="user alternate icon"></i>
   <div class="menu">
 	<div class="header">대따</div>
 	<div class="ui divider"></div>
 	<c:if test="${empty user}">
   		<div class="item" onclick="location.href='/login'">로그인</div>
+  		<div class="item" onclick="location.href='/signup'">회원가입</div>
   	</c:if>
   	<c:if test="${not empty user}">
   		<div class="item" onclick="location.href='/logout'">로그아웃</div>
-  	</c:if> 
-  		<div class="item">
-	      <i class="dropdown icon"></i>
-	      <span class="text">설정</span>
-	      <div class="menu">
-	        <div class="item">
-	          Convert Uploaded Files to PDF
-	        </div>
-	      </div>
-    	</div>
-  		
-
-    
-    <div class="item">Comfortable</div>
-    <div class="item">Cozy</div>
-    <div class="item">Compact</div>
+  	</c:if>
     <div class="ui divider"></div>
-    <div class="item">Settings</div>
-    
-    <div class="item">Manage Apps</div>
-    <div class="item">Keyboard Shortcuts</div>
-    <div class="item">Help</div>
+    <c:if test="${not empty user}">
+      <div class="item" onclick="showFav(${user.id});">즐겨찾기</div>
+    </c:if>
+    <div class="item" onclick="location.href='/notice'">공지사항</div>
+    <div class="item" onclick="location.href='/faq'">자주 묻는 질문</div>
   </div>
 </div>
+<c:if test="${not empty user}">
+	<input type="hidden" value="1" id="islogined">
+</c:if>
+<c:if test="${empty user} }">
+	<input type="hidden" value="0" id="islogined">
+</c:if>
 <script>
 $('.ui.dropdown')
   .dropdown()
