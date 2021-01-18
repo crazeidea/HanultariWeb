@@ -35,6 +35,15 @@ public class FavoriteController {
 		return list.isEmpty() ? true : false;
 	}
 	
+	@ResponseBody @RequestMapping("/checkFavoriteAndroid")
+	public boolean checkFavoriteAndroid(Integer id, Integer userid) {
+		HashMap<String, Integer> map = new HashMap<>();
+		map.put("memberid", userid);
+		map.put("parkingid", id);
+		List<FavoriteDTO> list = service.checkFavorite(map);
+		return list.isEmpty() ? false : true;
+	}
+	
 	@ResponseBody @RequestMapping("/insertFavorite")
 	public void insertFavorite(Integer id, HttpSession session) {
 		HashMap<String, Integer> map = new HashMap<>();
@@ -45,12 +54,28 @@ public class FavoriteController {
 		service.insertFavorite(map);
 	}
 	
+	@ResponseBody @RequestMapping("/insertFavoriteAndroid")
+	public void insertFavoriteAndroid(Integer id, Integer userid) {
+		HashMap<String, Integer> map = new HashMap<>();
+		map.put("memberid", userid);
+		map.put("parkingid", id);
+		service.insertFavorite(map);
+	}
+	
 	@ResponseBody @RequestMapping("/deleteFavorite")
 	public void deleteFavorite(Integer id, HttpSession session) {
 		HashMap<String, Integer> map = new HashMap<>();
 		MemberDTO member = (MemberDTO) session.getAttribute("user");
 		Integer memberid = member.getId();
 		map.put("memberid", memberid);
+		map.put("parkingid", id);
+		service.deleteFavorite(map);
+	}
+	
+	@ResponseBody @RequestMapping("/deleteFavoriteAndroid")
+	public void deleteFavoriteAndroid(Integer id, Integer userid) {
+		HashMap<String, Integer> map = new HashMap<>();
+		map.put("memberid", userid);
 		map.put("parkingid", id);
 		service.deleteFavorite(map);
 	}

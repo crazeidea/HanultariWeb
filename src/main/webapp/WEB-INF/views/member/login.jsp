@@ -15,7 +15,7 @@
 	</ul>
 </div>
 <div style="display: grid; place-items:center; width:100vw; height:100vh;">	
-		<div class="ui large form" style='width:400px;'>
+		<div id="login" class="ui large form" style='width:400px;'>
 			<div class="ui stacked segment">
 				<div class="ui field">
 					<h1>
@@ -37,7 +37,7 @@
 							id="pw" name='pw' placeholder="" />
 					</div>
 				</div>
-				<button class="ui primary button fluid large" onclick="login()">로그인
+				<button type="button" id="btnLogin" class="ui primary button fluid large" onclick="login()">로그인</button>
 			</div>
 			<div class="ui message">
 				<h4>회원이 아니신가요?</h4>
@@ -48,6 +48,45 @@
 </div>
 
 <script type="text/javascript">
+
+    function login() {
+        let email = $("#email");
+        let pw = $("#pw");
+        let emailCheck = 0;
+        let pwCheck = 0;
+
+        if ($("#email").val() == "") {
+            $('#email').popup({content : '이메일을 입력하세요', on:'manual', position:'left center'});
+            $('#email').popup('show');
+            $('#email').focus();
+            return;
+        } else {
+            emailCheck = 1;
+        }
+
+      if ($("#pw").val() == "") {
+            $('#pw').popup({content : '비밀번호를 입력하세요', on:'manual', position:'left center'});
+            $('#pw').popup('show');
+            $('#pw').focus();
+            return;
+      } else {
+          pwCheck = 1;
+      }
+      
+      if(emailCheck == 1 || pwCheck == 1) {
+        $.ajax({
+            type: "POST",
+            url: "/login/execute?email=" + $("#email").val() + "&pw=" + $("#pw").val(),
+            success: function (response) {
+                if(response) location.href = document.referrer;
+                else {
+                        $("#btnLogin").popup({content : '이메일 또는 비밀번호가 올바르지 않습니다.', on:'manual', position:'top center'});
+                        $("#btnLogin").popup('show');
+                }
+            }
+        });
+        }
+    }
 	
 </script>
 <style>
