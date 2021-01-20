@@ -1,5 +1,5 @@
 ﻿<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<span class="logo" style="font-size:3em; position:absolute; top:30px; left: 10px;" onclick="location.href = '/'">대따</span>
+<span class="logo" style="font-size:3em; color:white; position:absolute; top:30px; left: 10px;" onclick="location.href = '/'">대따</span>
 <div class="area">
 	<ul class="circles">
 		<li></li>

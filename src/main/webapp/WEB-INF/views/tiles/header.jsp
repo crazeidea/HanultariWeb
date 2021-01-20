@@ -11,14 +11,16 @@
 				<div class="menu">
 					<a class="item" href="/ticket/faq">자주 묻는 질문</a>
 					<c:if test="${not empty user}">
-						<a class="item"	href="/ticket/submit">1:1 문의</a>
-						<a class="item" href="/ticket/log">내 1:1 문의</a>
+						<a class="item" href="/ticket/log">1:1 문의</a>
 					</c:if>
 					<c:if test="${user.admin eq 'y'}">
 						<a class="item" href="/ticket/list">문의 관리</a>
 					</c:if>
 				</div>
 			</div>
+			<c:if test="${user.admin eq 'y'}">
+			<a href="/manage" class="item">주차장 관리</a>
+			</c:if>
 			<div class="ui simple dropdown item">
 				<c:if test="${empty user}">
 				로그인
@@ -29,7 +31,7 @@
 					</div>
 				</c:if>
 				<c:if test="${not empty user}"> 
-				${user.nickname} 
+				${user.name} 
 				<i class="dropdown icon"></i>
 					<div class="menu">
 						<a class="item" href="/account">계정 설정</a> 

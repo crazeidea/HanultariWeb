@@ -35,6 +35,16 @@ public class ParkingServiceImpl implements ParkingService{
 		return dao.searchParking(query);
 	}
 
+	@Override
+	public List<ParkingVO> manageList() {
+		return dao.manageList();
+	}
+
+	public int manageUpdate(ParkingVO vo) {
+		return dao.manageUpdate(vo);
+	}
+
+
 	
 	
 

@@ -1,6 +1,7 @@
 package ticket;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,8 +17,8 @@ public class TicketServiceImpl implements TicketService {
 	}
 
 	@Override
-	public TicketPage ticketList(TicketPage page) {
-		return dao.ticketList(page);
+	public List<TicketDTO> ticketList() {
+		return dao.ticketList();
 	}
 
 	public TicketDTO ticketDetail(int id) {
@@ -41,8 +42,16 @@ public class TicketServiceImpl implements TicketService {
 	}
 
 	@Override
-	public TicketPage ticketLog(TicketPage page, String name) {
-		return dao.ticketLog(page, name);
+	public List<TicketDTO> ticketLog(String writer) {
+		return dao.ticketLog(writer);
+	}
+
+	public int ticketAnswer(TicketDTO dto) {
+		return dao.ticketAnswer(dto);		
+	}
+
+	public TicketDTO ticketGetAnswer(int id) {
+		return dao.ticketGetAnswer(id);
 	}
 
 }

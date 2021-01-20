@@ -20,15 +20,9 @@ public class NoticeController {
 	@Autowired NoticeServiceImpl service;
 	
 	@RequestMapping("/notice")
-	public String noticeList(HttpSession session, Model model,
-							@RequestParam(defaultValue = "") String search,
-							@RequestParam(defaultValue = "") String keyword,
-							@RequestParam(defaultValue = "1") int curPage) {
+	public String noticeList(HttpSession session, Model model) {
 		session.setAttribute("category", "notice");
-		page.setCurPage(curPage);
-		page.setSearch(search);
-		page.setKeyword(keyword);
-		model.addAttribute("page", service.noticeList(page));
+		model.addAttribute("notice", service.noticeList());
 		
 		return "notice/list";
 	}

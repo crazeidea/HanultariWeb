@@ -3,40 +3,9 @@ package ticket;
 import java.sql.Date;
 
 public class TicketDTO {
-	private int no, id, readcnt, root, step, indent;
-	private String title, content, writer, name, filename, filepath;
+	private int no, id, readcnt, root, status;
+	private String title, content, writer, name;
 	private Date writedate;
-	
-	public int getRoot() {
-		return root;
-	}
-	public void setRoot(int root) {
-		this.root = root;
-	}
-	public int getStep() {
-		return step;
-	}
-	public void setStep(int step) {
-		this.step = step;
-	}
-	public int getIndent() {
-		return indent;
-	}
-	public void setIndent(int indent) {
-		this.indent = indent;
-	}
-	public String getFilename() {
-		return filename;
-	}
-	public void setFilename(String filename) {
-		this.filename = filename;
-	}
-	public String getFilepath() {
-		return filepath;
-	}
-	public void setFilepath(String filepath) {
-		this.filepath = filepath;
-	}
 	public int getNo() {
 		return no;
 	}
@@ -54,6 +23,18 @@ public class TicketDTO {
 	}
 	public void setReadcnt(int readcnt) {
 		this.readcnt = readcnt;
+	}
+	public int getRoot() {
+		return root;
+	}
+	public void setRoot(int root) {
+		this.root = root;
+	}
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
 	}
 	public String getTitle() {
 		return title;
@@ -85,4 +66,6 @@ public class TicketDTO {
 	public void setWritedate(Date writedate) {
 		this.writedate = writedate;
 	}
+	
+	
 }

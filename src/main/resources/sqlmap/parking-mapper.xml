@@ -30,4 +30,11 @@
 	INSERT INTO FAVORITE (MEMBER_ID, PARKING_ID, ADDED_DATE) VALUES ( #{memberid ,jdbcType=INTEGER}, #{parkingid ,jdbcType=INTEGER}, SYSDATE)
 </insert>
 
+<select id="managelist" resultType="parking.ParkingVO">
+	SELECT * FROM PARKING
+</select>
+
+<update id="manageUpdate">
+	UPDATE PARKING SET NAME = #{name}, ADDR = #{addr}, PREV_ADDR = #{prev_addr}, MANAGER = #{manager}, CONTACT = #{contact}, OPER_MON = #{oper_mon}, OPER_TUE = #{oper_tue}, OPER_WED = #{oper_wed}, OPER_THU = #{oper_thu}, OPER_FRI = #{oper_fri}, OPER_SAT = #{oper_sat}, OPER_SUN = #{oper_sun}, START_TIME = #{start_time}, END_TIME = #{end_time}, PAYMENT_CASH = #{payment_cash}, PAYMENT_CARD = #{payment_card}, PAYMENT_MACHINE = #{payment_machine}, FARE = #{fare}, ADDED_FARE = #{added_fare}, DURATION = #{duration}, DURATION_INTERVAL = #{duration_interval}, SMALLCAR = #{smallcar}, WOMAN = #{woman}, DISABLED = #{disabled}, LAYOUT_TEMPLATE = #{layout_template} WHERE ID = #{id, jdbcType=VARCHAR} 
+</update>
 </mapper>

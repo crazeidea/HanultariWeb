@@ -35,4 +35,13 @@ public class ParkingDAO implements ParkingService {
 		return sql.selectList("parking.mapper.searchparking", query);
 	}
 
+	@Override
+	public List<ParkingVO> manageList() {
+		return sql.selectList("parking.mapper.managelist");
+	}
+
+	public int manageUpdate(ParkingVO vo) {
+		return sql.update("parking.mapper.manageUpdate", vo);
+	}
+
 }

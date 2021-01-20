@@ -1,12 +1,16 @@
 eclipse.preferences.version=1
 encoding//src/main/webapp/WEB-INF/views/about.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/index.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/manage/detail.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/manage/list.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/member/login.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/member/signup.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/notice/list.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/notice/modify.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/notice/write.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/ticket/faq.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/ticket/modify.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/ticket/new.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/ticket/reply.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/tiles/header.jsp=UTF-8
 encoding//src/main/webapp/resources/script/script.js=UTF-8

@@ -19,10 +19,9 @@ public class TicketDAO implements TicketService {
 	}
 
 	@Override
-	public TicketPage ticketList(TicketPage page) {
-		page.setTotalList(sql.selectOne("ticket.mapper.total_count", page));
-		page.setList(sql.selectList("ticket.mapper.list", page));
-		return page;
+	public List<TicketDTO> ticketList() {
+		return sql.selectList("ticket.mapper.list");
+		
 	}
 
 	public TicketDTO ticketDetail(int id) {
@@ -46,10 +45,16 @@ public class TicketDAO implements TicketService {
 	}
 
 	@Override
-	public TicketPage ticketLog(TicketPage page, String name) {
-		page.setTotalList(sql.selectOne("ticket.mapper.total_count"));
-		page.setList(sql.selectList("ticket.mapper.list", page));
-		return page;
+	public List<TicketDTO> ticketLog(String writer) {		
+		return sql.selectList("ticket.mapper.log", writer);
+	}
+
+	public int ticketAnswer(TicketDTO dto) {
+		return sql.insert("ticket.mapper.answer", dto);
+	}
+
+	public TicketDTO ticketGetAnswer(int id) {
+		return sql.selectOne("ticket.mapper.getanswer", id);
 	}
 	
 	
