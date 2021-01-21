@@ -8,8 +8,8 @@
 	
 	<!-- 회원가입 -->
 	<insert id="signup">
-	INSERT INTO MEMBER (ID, EMAIL, PW, NAME, TEL)
-	VALUES(ID_SEQ.nextval, #{email ,jdbcType=VARCHAR}, #{pw ,jdbcType=VARCHAR}, #{name ,jdbcType=VARCHAR}, #{tel ,jdbcType=VARCHAR})
+	INSERT INTO MEMBER (ID, EMAIL, PW, NAME, TEL, NICKNAME)
+	VALUES(ID_SEQ.nextval, #{email ,jdbcType=VARCHAR}, #{pw ,jdbcType=VARCHAR}, #{name ,jdbcType=VARCHAR}, #{tel ,jdbcType=VARCHAR}, GENERATE_NICKNAME())
 	</insert>
 	
 	<select id="checkemail" resultType="integer">

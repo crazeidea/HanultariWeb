@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import member.MemberDTO;
 import ticket.TicketDTO;
@@ -104,5 +105,11 @@ public class TicketController {
 		return "redirect: /login";
 		}
 	}
+	
+	@ResponseBody @RequestMapping("/getTicket")
+	public List<TicketDTO> getTicket(String writer) {
+		return service.ticketLog(writer);
+	}
+	
 	
 }

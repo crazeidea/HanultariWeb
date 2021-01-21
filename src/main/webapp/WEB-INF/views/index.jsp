@@ -32,7 +32,7 @@
   <i class="user alternate icon"></i>
   <div class="menu">
   	<c:if test="${not empty user}">
-  		<div class="header">${user.name }</div>
+  		<div class="header">${user.nickname }</div>
   	</c:if>
   	<c:if test="${empty user}">
   		<div class="header">대따</div>

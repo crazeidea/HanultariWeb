@@ -6,6 +6,7 @@ public class TicketDTO {
 	private int no, id, readcnt, root, status;
 	private String title, content, writer, name;
 	private Date writedate;
+	
 	public int getNo() {
 		return no;
 	}
