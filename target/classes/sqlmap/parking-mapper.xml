@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="parking.mapper">
+
+<select id="marker" resultType="parking.LatlngVO">
+	SELECT ID, LAT, LNG, PAID, TOTAL, PARKED FROM PARKING
+</select>
+
+<select id="singleparking" resultType="parking.ParkingVO">
+	SELECT * FROM PARKING WHERE ID = #{id}
+</select>
+
+<select id="singleparkinglatlng" resultType="parking.LatlngVO">
+	SELECT * FROM LATLNG WHERE ID = #{id}
+</select>
+
+<select id="searchparking" resultType="parking.ParkingVO">
+	SELECT ID, NAME, LAT, LNG FROM PARKING WHERE NAME LIKE '%'||#{query}||'%' AND UTL_MATCH.edit_distance_similarity(NAME, #{query}) > 0 <![CDATA[ AND ROWNUM <= 5]]> 
+</select>
+
+<select id="getfavorite" resultType="parking.ParkingVO">
+	SELECT PARKING_ID FROM FAVORITE WHERE ACC_ID = #{id} ORDER BY ADDED_DATE ASC
+</select>
+
+<select id="checkfavorite" resultType="Integer">
+	SELECT * FROM FAVORITE WHERE MEMBER_ID = #{memberid ,jdbcType=INTEGER} AND PARKING_ID = #{parkingid ,jdbcType=INTEGER}
+</select>
+
+<insert id="insertfavorite">
+	INSERT INTO FAVORITE (MEMBER_ID, PARKING_ID, ADDED_DATE) VALUES ( #{memberid ,jdbcType=INTEGER}, #{parkingid ,jdbcType=INTEGER}, SYSDATE)
+</insert>
+
+<select id="managelist" resultType="parking.ParkingVO">
+	SELECT * FROM PARKING
+</select>
+
+<update id="manageUpdate">
+	UPDATE PARKING SET NAME = #{name}, ADDR = #{addr}, PREV_ADDR = #{prev_addr}, MANAGER = #{manager}, CONTACT = #{contact}, OPER_MON = #{oper_mon}, OPER_TUE = #{oper_tue}, OPER_WED = #{oper_wed}, OPER_THU = #{oper_thu}, OPER_FRI = #{oper_fri}, OPER_SAT = #{oper_sat}, OPER_SUN = #{oper_sun}, START_TIME = #{start_time}, END_TIME = #{end_time}, PAYMENT_CASH = #{payment_cash}, PAYMENT_CARD = #{payment_card}, PAYMENT_MACHINE = #{payment_machine}, FARE = #{fare}, ADDED_FARE = #{added_fare}, DURATION = #{duration}, DURATION_INTERVAL = #{duration_interval}, SMALLCAR = #{smallcar}, WOMAN = #{woman}, DISABLED = #{disabled}, LAYOUT_TEMPLATE = #{layout_template} WHERE ID = #{id, jdbcType=VARCHAR} 
+</update>
+</mapper>

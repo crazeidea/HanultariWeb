@@ -1,3 +1,11 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<!-- ======= -->
+﻿<div class="wrapper">
+<!-- >>>>>>> 1caeb27442875fb5c183cf7f9a91f897e6703990 -->
+  <div class="left-section">
+=======
 ﻿<div class="ui grid" style="place-items:center;">
   <div id="right" class="eight wide column">
     <div class='ripple-background' style="height:100vh">
@@ -6,19 +14,46 @@
       <div class='circle large shade3'></div>
       <div class='circle mediun shade4'></div>
       <div class='circle small shade5'></div>
+>>>>>>> 88d48312d91e1dd12faf655f38bcdcf15b806aa0
     <span
       class="logo"
       style="font-family: 'vitro'; font-size: 2.4em; color: white"
       onclick="location.href = '/'"
+<<<<<<< HEAD
+      >대따</span>
+    <div>
+=======
       >대따</span
     >
     <div class="title">
+>>>>>>> 88d48312d91e1dd12faf655f38bcdcf15b806aa0
       <h1 style="color: white; font-size: 5rem">
         주차장을 찾는 <br />
         새로운 경험
       </h1>
     </div>
   </div>
+<<<<<<< HEAD
+  <div class="right-section">
+    <h1>회원가입</h1>
+    <div class="signup-form">
+<!-- <<<<<<< HEAD -->
+<!-- ======= -->
+      <form id="signup" method="post" action="signup/execute">
+        <p style="font-weight: 700">이메일</p>
+        <input type="text" id="email" name="email" required />
+        <p style="font-weight: 700">비밀번호</p>
+        <input type="password" id="pw" name="pw" required />
+        <p style="font-weight: 700">비밀번호 확인</p>
+        <input type="password" id="pw-check" required />
+        <p style="font-weight: 700">이름</p>
+        <input type="text" id="name" name="name" required />
+        <p style="font-weight: 700">전화번호</p>
+        <input type="text" id="tel" name="tel" onkeypress="if(event.keyCode==13){signup()}" required />
+        <div class="btn bg-primary shadow" onclick="signup()">회원가입</div>
+        <div class="btn bg-white shadow" onclick="history.go(-1)">취소</div>
+<!-- >>>>>>> 1caeb27442875fb5c183cf7f9a91f897e6703990 -->
+=======
 </div>
 
   <div class="eight wide column centered grid">
@@ -47,6 +82,7 @@
         </div>
         <button type="button" class="ui button primary" onclick="signup()">회원가입</button>
         <button type="button" class="ui button" onclick="history.go(-1)">취소</button>
+>>>>>>> 88d48312d91e1dd12faf655f38bcdcf15b806aa0
       </form>
     </div>
 </div>

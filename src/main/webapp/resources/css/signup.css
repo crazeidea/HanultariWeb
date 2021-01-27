@@ -37,6 +37,7 @@
 		rgba(0, 0, 0, 0.23);
 }
 
+
 form#signup {
     display: grid;
     grid-template-rows: auto;
