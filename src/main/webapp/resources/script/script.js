@@ -175,24 +175,26 @@ $(document).ready(function () {
 
     /* 주차장 검색 결과 클릭 */
     $(document).on('click keypress', '.parking', function() {
+      console.log("주차장 검색 아이템 클릭")
         let id = $(this).attr('data-id');
         let lat = $(this).attr('data-lat');
         let lng = $(this).attr('data-lng');
         let latlng = new naver.maps.LatLng(lat, lng);
+        let distance = formatDistance(getDistance(currentLocation.lat(), currentLocation.lng(), lat, lng))
+
         $.ajax({
             type: "GET",
             url: "/getSingleParkingData?id=" + id,
             success: function (response) {
               var info = "<div id='infowindow'>";
-                          if(response.paid == true) {
-                            info += "<div><div class='ui label large teal'>유료<a class='detail'>" + formatDistance(distance) + "</a>" + "</div></div>";
-                            } else if (response.paid == false) {
-                            info += "<div><div class='ui label large primary'>무료<a class='detail'>" + formatDistance(distance) + "</a>" + "</div></div>"; 
-                            }
-                       + "<span class='small'>현재 위치에서 " + formatDistnace(getDistance(currentLocation.lat(), currentLocation.lng(), lat, lng)) + "</span></div>"
-                       + "<h2 class='parkingname'>" + response.name + "</h2>"
-                       + "<h3>지금 <span class='txt-primary'>" + (response.total - response.parked) + "</span>자리 남았어요.</h3>"
-                       + "<button class='btn bg-primary full' onclick='showInfo(" + response.id + "," + $(this).attr('data-lat')+ "," + $(this).attr('data-lng') + ")'>상세정보</button>"
+              if(response.paid == true) {
+                info += "<div><div class='ui label large teal'>유료<a class='detail'>" + formatDistance(distance) + "</a>" + "</div></div>";
+                } else if (response.paid == false) {
+                info += "<div><div class='ui label large primary'>무료<a class='detail'>" + formatDistance(distance) + "</a>" + "</div></div>"; 
+                }
+                info += "<div><span class='ui text big' style='font-weight:700'>" + response.name + "</span></br></div>"
+                       + "<div><span class='ui text big' style='font-weight:700'>지금 <span class='ui text primary'>" + (response.total - response.parked) + "</span>자리 남았어요.</h3></div>"
+                       + "<div style='display:grid; place-items:center'><button class='ui button primary' style='margin:0 auto' onclick='showInfo(" + id + "," + lat+ "," + lng + ")'>상세정보</button></div>"
                        + "</div>";
               infowindow.setContent(info);
               infowindow.setOptions({
