@@ -56,6 +56,10 @@ public class TicketDAO implements TicketService {
 	public TicketDTO ticketGetAnswer(int id) {
 		return sql.selectOne("ticket.mapper.getanswer", id);
 	}
+
+	public void ticketUpdateStatus(TicketDTO dto) {
+		sql.update("ticket.mapper.updatestatus", dto);
+	}
 	
 	
 

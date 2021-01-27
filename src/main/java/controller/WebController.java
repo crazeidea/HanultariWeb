@@ -71,6 +71,13 @@ public class WebController {
 		return "redirect:/manage";
 	}
 	
+	@RequestMapping ("/account")
+	public String account(HttpSession session) {
+		MemberDTO logined = (MemberDTO) session.getAttribute("user");
+		if(logined == null) return "redirect:/login";
+		else return "account/account"; 
+	}
+	
 	
 	
 	

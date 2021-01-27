@@ -62,29 +62,30 @@
   function showInfo(id, lat, lng) {
     map.panTo(new naver.maps.LatLng(lat, lng));
     infowindow.close();
+    
     rcinfo.close();
 
-    console.log($(this));
-    
     $.ajax({
       type: "GET",
       url: "/getSingleParkingData?id=" + id,
       success: function (response) {
-        var html = "<div style='margin-bottom:1em'>"
-                     +"<span class='ui text large' style='font-weight: 700; margin-right:1rem;'>" + response.name + "</span>";
-                     if($("#islogined").val() == 1) {
-                      html += "<div id='favButton' class='ui button right' onclick='toggleFav(" + response.id +")' tabindex='0'>"
-	                           + "<i class='star icon'></i>즐겨찾기"
-	                           + "</div>"
-                             + "</div>";
-                     }
-      html += "<div>"
+      var html = "";
+        if($("#islogined").val() == 1) {
+          html += "<div><div id='favButton' class='ui circular icon button right floated' onclick='toggleFav(" + response.id +")' tabindex='0'>"
+                 + "<i class='star icon'></i>"
+                 + "</div></div>";
+                 setFavState(id);
+         }
+			      html += "</div>";
+            html += "<h2 class='ui header' style='font-weight: 700; margin-right:1rem; word-break:keep-all;'>" + response.name + "</h2>";
+
+             html += "<div>"
 	                  + "<div id='pano' style='width:400px; height:200px'></div>"
 					          + "</div>"
                     + "<h2 class='ui header'>지금 " + (response.total - response.parked) + "대 주차할 수 있어요.</h2>"
                     + "<div id='layoutwrapper'></div>";
                     if(response.paid == 0) {
-                      html = html + "<h3 class='ui header'>이용요금 무료</h3>";
+                      html = html + "<h2 class='ui header'>이용요금 무료</h2>";
                     } else {
                       html = html + "<h4 class='ui header'><span class='ui text large' style='font-weight:700'>기본요금 " + response.fare + "원</span>"
                       + "<span class='ui text medium' style='font-weight:700'> 추가요금 " + response.added_fare + "원 / "
@@ -99,19 +100,34 @@
                             + "</div><div style='margin-top:2em;'><h2  class='ui header'>운영시간</h2><span class='ui text large' style='font-weight:700;' >" + response.start_time.substr(0, 2) + ":" + response.start_time.substr(2,2) + " ~ " + response.end_time.substr(0, 2) + ":" + response.end_time.substr(2, 2) + "</span>"
                             + "<h2  class='ui header'>주소</h2><div style='display:grid; grid-template-rows:repeat(2, 1fr);'><h3 class='ui header'>" + response.addr + "</h3><span class='ui text medium' style='font-weight:400;' >" + response.prev_addr + "</span></div> "
                             + "<h2  class='ui header'>관리자</h2><div style='display:grid; grid-template-rows:repeat(2, 1fr);'><h3 class='ui header'>" + response.manager + "</h3><span class='ui text medium' style='font-weight:400;' >" + response.contact + "</span></div> "
-                            + "</div>";
-                    $('#navContent').html(html);
-                    showParkingLayout(response.layout);
-  
+                            + "</div>"
+                            + "<div style='margin-top:2em;'><h2 class='ui header'>이용 후기</h2>"
+                            + "<div id='comments' class='ui comments'>작성된 리뷰가 없습니다.</div>";
+                            if($("#islogined").val() == 1) {
+                            html += "<div><form class='ui form'>" 
+                            + "<input type='hidden' name='parking_id' value=" + response.id + ">"
+                            + "<input type='hidden' name='rating' value='5'>"
+                            + "<div class='field'><div class='ui yellow rating' data-icon='star' data-max-rating='5' data-rating='5'></div></div><div class='field'><input type='text' name='content'></div></div><button type='button' onclick='submitReview(" + response.id + ")' class='ui button primary'>저장</button></form></div>";
+                            }
+        $('#navContent').html(html);
+        showParkingLayout(response.layout);
+        getReviews(response.id);
+        $(".ui.rating").rating({
+          onRate: function(value) {
+            console.log(value);
+            $("input[name=rating]").attr("value", value);
+          }
+        });
+
         var pano = new naver.maps.Panorama("pano", {
             position : new naver.maps.LatLng(lat, lng),
           });
 
-		      setFavState(id);
           if ($('#nav').hasClass('closed')) toggleNav();
           
         }  
       })
+
     };
   
     
@@ -206,6 +222,8 @@
         if($('#nav').hasClass('closed')) toggleNav();
         $('#navContent').html("");
         $('#navContent').append("<div id='itemlist'></div>");
+        infowindow.close();
+        rcinfo.close();
         let slat = lat;
         let slng = lng;
         let resultList = [];
@@ -365,6 +383,51 @@
               }
             }
           });
+      }
 
+      function getReviews(id) {
+        let comments = $("#comments")
+        let total = 0;
+        $.ajax({
+          type: "GET",
+          url: "/getReviews?id=" + id,
+          success: function (review) {
+            console.log(review);
+            comments.html("");
+            for (let i = 0; i < review.length ; i++) {
+              total += review[i].rating;
+              $.ajax({
+                type: "GET",
+                url: "/getUserData?id=" + review[i].member_id,
+                success: function (user) {
+                  let html = "<div class='comment'>"
+                              + "<a class='avatar'><i class='user alternate icon'></i></a>"
+                              + "<div class='content'>"
+                              + "<span class='author'>" + user.nickname + "</span>"
+                              + "<div class='metadata'><div class='rating'><i class='star icon'></i>" + review[i].rating + "</div></div>"
+                              + "<div class='text'>" + review[i].content +"</div>"
+                              + "</div>";
+                comments.append(html);
+				        $("#ratingdetail").html(total / review.length);
+                },
+				      });
+            }
+          }
+        });
+      }
 
+      function submitReview(id) {
+        let parking_id = $("input[name=parking_id]").val();
+        let rating = $("input[name=rating]").val();
+        let content = $('input[name=content]').val();
+        $.ajax({
+          type: "post",
+          url: "/review/insert?parking_id=" + parking_id + "&rating=" + rating + "&content=" + content,
+          success: function (response) {
+            if (response) {
+              $('input[name=content]').val("");
+              getReviews(id);
+            }
+          }
+        });
       }

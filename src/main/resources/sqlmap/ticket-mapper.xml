@@ -80,4 +80,8 @@
 	SELECT * FROM TICKET WHERE ROOT = #{id} AND NOT ROOT = ID
 </select>
 
+<update id="updatestatus">
+	UPDATE TICKET SET STATUS = 1 WHERE ID = #{root}
+</update>
+
 </mapper>

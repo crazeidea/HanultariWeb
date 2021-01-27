@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="review.mapper">
+
+<select id="get" resultType="review.ReviewDTO">
+	SELECT * FROM REVIEW WHERE PARKING_ID = #{id, jdbcType=INTEGER}
+</select>
+
+<insert id="insert">
+	INSERT INTO REVIEW VALUES(#{parking_id}, #{member_id}, #{content}, #{rating})
+</insert>
+
+</mapper>

@@ -29,9 +29,9 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public int member_update(MemberDTO dto) {
+	public int updateMember(MemberDTO dto) {
 		// TODO Auto-generated method stub
-		return 0;
+		return dao.updateMember(dto);
 	}
 
 	@Override
@@ -61,6 +61,10 @@ public class MemberServiceImpl implements MemberService{
 	public boolean checkEmail(String email) {
 		return dao.checkEmail(email);
 		
+	}
+
+	public MemberDTO getUserData(int id) {
+		return dao.getUserData(id);
 	}
 
 	

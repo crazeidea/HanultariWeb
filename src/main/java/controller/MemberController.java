@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import common.CommonService;
 import member.MemberDTO;
 import member.MemberServiceImpl;
+import oracle.net.jdbc.TNSAddress.ServiceAlias;
 
 @Controller
 public class MemberController {
@@ -78,6 +79,19 @@ public class MemberController {
 		return "redirect:" + referer;
 	}
 	
+	@RequestMapping("/account/update")
+	public String accountUpdate(MemberDTO dto, HttpServletRequest req) {
+		int result = service.updateMember(dto);
+		String referer = req.getHeader("referer");
+		if(result > 0) return "account/account";
+		else return null;
+	}
+	
+	@ResponseBody @RequestMapping("/getUserData")
+	public MemberDTO getUserData(int id) {
+		MemberDTO dto = service.getUserData(id);
+		return dto;
+	}
 	
 	
 	

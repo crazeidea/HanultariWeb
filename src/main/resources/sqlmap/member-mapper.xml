@@ -16,4 +16,12 @@
 		SELECT * FROM MEMBER WHERE EMAIL = #{email}
 	</select>
 	
+	<update id='update'>
+		UPDATE MEMBER SET PW = #{pw ,jdbcType=VARCHAR}, TEL = #{tel ,jdbcType=VARCHAR}, NICKNAME = #{nickname ,jdbcType=VARCHAR} WHERE ID = #{id}
+	</update>
+	
+	<select id="getuserdata" resultType="member.MemberDTO">
+		SELECT * FROM MEMBER WHERE ID = #{id}
+	</select>
+	
 </mapper>

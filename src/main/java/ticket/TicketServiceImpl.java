@@ -54,4 +54,8 @@ public class TicketServiceImpl implements TicketService {
 		return dao.ticketGetAnswer(id);
 	}
 
+	public void ticketUpdateStatus(TicketDTO dto) {
+		dao.ticketUpdateStatus(dto);		
+	}
+
 }

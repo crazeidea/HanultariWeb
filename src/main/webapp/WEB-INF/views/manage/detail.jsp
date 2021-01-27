@@ -235,21 +235,21 @@
             count++;
             seat++;
             $("#layout").append("<div class='seat normal' data-seat='" + seat + "'>" + count + "</div>");
-            $("#layout").append("<div class='ui popup flowing'><div class='ui four column divided center aligned grid'><div class='column'><h3>일반</h3><button type='button' class='ui button primary' onclick='setSeat(" + seat + ', "' + char + '", "' + "normal" + '"' + ")'>변경</button></div><div class='column'><h3>여성</h3><button type='button' class='ui button primary' onclick='setSeat(" + seat + ', "' + char + '", "' + "woman" + '"' + ")'>변경</button></div><div class='column'><h3>장애인</h3><button type='button' class='ui button primary' onclick='setSeat(" + seat + ', "' + char + '", "' + "disabled" + '"' + ")'>변경</button></div><div class='column'><h3>길</h3><button type='button' class='ui button primary' onclick='setSeat(" + seat + ', "' + char + '", "' + "road" + '"' + ")'>변경</button></div></div></div>");
-        } else if (char == "B") {
+            $("#layout").append("<div class='ui popup fluid flowing'><div class='ui four column divided center aligned grid'><div class='column'><h3>일반</h3><button type='button' class='ui button primary' onclick='setSeat(" + seat + ', "' + char + '", "' + "normal" + '"' + ")'>변경</button></div><div class='column'><h3>여성</h3><button type='button' class='ui button primary' onclick='setSeat(" + seat + ', "' + char + '", "' + "woman" + '"' + ")'>변경</button></div><div class='column'><h3>장애인</h3><button type='button' class='ui button primary' onclick='setSeat(" + seat + ', "' + char + '", "' + "disabled" + '"' + ")'>변경</button></div><div class='column'><h3>길</h3><button type='button' class='ui button primary' onclick='setSeat(" + seat + ', "' + char + '", "' + "road" + '"' + ")'>변경</button></div></div></div>");
+        } else if (char == "C") {
             count++;
             seat++;
             $("#layout").append("<div class='seat disabled' data-seat='" + seat + "'>" + count + "</div>");
-            $("#layout").append("<div class='ui popup flowing'><div class='ui four column divided center aligned grid'><div class='column'><h3>일반</h3><button type='button' class='ui button primary' onclick='setSeat(" + seat + ', "' + char + '", "' + "normal" + '"' + ")'>변경</button></div><div class='column'><h3>여성</h3><button type='button' class='ui button primary' onclick='setSeat(" + seat + ', "' + char + '", "' + "woman" + '"' + ")'>변경</button></div><div class='column'><h3>장애인</h3><button type='button' class='ui button primary' onclick='setSeat(" + seat + ', "' + char + '", "' + "disabled" + '"' + ")''>변경</button></div><div class='column'><h3>길</h3><button type='button' class='ui button primary' onclick='setSeat(" + seat + ', "' + char + '", "' + "road" + '"' + ")'>변경</button></div></div></div>");
-        } else if (char == "C") {
+            $("#layout").append("<div class='ui popup fluid flowing'><div class='ui four column divided center aligned grid'><div class='column'><h3>일반</h3><button type='button' class='ui button primary' onclick='setSeat(" + seat + ', "' + char + '", "' + "normal" + '"' + ")'>변경</button></div><div class='column'><h3>여성</h3><button type='button' class='ui button primary' onclick='setSeat(" + seat + ', "' + char + '", "' + "woman" + '"' + ")'>변경</button></div><div class='column'><h3>장애인</h3><button type='button' class='ui button primary' onclick='setSeat(" + seat + ', "' + char + '", "' + "disabled" + '"' + ")''>변경</button></div><div class='column'><h3>길</h3><button type='button' class='ui button primary' onclick='setSeat(" + seat + ', "' + char + '", "' + "road" + '"' + ")'>변경</button></div></div></div>");
+        } else if (char == "E") {
 			count++;
 			seat++;
             $("#layout").append("<div class='seat woman' data-seat='" + seat + "'>" + count + "</div>");
-            $("#layout").append("<div class='ui popup flowing'><div class='ui four column divided center aligned grid'><div class='column'><h3>일반</h3><button type='button' class='ui button primary' onclick='setSeat(" + seat + ', "' + char + '", "' + "normal" + '"' + ")'>변경</button></div><div class='column'><h3>여성</h3><button type='button' class='ui button primary' onclick='setSeat(" + seat + ', "' + char + '", "' + "woman" + '"' + ")'>변경</button></div><div class='column'><h3>장애인</h3><button type='button' class='ui button primary' onclick='setSeat(" + seat + ', "' + char + '", "' + "disabled" + '"' + ")'>변경</button></div><div class='column'><h3>길</h3><button type='button' class='ui button primary' onclick='setSeat(" + seat + ', "' + char + '", "' + "road" + '"' + ")'>변경</button></div></div></div>");            
+            $("#layout").append("<div class='ui popup fluid flowing'><div class='ui four column divided center aligned grid'><div class='column'><h3>일반</h3><button type='button' class='ui button primary' onclick='setSeat(" + seat + ', "' + char + '", "' + "normal" + '"' + ")'>변경</button></div><div class='column'><h3>여성</h3><button type='button' class='ui button primary' onclick='setSeat(" + seat + ', "' + char + '", "' + "woman" + '"' + ")'>변경</button></div><div class='column'><h3>장애인</h3><button type='button' class='ui button primary' onclick='setSeat(" + seat + ', "' + char + '", "' + "disabled" + '"' + ")'>변경</button></div><div class='column'><h3>길</h3><button type='button' class='ui button primary' onclick='setSeat(" + seat + ', "' + char + '", "' + "road" + '"' + ")'>변경</button></div></div></div>");            
         } else if (char == "_") {
         	seat++;
             $("#layout").append("<div class='seat road' data-seat='" + seat + "'></div>");
-            $("#layout").append("<div class='ui popup flowing'><div class='ui four column divided center aligned grid'><div class='column'><h3>일반</h3><button type='button' class='ui button primary' onclick='setSeat(" + seat + ', "' + char + '", "' + "normal" + '"' + ")'>변경</button></div><div class='column'><h3>여성</h3><button type='button' class='ui button primary' onclick='setSeat(" + seat + ', "' + char + '", "' + "woman" + '"' + ")'>변경</button></div><div class='column'><h3>장애인</h3><button type='button' class='ui button primary' onclick='setSeat(" + seat + ', "' + char + '", "' + "disabled" + '"' + ")'>변경</button></div><div class='column'><h3>길</h3><button type='button' class='ui button primary' onclick='setSeat(" + seat + ', "' + char + '", "' + "road" + '"' + ")'>변경</button></div></div></div>");
+            $("#layout").append("<div class='ui popup fluid flowing'><div class='ui four column divided center aligned grid'><div class='column'><h3>일반</h3><button type='button' class='ui button primary' onclick='setSeat(" + seat + ', "' + char + '", "' + "normal" + '"' + ")'>변경</button></div><div class='column'><h3>여성</h3><button type='button' class='ui button primary' onclick='setSeat(" + seat + ', "' + char + '", "' + "woman" + '"' + ")'>변경</button></div><div class='column'><h3>장애인</h3><button type='button' class='ui button primary' onclick='setSeat(" + seat + ', "' + char + '", "' + "disabled" + '"' + ")'>변경</button></div><div class='column'><h3>길</h3><button type='button' class='ui button primary' onclick='setSeat(" + seat + ', "' + char + '", "' + "road" + '"' + ")'>변경</button></div></div></div>");
 			
         }       
     }
@@ -268,12 +268,12 @@
             input.attr("value", changed);
         } else if (type == "disabled") {
             $(".seat[data-seat=" + seat + "]").removeClass("normal woman road").addClass("disabled");
-            changed = changed.slice(0, seat-1) + changed.slice(seat-1, changed.length).replace(char, "B");
+            changed = changed.slice(0, seat-1) + changed.slice(seat-1, changed.length).replace(char, "C");
             console.log(changed);
             input.attr("value", changed);
         } else if (type == "woman") {
             $(".seat[data-seat=" + seat + "]").removeClass("normal disabled road").addClass("woman");
-            changed = changed.slice(0, seat-1) + changed.slice(seat-1, changed.length).replace(char, "C");
+            changed = changed.slice(0, seat-1) + changed.slice(seat-1, changed.length).replace(char, "E");
             console.log(changed);
             input.attr("value", changed);
         } else if (type == "road") {
@@ -307,6 +307,7 @@
     	display:grid;
     	place-items:center;
     	color: white;
+        cursor: pointer;
     }
     .normal {
         background-color : var(--primary);

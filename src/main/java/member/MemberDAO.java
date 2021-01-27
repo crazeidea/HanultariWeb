@@ -30,9 +30,9 @@ public class MemberDAO implements MemberService{
 	}
 
 	@Override
-	public int member_update(MemberDTO dto) {
+	public int updateMember(MemberDTO dto) {
 		// TODO Auto-generated method stub
-		return 0;
+		return sql.update("member.mapper.update", dto);
 	}
 
 	@Override
@@ -61,6 +61,10 @@ public class MemberDAO implements MemberService{
 
 	public boolean checkEmail(String email) {
 		return (Integer)sql.selectOne("member.mapper.checkemail", email) != null ? true : false;
+	}
+
+	public MemberDTO getUserData(int id) {
+		return sql.selectOne("member.mapper.getuserdata", id);
 	}
 
 

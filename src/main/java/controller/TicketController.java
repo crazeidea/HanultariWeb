@@ -67,6 +67,7 @@ public class TicketController {
 	@RequestMapping("ticket/answer")
 	public String ticketAnswer(TicketDTO dto) {
 		service.ticketAnswer(dto);
+		service.ticketUpdateStatus(dto);
 		return "redirect:/ticket/list";
 	}
 	
@@ -109,6 +110,11 @@ public class TicketController {
 	@ResponseBody @RequestMapping("/getTicket")
 	public List<TicketDTO> getTicket(String writer) {
 		return service.ticketLog(writer);
+	}
+	
+	@ResponseBody @RequestMapping("/getTicketAnswer")
+	public TicketDTO getTicketAnswer(int id) {
+		return service.ticketGetAnswer(id);
 	}
 	
 	

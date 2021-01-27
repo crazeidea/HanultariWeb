@@ -10,7 +10,7 @@
 				고객센터 <i class="dropdown icon"></i>
 				<div class="menu">
 					<a class="item" href="/ticket/faq">자주 묻는 질문</a>
-					<c:if test="${not empty user and user.admin eq 'n'}">
+					<c:if test="${not empty user and empty user.admin }">
 						<a class="item" href="/ticket/log">1:1 문의</a>
 					</c:if>
 					<c:if test="${user.admin eq 'y'}">

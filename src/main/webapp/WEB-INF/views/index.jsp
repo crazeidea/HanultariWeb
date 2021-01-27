@@ -4,7 +4,7 @@
 
 <div id="nav" class="shadow closed">
     <div id="navContent">
-    
+    	<p style='margin: auto'>표시할 정보가 없습니다</p>
     </div>
 </div>
 
@@ -59,7 +59,7 @@
 <c:if test="${not empty user}">
 	<input type="hidden" value="1" id="islogined">
 </c:if>
-<c:if test="${empty user} }">
+<c:if test="${empty user}">
 	<input type="hidden" value="0" id="islogined">
 </c:if>
 <script>
