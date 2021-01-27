@@ -7,5 +7,6 @@ public interface ParkingService {
 	LatlngVO getSingleParkingLatlng(int id);
 	ParkingVO getSingleParkingData(int id);
 	List<ParkingVO> searchParking(String query);
+	List<ParkingVO> manageList();
 
 }

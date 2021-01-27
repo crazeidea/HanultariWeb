@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import member.MemberDTO;
 import ticket.TicketDTO;
@@ -22,37 +24,36 @@ public class TicketController {
 	@Autowired TicketServiceImpl service;
 	
 	@RequestMapping("/ticket/list")
-	public String ticketList(HttpSession session, Model model,
-							@RequestParam(defaultValue = "") String search,
-							@RequestParam(defaultValue = "") String keyword,
-							@RequestParam(defaultValue = "1") int curPage) {
+	public String ticketList(HttpSession session, Model model) {
 		session.setAttribute("category", "ticket");
-		page.setCurPage(curPage);
-		page.setSearch(search);
-		page.setKeyword(keyword);
-		model.addAttribute("page", service.ticketList(page));
-		
+		session.setAttribute("ticket", service.ticketList());
 		return "ticket/list";
 	}
 	
 	@RequestMapping("/ticket/detail")
 	public String ticketDetail(Model model, int id) {
-		service.ticketRead(id);
 		model.addAttribute("dto", service.ticketDetail(id));
-		model.addAttribute("page", page);
-		model.addAttribute("crlf", "\r\n");
+		model.addAttribute("answer", service.ticketGetAnswer(id));
 		return "ticket/detail";
 	}
 	
 	@RequestMapping("/ticket/delete")
-	public String ticketDelete(int id) {
+	public String ticketDelete(int id, HttpSession session) {
+		MemberDTO logined = (MemberDTO) session.getAttribute("user");
 		service.ticketDelete(id);
-		return "redirect:/ticket";
+		if(logined != null && logined.getAdmin() != null) return "redirect:/ticket/list";
+		else return "redirect:/ticket/log";
 	}
 	
 	@RequestMapping("ticket/write")
 	public String ticketWrite() {
 		return "ticket/new";
+	}
+	
+	@RequestMapping("ticket/reply")
+	public String ticketReply(int id, Model model) {
+		model.addAttribute("ticket", service.ticketDetail(id));
+		return "ticket/reply";
 	}
 	
 	@RequestMapping("ticket/insert")
@@ -61,6 +62,12 @@ public class TicketController {
 		dto.setWriter(member.getName());
 		service.ticketInsert(dto);
 		return "redirect:/ticket/log";
+	}
+	
+	@RequestMapping("ticket/answer")
+	public String ticketAnswer(TicketDTO dto) {
+		service.ticketAnswer(dto);
+		return "redirect:/ticket/list";
 	}
 	
 	@RequestMapping("ticket/edit")
@@ -86,19 +93,23 @@ public class TicketController {
 	}
 	
 	@RequestMapping("/ticket/log")
-	public String ticketLog(HttpSession session, Model model,
-							@RequestParam(defaultValue = "") String search,
-							@RequestParam(defaultValue = "") String keyword,
-							@RequestParam(defaultValue = "1") int curPage) {
+	public String ticketLog(HttpSession session, Model model) {
 		session.setAttribute("category", "ticket");
 		MemberDTO member = (MemberDTO) session.getAttribute("user");
+		if(member != null) {
 		String name = member.getName();
-		page.setCurPage(curPage);
-		page.setSearch(search);
-		page.setKeyword(keyword);		
-		model.addAttribute("page", service.ticketLog(page, name));
-		
+		List<TicketDTO> list = service.ticketLog(name);
+		model.addAttribute("ticket", list);		
 		return "ticket/log";
+		} else {
+		return "redirect: /login";
+		}
 	}
+	
+	@ResponseBody @RequestMapping("/getTicket")
+	public List<TicketDTO> getTicket(String writer) {
+		return service.ticketLog(writer);
+	}
+	
 	
 }

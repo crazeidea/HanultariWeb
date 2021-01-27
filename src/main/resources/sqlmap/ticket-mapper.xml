@@ -24,8 +24,6 @@
 
 <update id="update">
 	update ticket set title = #{title}, content = #{content}
-					, filename = #{filename, jdbcType=VARCHAR}
-					, filepath = #{filepath, jdbcType=VARCHAR} 
 	where id = #{id}					
 </update>
 
@@ -44,9 +42,8 @@
 
 
 <insert id="insert">
-	insert into ticket(id, root, title, content, writer, filename, filepath)
-	values ( seq_ticket.nextval, seq_ticket.currval, #{title}, #{content}, #{writer}
-			, #{filename, jdbcType=VARCHAR}, #{filepath, jdbcType=VARCHAR} )
+	insert into ticket(id, root, title, content, writer)
+	values ( seq_ticket.nextval, seq_ticket.currval, #{title}, #{content}, #{writer})
 </insert>
 
 <sql id='search_where'>
@@ -63,26 +60,24 @@
 	</if>
 </sql>
 
-<select id="list" resultType="ticket.TicketPage">
-	select n.*, (select name from member m where m.name = n.writer ) name  
-	from (select n.*, rownum no 
-			from (select * from ticket <include refid="search_where"/> 
-				  order by root, step desc) n
-			order by no desc) n
-	where no between #{beginList} and #{endList}
+<select id="list" resultType="ticket.TicketDTO">
+	SELECT * FROM TICKET ORDER BY ID DESC
 </select>
 
-<select id="log" resultType="ticket.TicketPage">
-	select n.*, (select name from member m where m.nickname = n.writer ) name  
-	from (select n.*, rownum no 
-			from (select * from ticket <include refid="search_where"/> 
-				  order by root, step desc) n
-			order by no desc) n
-	where no between #{beginList} and #{endList}
+<select id="log" resultType="ticket.TicketDTO">
+	SELECT * FROM TICKET WHERE WRITER = #{writer}
 </select>
 
 <select id="total_count" resultType="integer">
 	select count(*) from ticket <include refid="search_where"/>
+</select>
+
+<insert id="answer">
+	INSERT INTO TICKET (ID, TITLE, CONTENT, WRITER, ROOT) VALUES (SEQ_TICKET.nextval, #{title, jdbcType=VARCHAR}, #{content, jdbcType=VARCHAR}, '대따', #{root})
+</insert>
+
+<select id="getanswer" resultType="ticket.TicketDTO">
+	SELECT * FROM TICKET WHERE ROOT = #{id} AND NOT ROOT = ID
 </select>
 
 </mapper>

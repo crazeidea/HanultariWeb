@@ -1,5 +1,7 @@
 package notice;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +16,8 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public NoticePage noticeList(NoticePage page) {
-		return dao.noticeList(page);
+	public List<NoticeDTO> noticeList() {
+		return dao.noticeList();
 	}
 
 	public NoticeDTO noticeDetail(int id) {

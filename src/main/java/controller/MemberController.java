@@ -6,6 +6,8 @@ import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
+import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +32,19 @@ public class MemberController {
 		return "redirect:/";
 	};
 	
+	@ResponseBody @RequestMapping("/signup/android")
+	public boolean signupAndroid(String json) {
+		System.out.println(json);
+		JSONObject object = new JSONObject(json);
+		MemberDTO dto = new MemberDTO();
+		dto.setEmail(object.getString("email"));
+		dto.setName(object.getString("name"));
+		dto.setPw(object.getString("pw"));
+		dto.setTel(object.getString("tel"));
+		if(service.member_join(dto) == 1) return true;
+		else return false;			
+	}
+	
 	@ResponseBody @RequestMapping("/checkEmail")
 	public boolean checkEmail(String email) {
 		return service.checkEmail(email);
@@ -37,12 +52,23 @@ public class MemberController {
 	
 	@ResponseBody @RequestMapping("/login/execute")
 	public boolean login(String email, String pw, HttpSession session) {
+		System.out.println(email + ", " + pw);
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("email", email);
 		map.put("pw", pw);		
 		MemberDTO dto = service.member_login(map);
 		session.setAttribute("user", dto);
 		return dto == null ? false : true;
+	}
+	
+	@ResponseBody @RequestMapping("/login/android")
+	public MemberDTO loginAndroid(String email, String pw) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("email", email);
+		map.put("pw", pw);
+		MemberDTO dto = service.member_login(map);
+		if(dto != null) return dto;
+		else return null;
 	}
 	
 	@RequestMapping("/logout")

@@ -2,9 +2,9 @@ package parking;
 
 public class ParkingVO {
 
-	private String id, name, addr, prev_addr, manager, contact, start_time, end_time, img_path, layout;
+	private String name, addr, prev_addr, manager, contact, start_time, end_time, img_path, layout, layout_template;
 	private float lat, lng;
-	private int parked, total, fare, added_fare, duration, duration_interval;
+	private int id ,parked, total, fare, added_fare, duration, duration_interval;
 	private boolean oper_mon, oper_tue, oper_wed, oper_thu, oper_fri, oper_sat, oper_sun, indoor, smallcar, woman, disabled, paid, payment_cash, payment_card, payment_machine;
 	
 	public boolean isPayment_cash() {
@@ -13,6 +13,14 @@ public class ParkingVO {
 
 	public void setPayment_cash(boolean payment_cash) {
 		this.payment_cash = payment_cash;
+	}
+
+	public String getLayout_template() {
+		return layout_template;
+	}
+
+	public void setLayout_template(String layout_template) {
+		this.layout_template = layout_template;
 	}
 
 	public boolean isPayment_card() {
@@ -34,7 +42,7 @@ public class ParkingVO {
 	
 	public ParkingVO () {}
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
@@ -46,7 +54,7 @@ public class ParkingVO {
 		this.oper_sun = oper_sun;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

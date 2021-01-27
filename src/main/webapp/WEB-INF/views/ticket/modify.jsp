@@ -1,4 +1,4 @@
-﻿		<h1>공지글수정</h1>	
+﻿		<h1>1:1 문의 수정</h1>	
 		<form method="post" enctype='multipart/form-data' action='/notice/update' class="ui big form">
 		<input type='hidden' name='id' value='${dto.id}' />
 		<input type='hidden' name='attach'/>
@@ -19,7 +19,7 @@
 		   	</div>	
 		</div>
 			<button class='ui button primary' onclick="$('form').submit()">저장</button>
-			<button class='ui button' href='javascript:history.go(-1)'>취소</button>
+			<button class='ui button' onclick="location.href = '/ticket/detail?id=${dto.id}'">취소</button>
 		</form>
 	</div>
 </div>

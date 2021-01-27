@@ -3,40 +3,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<div id="notice" class="ui grid container">
+<div class="ui container">
 
-	<div class="four column row">
-		<div class="left floated column">
-			<h1>공지사항</h1>
-		</div>
-	</div>
-	<form method="post" action="/notice" class="four column row">
-		<input type='hidden' name='curPage' value='1' />
-		<div class="three wide column">
-			<select name='search' class="ui selection dropdown">
-				<option value='all' ${page.search eq 'all' ? 'selected' : ''}>전체</option>
-				<option value='title' ${page.search eq 'title' ? 'selected' : ''}>제목</option>
-				<option value='content'
-					${page.search eq 'content' ? 'selected' : ''}>내용</option>
-				<option value='writer' ${page.search eq 'writer' ? 'selected' : ''}>작성자</option>
-			</select>
-		</div>
-		<div class="ten wide column">
-			<div class="ui icon input action">
-				<input type='text' name='keyword' value='${page.keyword}' />
-				<button class="ui icon button" onclick="$('form').submit()">
-					<i class="search icon"></i>
-				</button>
-			</div>
-		</div>
-		<div class="three wide column">
-			<c:if test='${user.admin eq "y" }'>
-				<a class="ui button primary" href='notice/write'>글쓰기</a>
-			</c:if>
-		</div>
-	</form>
-
-	<table class="ui single line table">
+	<h1>공지사항</h1>
+	<table class="ui single line table" id="notice">
 	<thead>
 		<tr>
 			<th class='w-px60'>번호</th>
@@ -46,24 +16,28 @@
 		</tr>
 	</thead>
 	<tbody>
-		<c:forEach items="${page.list}" var="dto">
+		<c:forEach items="${notice}" var="dto">
 			<tr>
-				<td>${dto.no }</td>
-				<td class='left'><c:forEach var='i' begin="1"
-						end='${dto.indent}'>
-			${i eq dto.indent ? "<img src='imgs/re.gif'/>" : "&nbsp;&nbsp;"}
-		</c:forEach> <c:set var='title'
-						value="<span class='search'>${page.keyword}</span>" /> <a
-					href='notice/detail?id=${dto.id}'>${fn:replace(dto.title, page.keyword, title)}</a></td>
+				<td>${dto.id }</td>
+				<td><a href='notice/detail?id=${dto.id}'>${dto.title}</a></td>
 				<td>${dto.writer}</td>
 				<td>${dto.writedate}</td>
 			</tr>
 		</c:forEach>
 		</tbody>
 	</table>
-	<div class='btnSet'>
-		<jsp:include page="/WEB-INF/views/include/page.jsp" />
-	</div>
+	<button class='ui button primary' onclick='location.href = "/notice/write" '>공지글 작성</button>
 </div>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css">  
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>  
+<script>
+$(document).ready( function () {
+    $('#notice').DataTable({
+        language : {
+            url : 'http://cdn.datatables.net/plug-ins/1.10.22/i18n/Korean.json'
+        },
+        "ordering": false
+    });
+} );
 
-</div>
+</script>

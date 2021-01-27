@@ -1,5 +1,7 @@
 package notice;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -16,10 +18,8 @@ public class NoticeDAO implements NoticeService {
 	}
 
 	@Override
-	public NoticePage noticeList(NoticePage page) {
-		page.setTotalList(sql.selectOne("notice.mapper.total_count", page));
-		page.setList(sql.selectList("notice.mapper.list", page));
-		return page;
+	public List<NoticeDTO> noticeList() {
+		return sql.selectList("notice.mapper.list");
 	}
 
 	public NoticeDTO noticeDetail(int id) {

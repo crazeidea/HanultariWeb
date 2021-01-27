@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -36,9 +37,78 @@
 <div class='btnSet'>
 	<a class='btn-fill' onclick='if( necessary() ){ $("form").submit() }'>저장</a>
 	<a class='btn-empty' href='detail.no?id=${dto.id}'>취소</a>
+=======
+﻿<div class="ui container">
+	<h1>1:1 문의 답변</h1>
+	<h2>1:1 문의</h2>
+	<form class="ui big form">
+		<div class="field">
+			<h3>제목</h3>
+			<div class="ui input">
+				<input type='text' value="${ticket.title}" disabled/>
+			</div>
+		</div>
+		<div class="two fields">
+			<div class="field">
+				<h3>작성자</h3>
+				<div class="ui input">
+					<input type="text" value="${ticket.writer}" disabled/>
+				</div>
+			</div>
+			<div class="field">
+				<h3>작성일자</h3>
+				<div class="ui input">
+					<input type="text" value="${ticket.writedate }" disabled/>
+				</div>
+			</div>
+		</div>
+		<div class="field">
+			<h3>내용</h3>
+			<div class="ui corner disabled input">
+				<textarea class="ui input" title="내용">${ticket.content }</textarea>
+			</div>
+		</div>
+	</form>
+	<h2>답변 작성</h2>
+	<form id="ticketReply" class="ui big form" method="post" action="/ticket/answer?id=${ticket.id}">
+		<div class="field">
+			<h3>제목</h3>
+			<div class="ui input">
+				<input type='text' name="title"/>
+			</div>
+		</div>
+		<div class="field">
+			<h3>작성자</h3>
+			<div class="ui input">
+				<input type="text" value="대따" name="writer" disabled/>
+			</div>
+		</div>
+		<div class="field">
+			<h3>답변 내용</h3>
+			<div class="ui input">
+				<textarea name="content"></textarea>
+			</div>
+		</div>
+		<input type="hidden" value="${ticket.id}" name="root"/>
+	</form>
+	<div class='btnSet'>
+		<button class='ui button primary' onclick='$("#ticketReply").submit()'>저장</button>
+		<button class='ui button' href='javascript:history.go(-1)'>취소</button>
+	</div>
+>>>>>>> ff7d17e4b7560a8fe0b21bb0b0433af2a1bcb333
 </div>
 
-<script type="text/javascript" src='js/file_attach.js'></script>
-<script type="text/javascript" src='js/mandatory_check.js'></script>
-</body>
-</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

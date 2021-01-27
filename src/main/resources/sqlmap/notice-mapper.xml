@@ -49,31 +49,9 @@
 			, #{filename, jdbcType=VARCHAR}, #{filepath, jdbcType=VARCHAR} )
 </insert>
 
-<sql id='search_where'>
-	<if test="search=='title' or search=='content'">
-	where #{search} like '%'|| #{keyword} ||'%'
-	</if>
-	<if test="search=='writer'">
-	where writer in ( select nickname from member where nickname like '%'|| #{keyword} ||'%' )
-	</if>
-	<if test="search=='all'">
-	where title like '%'|| #{keyword} ||'%' 
-	or content like '%'|| #{keyword} ||'%'
-	or writer in ( select nickname from member where nickname like '%'|| #{keyword} ||'%' )
-	</if>
-</sql>
 
 <select id="list" resultType="notice.NoticeDTO">
-	select n.*, (select name from member m where m.nickname = n.writer ) name  
-	from (select n.*, rownum no 
-			from (select * from notice <include refid="search_where"/> 
-				  order by root, step desc) n
-			order by no desc) n
-	where no between #{beginList} and #{endList}
-</select>
-
-<select id="total_count" resultType="integer">
-	select count(*) from notice <include refid="search_where"/>
+	SELECT * FROM NOTICE
 </select>
 
 </mapper>

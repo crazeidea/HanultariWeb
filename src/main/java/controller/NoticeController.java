@@ -1,12 +1,17 @@
 package controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import member.MemberDTO;
 import notice.NoticeDTO;
@@ -20,15 +25,9 @@ public class NoticeController {
 	@Autowired NoticeServiceImpl service;
 	
 	@RequestMapping("/notice")
-	public String noticeList(HttpSession session, Model model,
-							@RequestParam(defaultValue = "") String search,
-							@RequestParam(defaultValue = "") String keyword,
-							@RequestParam(defaultValue = "1") int curPage) {
+	public String noticeList(HttpSession session, Model model) {
 		session.setAttribute("category", "notice");
-		page.setCurPage(curPage);
-		page.setSearch(search);
-		page.setKeyword(keyword);
-		model.addAttribute("page", service.noticeList(page));
+		model.addAttribute("notice", service.noticeList());
 		
 		return "notice/list";
 	}
@@ -72,6 +71,11 @@ public class NoticeController {
 		service.noticeUpdate(dto);
 		return "redirect:/notice/detail?id=" + dto.getId();
 		
+	}
+	
+	@ResponseBody @RequestMapping("/getNotice")
+	public List<NoticeDTO> getNotice() {
+		return service.noticeList();			
 	}
 	
 }

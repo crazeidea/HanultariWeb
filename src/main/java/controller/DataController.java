@@ -53,6 +53,7 @@ public class DataController {
 	public ParkingVO getSingleParkingData(int id) {
 		return service.getSingleParkingData(id);
 	}
+	
 
 	@ResponseBody
 	@RequestMapping("/searchLocation")

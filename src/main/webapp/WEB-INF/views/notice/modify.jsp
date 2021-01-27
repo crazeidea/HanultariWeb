@@ -1,4 +1,5 @@
-﻿		<h1>공지글수정</h1>	
+﻿		<div class='ui container'>
+		<h1>공지글수정</h1>	
 		<form method="post" enctype='multipart/form-data' action='/notice/update' class="ui big form">
 		<input type='hidden' name='id' value='${dto.id}' />
 		<input type='hidden' name='attach'/>
@@ -22,7 +23,7 @@
 			<button class='ui button' href='javascript:history.go(-1)'>취소</button>
 		</form>
 	</div>
-</div>
+
 
 
 

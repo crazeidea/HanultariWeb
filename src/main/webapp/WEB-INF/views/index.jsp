@@ -31,7 +31,12 @@
 <div id="menuicon" tabindex="-1" class="ui icon top left pointing primary dropdown button" style="position: absolute; top: 10px; right: 10px;">
   <i class="user alternate icon"></i>
   <div class="menu">
-	<div class="header">대따</div>
+  	<c:if test="${not empty user}">
+  		<div class="header">${user.nickname }</div>
+  	</c:if>
+  	<c:if test="${empty user}">
+  		<div class="header">대따</div>
+  	</c:if>	
 	<div class="ui divider"></div>
 	<c:if test="${empty user}">
   		<div class="item" onclick="location.href='/login'">로그인</div>
@@ -45,7 +50,10 @@
       <div class="item" onclick="showFav(${user.id});">즐겨찾기</div>
     </c:if>
     <div class="item" onclick="location.href='/notice'">공지사항</div>
-    <div class="item" onclick="location.href='/faq'">자주 묻는 질문</div>
+    <div class="item" onclick="location.href='/ticket/faq'">자주 묻는 질문</div>
+    <c:if test="${user.admin eq 'y'}">
+    <div class="item" onclick="location.href='/manage'">관리</div>
+    </c:if>
   </div>
 </div>
 <c:if test="${not empty user}">
