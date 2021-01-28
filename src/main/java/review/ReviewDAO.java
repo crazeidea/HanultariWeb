@@ -1,5 +1,6 @@
 package review;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -18,6 +19,14 @@ public class ReviewDAO implements ReviewService{
 
 	public int insertReview(ReviewDTO dto) {
 		return sql.insert("review.mapper.insert", dto);
+	}
+
+	public int checkReview(HashMap<String, Integer> map) {
+		return sql.selectOne("review.mapper.check", map);
+	}
+
+	public void updateReview(ReviewDTO dto) {
+		sql.update("review.mapper.update", dto);
 	}
 
 }

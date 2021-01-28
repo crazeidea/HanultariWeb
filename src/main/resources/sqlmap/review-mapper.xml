@@ -3,11 +3,19 @@
 <mapper namespace="review.mapper">
 
 <select id="get" resultType="review.ReviewDTO">
-	SELECT * FROM REVIEW WHERE PARKING_ID = #{id, jdbcType=INTEGER}
+	SELECT * FROM REVIEW WHERE PARKING_ID = #{id, jdbcType=INTEGER} ORDER BY WRITEDATE DESC
 </select>
 
 <insert id="insert">
-	INSERT INTO REVIEW VALUES(#{parking_id}, #{member_id}, #{content}, #{rating})
+	INSERT INTO REVIEW VALUES(#{parking_id}, #{member_id}, #{content}, #{rating}, SYSDATE)
 </insert>
+
+<select id="check" resultType="integer">
+	SELECT COUNT(*) FROM REVIEW WHERE MEMBER_ID = #{member_id} AND PARKING_ID = #{parking_id}
+</select>
+
+<update id="update">
+	UPDATE REVIEW SET RATING = #{rating}, CONTENT = #{content}, WRITEDATE = SYSDATE WHERE MEMBER_ID = #{member_id} AND PARKING_ID = #{parking_id}
+</update>
 
 </mapper>

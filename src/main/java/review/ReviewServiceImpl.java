@@ -1,5 +1,6 @@
 package review;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,16 @@ public class ReviewServiceImpl implements ReviewService {
 
 	public int insertReview(ReviewDTO dto) {
 		return dao.insertReview(dto);
+		
+	}
+
+	public int checkReview(HashMap<String, Integer> map) {
+		return dao.checkReview(map);
+		
+	}
+
+	public void updateReview(ReviewDTO dto) {
+		dao.updateReview(dto);
 		
 	}
 
