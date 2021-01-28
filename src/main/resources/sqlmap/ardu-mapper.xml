@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ardu.mapper">
+
+<insert id="insert">
+	INSERT INTO PARKINGLOG(ID, PARKING, STOPPER, ENTER_TIME)
+	VAlUES (DBMS_RANDOM.STRING('X', 10), #{parking}, #{stopper}, SYSDATE)
+</insert>
+
+<update id="update">
+	UPDATE PARKINGLOG
+	SET EXIT_TIME = SYSDATE
+	WHERE STOPPER = #{stopper}
+	AND ENTER_TIME IS NOT NULL AND EXIT_TIME IS NULL
+	
+</update>
+
+</mapper>
