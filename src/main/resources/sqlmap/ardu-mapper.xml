@@ -12,7 +12,67 @@
 	SET EXIT_TIME = SYSDATE
 	WHERE STOPPER = #{stopper}
 	AND ENTER_TIME IS NOT NULL AND EXIT_TIME IS NULL
-	
+</update>
+
+<select id="getseat" resultType="_int">
+	SELECT PARKING_SEAT FROM STOPPER WHERE ID = #{stopper} 
+</select>
+
+<select id="getlength" resultType="_int">
+	SELECT LENGTH(LAYOUT) FROM PARKING WHERE ID = #{parking}
+</select>
+
+<update id="addparked">
+	UPDATE PARKING SET PARKED = PARKED + 1 WHERE ID = #{parking}
+</update>
+
+<update id="subparked">
+	UPDATE PARKING SET PARKED = PARKED - 1 WHERE ID = #{parking}
+</update>
+
+<update id="updatefirst">
+	UPDATE PARKING
+	SET LAYOUT = 
+	CASE
+		WHEN SUBSTR(LAYOUT, #{seat}, 1) = 'A' THEN CONCAT('B', SUBSTR(LAYOUT, 2, LENGTH(LAYOUT))) 
+        WHEN SUBSTR(LAYOUT, #{seat}, 1) = 'B' THEN CONCAT('A', SUBSTR(LAYOUT, 2, LENGTH(LAYOUT)))
+        WHEN SUBSTR(LAYOUT, #{seat}, 1) = 'C' THEN CONCAT('D', SUBSTR(LAYOUT, 2, LENGTH(LAYOUT)))
+        WHEN SUBSTR(LAYOUT, #{seat}, 1) = 'D' THEN CONCAT('C', SUBSTR(LAYOUT, 2, LENGTH(LAYOUT)))
+        WHEN SUBSTR(LAYOUT, #{seat}, 1) = 'E' THEN CONCAT('F', SUBSTR(LAYOUT, 2, LENGTH(LAYOUT)))
+        WHEN SUBSTR(LAYOUT, #{seat}, 1) = 'F' THEN CONCAT('E', SUBSTR(LAYOUT, 2, LENGTH(LAYOUT)))
+       	ELSE LAYOUT
+    END
+    WHERE ID = #{parking}
+</update>
+
+<update id="updatemiddle">
+	UPDATE PARKING
+	SET LAYOUT = 
+	CASE
+		WHEN SUBSTR(LAYOUT, #{seat}, 1) = 'A' THEN SUBSTR(LAYOUT, 1, #{seat}-1) || 'B' || SUBSTR(LAYOUT, #{seat} + 1, LENGTH(LAYOUT))
+		WHEN SUBSTR(LAYOUT, #{seat}, 1) = 'B' THEN SUBSTR(LAYOUT, 1, #{seat}-1) || 'A' || SUBSTR(LAYOUT, #{seat} + 1, LENGTH(LAYOUT))
+		WHEN SUBSTR(LAYOUT, #{seat}, 1) = 'C' THEN SUBSTR(LAYOUT, 1, #{seat}-1) || 'D' || SUBSTR(LAYOUT, #{seat} + 1, LENGTH(LAYOUT))
+		WHEN SUBSTR(LAYOUT, #{seat}, 1) = 'D' THEN SUBSTR(LAYOUT, 1, #{seat}-1) || 'C' || SUBSTR(LAYOUT, #{seat} + 1, LENGTH(LAYOUT))
+		WHEN SUBSTR(LAYOUT, #{seat}, 1) = 'E' THEN SUBSTR(LAYOUT, 1, #{seat}-1) || 'F' || SUBSTR(LAYOUT, #{seat} + 1, LENGTH(LAYOUT))
+		WHEN SUBSTR(LAYOUT, #{seat}, 1) = 'F' THEN SUBSTR(LAYOUT, 1, #{seat}-1) || 'E' || SUBSTR(LAYOUT, #{seat} + 1, LENGTH(LAYOUT))
+		ELSE LAYOUT
+	END
+	WHERE ID = #{parking}
+</update>
+
+<update id="updatelast">
+	UPDATE PARKING
+	SET LAYOUT =
+	CASE
+		WHEN SUBSTR(LAYOUT, #{seat}, 1) = 'A' THEN CONCAT(SUBSTR(LAYOUT, 1, LENGTH(LAYOUT)-2), 'B/')
+		WHEN SUBSTR(LAYOUT, #{seat}, 1) = 'B' THEN CONCAT(SUBSTR(LAYOUT, 1, LENGTH(LAYOUT)-2), 'A/')
+		WHEN SUBSTR(LAYOUT, #{seat}, 1) = 'C' THEN CONCAT(SUBSTR(LAYOUT, 1, LENGTH(LAYOUT)-2), 'D/')
+		WHEN SUBSTR(LAYOUT, #{seat}, 1) = 'D' THEN CONCAT(SUBSTR(LAYOUT, 1, LENGTH(LAYOUT)-2), 'C/')
+		WHEN SUBSTR(LAYOUT, #{seat}, 1) = 'E' THEN CONCAT(SUBSTR(LAYOUT, 1, LENGTH(LAYOUT)-2), 'F/')
+		WHEN SUBSTR(LAYOUT, #{seat}, 1) = 'F' THEN CONCAT(SUBSTR(LAYOUT, 1, LENGTH(LAYOUT)-2), 'E/')
+		ELSE LAYOUT
+	END
+	WHERE ID = #{parking}
 </update>
 
 </mapper>

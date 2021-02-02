@@ -93,7 +93,6 @@ $(document).ready(function () {
         }
         markerList.forEach(function(marker){
             naver.maps.Event.addListener(marker, "click", function(e){
-              console.log("Marker Clicked!" + marker.id);
                 infowindow = new naver.maps.InfoWindow({
                 borderColor : "transparent",
                 backgroundColor : "transparent"
@@ -122,8 +121,6 @@ $(document).ready(function () {
       },
     }); // 마커 데이터 수신 및 클릭 이벤트 등록
 
- 
-
      /* 검색창 입력 시 지역정보 출력 */
     $("input#query").on("keyup", function (e) {     
         var query = $("input#query").val();
@@ -134,7 +131,6 @@ $(document).ready(function () {
     var currentTabIndex = 0;
     $(document).on("keyup", function(e) {
       var code = e.which;
-      console.log(code + ", " + currentTabIndex);
       if (code == 40 || code == 39) { $(".searchitem[tabindex=" + (currentTabIndex + 1) + "]").focus(); currentTabIndex++; };
       if (code == 38 || code == 37) { $(".searchitem[tabindex=" + (currentTabIndex - 1) + "]").focus(); currentTabIndex--; };
     })
@@ -175,7 +171,6 @@ $(document).ready(function () {
 
     /* 주차장 검색 결과 클릭 */
     $(document).on('click keypress', '.parking', function() {
-      console.log("주차장 검색 아이템 클릭")
         let id = $(this).attr('data-id');
         let lat = $(this).attr('data-lat');
         let lng = $(this).attr('data-lng');

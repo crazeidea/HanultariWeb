@@ -1,12 +1,10 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
-<!-- ======= -->
-﻿<div class="wrapper">
-<!-- >>>>>>> 1caeb27442875fb5c183cf7f9a91f897e6703990 -->
+
+<div class="wrapper">
   <div class="left-section">
-=======
-﻿<div class="ui grid" style="place-items:center;">
+
+<div class="ui grid" style="place-items:center;">
   <div id="right" class="eight wide column">
     <div class='ripple-background' style="height:100vh">
       <div class='circle xxlarge shade1'></div>
@@ -28,8 +26,7 @@
   <div class="right-section">
     <h1>회원가입</h1>
     <div class="signup-form">
-<!-- <<<<<<< HEAD -->
-<!-- ======= -->
+
       <form id="signup" method="post" action="signup/execute">
         <p style="font-weight: 700">이메일</p>
         <input type="text" id="email" name="email" required />

@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +28,39 @@ public class ArduController {
 		dto.setParking(parking);
 		dto.setStopper(stopperid);
 		dto.setState(state);
-		if(state == 0) {
+		if(state == 0) { // 입차			
 			service.ArduSetIn(dto);
-			System.out.println("Stopper " + stopperid + "IN");
-		} else if (state == 1) {
+			int seat = service.getSeat(stopperid);
+			int length = service.getLength(parking);
+			HashMap<String, Integer> map = new HashMap<>();
+			map.put("parking", parking);
+			map.put("seat", seat);
+			System.out.println("Stopper " + stopperid + " IN Seat : " + seat + " length : " + length);
+			service.addParked(parking);
+			if(seat == 1) {
+				service.updateLayoutFirst(map);
+			} else if (seat == (length-1)) {
+				service.updateLayoutLast(map);
+			} else {
+				service.updateLayoutMiddle(map);
+			}
+		} else if (state == 1) { // 출차
 			service.ArduSetOut(dto);
-			System.out.println("Stopper " + stopperid + "OUT");
+			int seat = service.getSeat(stopperid);
+			int length = service.getLength(parking);
+			HashMap<String, Integer> map = new HashMap<>();
+			map.put("parking", parking);
+			map.put("seat", seat);
+			System.out.println("Stopper " + stopperid + " OUT Seat : " + seat + " length : " + length);
+			service.subParked(parking);
+			if(seat == 1) {
+				service.updateLayoutFirst(map);
+			} else if (seat == (length-1)) {
+				service.updateLayoutLast(map);
+			} else {
+				service.updateLayoutMiddle(map);
+			}
+			
 		}
 		
 		

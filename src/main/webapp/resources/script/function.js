@@ -59,6 +59,7 @@
   }
   
   /* 주차장 상세 정보 표시 */
+  var interval = null;
   function showInfo(id, lat, lng) {
     map.panTo(new naver.maps.LatLng(lat, lng));
     infowindow.close();
@@ -110,11 +111,10 @@
                             + "<div class='field'><div class='ui yellow rating' data-icon='star' data-max-rating='5' data-rating='5'></div></div><div class='field'><input type='text' name='content'></div></div><button type='button' onclick='submitReview(" + response.id + ")' class='ui button primary'>저장</button></form></div>";
                             }
         $('#navContent').html(html);
-        showParkingLayout(response.layout);
+        interval = setInterval(showParkingLayout(response.layout), 5000);
         getReviews(response.id);
         $(".ui.rating").rating({
           onRate: function(value) {
-            console.log(value);
             $("input[name=rating]").attr("value", value);
           }
         });
@@ -195,7 +195,6 @@
           let column = layout.search(/[/]/g);
           let row = 0;
           wrapper.css('grid-template-columns', 'repeat(' + column + ',' + (400 / column) + 'px)' );
-          console.log(layout);
           for(let i = 0; i < layout.length; i++ ) {            
               if (layout.charAt(i) == "A") { wrapper.append("<div class='seat normal' data-tippy-content='주차 가능'>" + seatcount + "</div>"); seatcount++;}
               if (layout.charAt(i) == "B") {wrapper.append("<div class='seat normal na' data-tippy-content='주차 불가'>" + seatcount + "</div>"); seatcount++;}
@@ -327,7 +326,6 @@
           type: "GET",
           url: "/getFavorite?id=" + id,
           success: function (response) {
-            console.log(response);
             var result = [];
             for (let i = 0; i < response.length ; i++) {
               result.push(response[i]);
@@ -375,7 +373,6 @@
             type: "GET",
             url: "/checkFavorite?id=" + id,
             success: function (response) {
-              console.log(response);
               if(response) {
                 $("#favButton").removeClass("yellow");
               } else {
@@ -392,7 +389,6 @@
           type: "GET",
           url: "/getReviews?id=" + id,
           success: function (review) {
-            console.log(review);
             comments.html("");
             for (let i = 0; i < review.length ; i++) {
               total += review[i].rating;
